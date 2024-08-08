@@ -36,7 +36,7 @@ public class SubBlocks {
                 length = 60;
                 pointEffectSpace = 60f;
                 pierceEffect = Fx.hitBulletColor;
-                pointEffect = Fx.none
+                pointEffect = Fx.none;
                 hitEffect = Fx.hitBulletColor;
                 smokeEffect = Fx.smokeCloud;
                 damage = 45;
