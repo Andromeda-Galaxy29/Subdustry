@@ -14,7 +14,7 @@ main: "subdustry.Subdustry"
 description: "A Mindustry mod inspired by Subnautica. Here, after the events of subnautica, a sharded ship lands on 4546b and starts colonizing it."
 
 #the mod version
-version: 1.0
+version: 0.1
 
 #the minimum game build required to run this mod
 minGameVersion: 145
