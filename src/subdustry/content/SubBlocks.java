@@ -2,7 +2,7 @@ package subdustry.content;
 
 import arc.graphics.Color;
 import mindustry.content.Items;
-import mindustry.Sounds;
+import mindustry.gen.Sounds;
 import mindustry.content.Fx;
 import mindustry.type.Category;
 import mindustry.world.Block;
