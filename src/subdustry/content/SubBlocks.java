@@ -15,7 +15,7 @@ import static mindustry.type.ItemStack.*;
 public class SubBlocks {
     public static Block
 
-    limestoneOutcrop, seabedQuartz;
+    limestoneOutcrop, seabedQuartz, stab;
 
     public static void load(){
         limestoneOutcrop = new Outcrop("limestone-outcrop"){{
