@@ -34,13 +34,13 @@ public class SubBlocks {
         stab = new PowerTurret("stab"){{
             requirements(Category.turret, with(SubItems.titaniumOre, 25, SubItems.copperOre, 30));
             shootType = new RailBulletType(){{
-                length = 60;
+                length = 24;
                 pointEffectSpace = 60f;
                 pierceEffect = Fx.hitBulletColor;
                 pointEffect = Fx.none;
                 hitEffect = Fx.hitBulletColor;
                 smokeEffect = Fx.smokeCloud;
-                damage = 45;
+                damage = 80;
                 collidesAir = true;
                 buildingDamageMultiplier = 0.2f;
                 ammoMultiplier = 1f;
@@ -49,7 +49,7 @@ public class SubBlocks {
             shootCone = 2f;
             rotateSpeed = 6f;
             targetAir = true;
-            range = 60f;
+            range = 24f;
             shootY = 0f;
             shootEffect = Fx.none;
             recoil = -60f;
