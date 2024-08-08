@@ -52,7 +52,7 @@ public class SubBlocks {
             range = 24f;
             shootY = 0f;
             shootEffect = Fx.none;
-            recoil = -60f;
+            recoil = -24f;
             size = 2;
             health = 420;
             shootSound = Sounds.shootAlt;
