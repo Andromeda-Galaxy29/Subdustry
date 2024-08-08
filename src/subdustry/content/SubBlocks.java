@@ -58,6 +58,7 @@ public class SubBlocks {
             shootSound = Sounds.shootAlt;
             consumePower(0.5f);
             coolant = consumeCoolant(0.2f);
+            drawer = new DrawTurret("alterra-");
         }};
     }
 }
