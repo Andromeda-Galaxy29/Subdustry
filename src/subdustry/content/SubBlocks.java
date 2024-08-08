@@ -50,7 +50,7 @@ public class SubBlocks {
             targetAir = true;
             range = 60f;
             shootY = 0f;
-            shootEffect: Fx.none;
+            shootEffect = Fx.none;
             recoil = -60f;
             size = 2;
             health = 420;
