@@ -9,7 +9,6 @@ import arc.util.*;
 import mindustry.Vars;
 import mindustry.ai.*;
 import mindustry.ai.types.*;
-import mindustry.annotations.Annotations.*;
 import mindustry.entities.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
@@ -23,7 +22,7 @@ import mindustry.type.ammo.PowerAmmoType;
 import mindustry.type.unit.*;
 import mindustry.type.weapons.*;
 import mindustry.content.*;
-import mindustry.world.meta.BlockFlag;
+import mindustry.world.meta;
 
 import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
