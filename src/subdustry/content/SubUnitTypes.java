@@ -35,9 +35,9 @@ public class SubUnitTypes{
   seamoth, prawn;
 
   public static void load(){
-    praw = new UnitType("prawn"){{
+    prawn = new UnitType("prawn"){{
       constructor = MechUnit::create;
-      speed = 0.6;
+      speed = 0.6f;
       hitSize = 10;
       health = 250;
       weapons.add(new Weapon("prawn-gun"){{
@@ -48,7 +48,7 @@ public class SubUnitTypes{
         alternate = false;
         shootSound = Sounds.shootAlt;
         ejectEffect =new Effect(30f, e -> {
-          color(Color.skyBlue, Color.lightGray, Pal.lightishGray, e.fin());
+          color(Color.sky, Color.lightGray, Pal.lightishGray, e.fin());
          alpha(e.fout(0.3f));
           float rot = Math.abs(e.rotation) + 90f;
           int i = -Mathf.sign(e.rotation);
@@ -65,7 +65,7 @@ public class SubUnitTypes{
           lifetime = 24f;
           sprite = "missile-large";
           frontColor = Color.white;
-          backColor = trailColor = hitColor = lightGray;
+          backColor = trailColor = hitColor = Color.lightGray;
           width = 8;
           height = 10;
           hitEffect = despawnEffect = Fx.hitBulletColor;
