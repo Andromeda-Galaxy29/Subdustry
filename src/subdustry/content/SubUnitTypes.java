@@ -28,11 +28,13 @@ import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 import static mindustry.Vars.*;
+import static mindustry.Vars.tilePayload;
+import static mindustry.Vars.tilesize;
 
 public class SubUnitTypes{
   public static UnitType
 
-  seamoth, prawn;
+  seamoth, prawn, glide;
 
   public static void load(){
     prawn = new UnitType("prawn"){{
@@ -134,5 +136,67 @@ public class SubUnitTypes{
             }};
       }});
   }};
+
+  glide = new UnitType("glide"){{
+    constructor = PayloadUnit::create;
+    speed = 5f;
+    coreUnitDock = true;
+    controller = u -> new BuilderAI(true, coreFleeRange);
+    isEnnemy = false;
+    targetPriority = -2;
+    lowAltitude = false;
+    flying = true;
+    buildSpeed = 1f;
+    drag = 0.08f;
+    accel = 0.09f;
+    rotateSpeed = 7f;
+    itemCapacity = 70;
+    health = 240f;
+    armor = 1f;
+    hitSize = 10f;
+    engineSize = 0;
+    payloadCapacity = 2f * 2f * tilesize * tilesize;
+    pickupUnits = false;
+    vulnerableWithPayloads = true;
+
+    fogRadius = 0f;
+    targetable = false;
+    hittable = false;
+    parts.add(new RegionPart("-engine"){{
+      growY = 0.2f;
+      growX = 0.1f;
+      growProgress = PartProgress.constant(1).blend(p -> Mathf.absin(11f, 1f) * p.warmup, 0.2f);
+      progress = PartProgress.constant(1);
+      y = -1f;
+      outline = false;
+      layerOffset = -0.01f;
+    }});
+
+    weapons.add(new RepairBeamWeapon(){{
+      widthSinMag = 0.11f;
+      reload = 20f;
+      x = 0f;
+      y = 5f;
+      rotate = false;
+      shootY = 0f;
+      beamWidth = 0.7f;
+      repairSpeed = 3f;
+      fractionRepairSpeed = 0.06f;
+      aimDst = 0f;
+      shootCone = 15f;
+      mirror = false;
+      targetUnits = false;
+      targetBuildings = true;
+      autoTarget = false;
+      controllable = true;
+      laserColor = Pal.accent;
+      healColor = Pal.accent;
+      bullet = new BulletType(){{
+        maxRange = 115f;
+      }};
+    }});
+  }};
+
+
 }
 }
