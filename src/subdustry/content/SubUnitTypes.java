@@ -141,7 +141,6 @@ public class SubUnitTypes{
     constructor = PayloadUnit::create;
     speed = 5f;
     coreUnitDock = true;
-    controller = u -> new BuilderAI(true, coreFleeRange);
     isEnemy = false;
     targetPriority = -2;
     lowAltitude = false;
