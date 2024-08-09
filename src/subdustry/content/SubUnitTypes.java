@@ -68,11 +68,11 @@ public class SubUnitTypes{
           sprite = "missile-large";
           frontColor = Color.white;
           backColor = trailColor = hitColor = Color.lightGray;
-          width = 4;
-          height = 10;
+          width = 8f;
+          height = 10f;
           hitEffect = despawnEffect = Fx.hitBulletColor;
           trailLength = 10;
-          trailWidth = 8f;
+          trailWidth = 4f;
           trailParam = 1;
         }};
       }});
