@@ -20,9 +20,22 @@ import static mindustry.type.ItemStack.*;
 public class SubBlocks {
     public static Block
 
-    limestoneOutcrop, seabedQuartz, stab, solarPanel, copperWireNode;
+    limestoneOutcrop, seabedQuartz, stab, solarPanel, copperWireNode, coreShallows;
 
     public static void load(){
+        coreShallows = new CoreBlock("core-shallows"){{
+            requirements(category.effect, with(SubItems.titaniumOre, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
+            alwaysUnlocked = true;
+
+            isFirstTier = true;
+            unitType = UnitTypes.glide;
+            health = 2400;
+            itemCapacity = 3500;
+            size = 3;
+
+            unitCapModifier = 10;
+        }};
+
         limestoneOutcrop = new Outcrop("limestone-outcrop"){{
             drops.addAll(SubItems.titaniumOre, SubItems.copperOre);
             color = Color.valueOf("#c0905c");
