@@ -44,6 +44,18 @@ public class SubUnitTypes {
       targetFlags = new BlockFlag[]{BlockFlag.factory, null};
       hitSize = 11;
       itemCapacity = 15;
+      parts.add(new RegionPart("-engine"){{
+        growY: 0.2f;
+        growX = 0.1f;
+        growProgress = PartProgress.heat.blend(p -> Mathf.absin(10f, 1f) * p.warmup, 0.2f);
+        y = -2f;
+      }});
+      abilities.add(new MoveEffectAbility(0f, -7f, Color.lightGray, new Effect(30, e -> {
+            color(e.color);
+            stroke(e.fout() + 0.2f);
+            Fill.circle(e.x, e.y, e.rotation * e.fout());
+            }).layer(Layer.bullet - 0.001f), 5f);
+                );
       weapons.add(new Weapon(){{
         y = 0f;
         x = 0f;
@@ -61,7 +73,7 @@ public class SubUnitTypes {
           trailEffect = Fx.missileTrail;
           trailInterval = 3
           hitEffect = despawnEffect = Fx.hitSquaresColor;
-          hitColor = Color.white
+          hitColor = Color.white;
           splashDamage = 10;
           splashDamageRadius = 6f;
           shootEffect = new MultiEffect(Fx.shootBigColor, Fx.shockwave);
