@@ -2,6 +2,7 @@ package subdustry.content;
 
 import arc.graphics.Color;
 import mindustry.content.Items;
+import mindustry.entities.part.RegionPart;
 import mindustry.gen.Sounds;
 import mindustry.content.Fx;
 import mindustry.type.Category;
@@ -42,7 +43,7 @@ public class SubBlocks {
                 pierceEffect = Fx.hitBulletColor;
                 pointEffect = Fx.none;
                 hitEffect = Fx.hitBulletColor;
-                smokeEffect = Fx.smokeCloud;
+                smokeEffect = Fx.none;
                 damage = 80;
                 collidesAir = true;
                 buildingDamageMultiplier = 0.2f;
@@ -55,13 +56,22 @@ public class SubBlocks {
             range = 24f;
             shootY = 0f;
             shootEffect = Fx.none;
-            recoil = -24f;
+            recoil = 0f;
             size = 2;
             health = 420;
             shootSound = Sounds.shootAlt;
+            outlineColor = Color.valueOf("#171724");
             consumePower(0.5f);
             coolant = consumeCoolant(0.2f);
-            drawer = new DrawTurret("alterra-");
+            drawer = new DrawTurret("alterra-"){{
+                parts.addAll(
+                        new RegionPart("-knife"){{
+                            progress = PartProgress.recoil;
+                            moveY = 14f;
+                            mirror = false;
+                        }}
+                );
+            }};
         }};
 
         solarPanel = new SolarGenerator("solar-panel"){{
