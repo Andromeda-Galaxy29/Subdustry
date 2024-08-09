@@ -82,7 +82,7 @@ public class SubUnitTypes {
             randLenVectors(e.id, 8, e.finpow() * 19f, e.rotation, 10f, (x, y) -> {
                 Fill.circle(e.x + x, e.y + y, e.fout() * 2f + 0.2f);
             });
-        }),
+        });
             }};
       }});
   }};

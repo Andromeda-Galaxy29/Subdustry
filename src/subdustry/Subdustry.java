@@ -14,6 +14,7 @@ public class Subdustry extends Mod{
     public void loadContent(){
         SubItems.load();
         SubBlocks.load();
+        SubUnitTypes.load();
     }
 
 }
