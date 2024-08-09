@@ -43,6 +43,8 @@ public class SubUnitTypes{
       weapons.add(new Weapon("prawn-gun"){{
         reload = 25f;
         x = 4.5f;
+        shootX = -0.25f;
+        shootY = 5f;
         y = 1f;
         top = false;
         alternate = false;
@@ -66,7 +68,7 @@ public class SubUnitTypes{
           sprite = "missile-large";
           frontColor = Color.white;
           backColor = trailColor = hitColor = Color.lightGray;
-          width = 8;
+          width = 4;
           height = 10;
           hitEffect = despawnEffect = Fx.hitBulletColor;
           trailLength = 10;
