@@ -39,13 +39,13 @@ public class SubUnitTypes {
       accel = 0.05f;
       drag = 0.04f;
       flying = true;
-      health = 120
+      health = 120;
       engineSize = 0f;
       targetFlags = new BlockFlag[]{BlockFlag.factory, null};
       hitSize = 11;
       itemCapacity = 15;
       parts.add(new RegionPart("-engine"){{
-        growY: 0.2f;
+        growY = 0.2f;
         growX = 0.1f;
         growProgress = PartProgress.heat.blend(p -> Mathf.absin(10f, 1f) * p.warmup, 0.2f);
         y = -2f;
@@ -54,8 +54,7 @@ public class SubUnitTypes {
             color(e.color);
             stroke(e.fout() + 0.2f);
             Fill.circle(e.x, e.y, e.rotation * e.fout());
-            }).layer(Layer.bullet - 0.001f), 5f);
-                );
+            }).layer(Layer.bullet - 0.001f), 5f});
       weapons.add(new Weapon(){{
         y = 0f;
         x = 0f;
@@ -71,7 +70,7 @@ public class SubUnitTypes {
           sprite = "large-orb";
           trailColor = backColor = Color.lightGray;
           trailEffect = Fx.missileTrail;
-          trailInterval = 3
+          trailInterval = 3f;
           hitEffect = despawnEffect = Fx.hitSquaresColor;
           hitColor = Color.white;
           splashDamage = 10;
