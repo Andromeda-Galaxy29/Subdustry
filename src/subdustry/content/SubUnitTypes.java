@@ -49,8 +49,10 @@ public class SubUnitTypes{
       parts.add(new RegionPart("-engine"){{
         growY = 0.2f;
         growX = 0.1f;
-        growProgress = PartProgress.heat.blend(p -> Mathf.absin(10f, 1f) * p.warmup, 0.2f);
+        growProgress = PartProgress.life.blend(p -> Mathf.absin(10f, 1f) * p.warmup, 0.2f);
         y = -2f;
+        outline = false;
+        under = true;
       }});
       abilities.add(new MoveEffectAbility(0f, -7f, Color.lightGray, new Effect(30, e -> {
             color(e.color);
