@@ -32,9 +32,47 @@ import static mindustry.Vars.*;
 public class SubUnitTypes{
   public static UnitType
 
-  seamoth;
+  seamoth, prawn;
 
   public static void load(){
+    praw = new UnitType("prawn"){{
+      constructor = MechUnit::create;
+      speed = 0.6;
+      hitSize = 10;
+      health = 250;
+      weapons.add(new Weapon("prawn-gun"){{
+        reload = 25f;
+        x = 4.5f;
+        y = 1f;
+        top = false;
+        alternate = false;
+        shootSound = Sounds.shootAlt;
+        ejectEffect =new Effect(30f, e -> {
+          color(Color.skyBlue, Color.lightGray, Pal.lightishGray, e.fin());
+         alpha(e.fout(0.3f));
+          float rot = Math.abs(e.rotation) + 90f;
+          int i = -Mathf.sign(e.rotation);
+
+          float len = (2f + e.finpow() * 6f) * i;
+          float lr = rot + e.fin() * 30f * i;
+          Fill.rect(
+              e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+              e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+              1f, 2f, rot + e.fin() * 50f * i
+         );
+        });
+        bullet = new BasicBulletType(4f, 12){{
+          lifetime = 24f;
+          sprite = "missile-large";
+          frontColor = Color.white;
+          backColor = trailColor = hitColor = lightGray;
+          width = 8;
+          height = 10;
+          hitEffect = despawnEffect = Fx.hitBulletColor;
+        }};
+      }});
+    }};
+    
     seamoth = new UnitType("seamoth"){{
       constructor = UnitEntity::create;
       speed = 2.5f;
