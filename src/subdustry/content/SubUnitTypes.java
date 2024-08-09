@@ -69,7 +69,7 @@ public class SubUnitTypes{
           width = 8;
           height = 10;
           hitEffect = despawnEffect = Fx.hitBulletColor;
-          trailLength = 10f;
+          trailLength = 10;
           trailWidth = 8f;
           trailParam = 1;
         }};
