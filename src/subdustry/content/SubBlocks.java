@@ -6,18 +6,20 @@ import mindustry.gen.Sounds;
 import mindustry.content.Fx;
 import mindustry.type.Category;
 import mindustry.world.Block;
+import mindustry.world.blocks.power.SolarGenerator;
 import subdustry.blocks.environment.*;
 import mindustry.entities.bullet.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
+import subdustry.blocks.power.WireNode;
 
 import static mindustry.type.ItemStack.*;
 
 public class SubBlocks {
     public static Block
 
-    limestoneOutcrop, seabedQuartz, stab;
+    limestoneOutcrop, seabedQuartz, stab, solarPanel, copperWireNode;
 
     public static void load(){
         limestoneOutcrop = new Outcrop("limestone-outcrop"){{
@@ -60,6 +62,19 @@ public class SubBlocks {
             consumePower(0.5f);
             coolant = consumeCoolant(0.2f);
             drawer = new DrawTurret("alterra-");
+        }};
+
+        solarPanel = new SolarGenerator("solar-panel"){{
+            requirements(Category.power, with(SubItems.copperOre, 20, SubItems.titaniumOre, 40, SubItems.quartz, 40));
+            size = 2;
+            powerProduction = 0.5f;
+        }};
+
+        copperWireNode = new WireNode("copper-wire-node"){{
+            requirements(Category.power, with(SubItems.copperOre, 3));
+
+            size = 1;
+            range = 5;
         }};
     }
 }
