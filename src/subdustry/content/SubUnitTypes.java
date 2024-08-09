@@ -40,7 +40,7 @@ public class SubUnitTypes{
       speed = 0.6f;
       hitSize = 10;
       health = 250;
-      weapons.add(new Weapon("prawn-gun"){{
+      weapons.add(new Weapon("subdustry-prawn-gun"){{
         reload = 25f;
         x = 4.5f;
         shootX = -0.25f;
