@@ -52,7 +52,7 @@ public class SubUnitTypes{
         growProgress = PartProgress.life.blend(p -> Mathf.absin(10f, 1f) * p.warmup, 0.2f);
         y = -2f;
         outline = false;
-        under = true;
+        layerOffset = -0.01f;
       }});
       abilities.add(new MoveEffectAbility(0f, -7f, Color.lightGray, new Effect(30, e -> {
             color(e.color);
