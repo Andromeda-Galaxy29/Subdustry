@@ -49,8 +49,8 @@ public class SubUnitTypes{
       parts.add(new RegionPart("-engine"){{
         growY = 0.2f;
         growX = 0.1f;
-        growProgress = PartProgress.heat.blend(p -> Mathf.absin(11f, 1f) * p.warmup, 0.2f);
-        progress = PartProgress.heat;
+        growProgress = PartProgress.constant(1).blend(p -> Mathf.absin(11f, 1f) * p.warmup, 0.2f);
+        progress = PartProgress.constant(1);
         y = -2f;
         outline = false;
         layerOffset = -0.01f;
