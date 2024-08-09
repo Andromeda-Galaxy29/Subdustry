@@ -36,7 +36,7 @@ public class SubUnitTypes{
 
   public static void load(){
     seamoth = new UnitType("seamoth"){{
-      contructor = UnitEntity::create;
+      constructor = UnitEntity::create;
       speed = 2.5f;
       accel = 0.05f;
       drag = 0.04f;
