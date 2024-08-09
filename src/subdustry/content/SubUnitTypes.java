@@ -142,7 +142,7 @@ public class SubUnitTypes{
     speed = 5f;
     coreUnitDock = true;
     controller = u -> new BuilderAI(true, coreFleeRange);
-    isEnnemy = false;
+    isEnemy = false;
     targetPriority = -2;
     lowAltitude = false;
     flying = true;
