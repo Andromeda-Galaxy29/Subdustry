@@ -29,12 +29,12 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 import static mindustry.Vars.*;
 
-public class SubUnitTypes {
+public class SubUnitTypes{
   public static UnitType
 
   seamoth;
 
-  public static void load() {
+  public static void load(){
     seamoth = new UnitType("seamoth"){{
       contructor = UnitEntity::create;
       speed = 2.5f;
