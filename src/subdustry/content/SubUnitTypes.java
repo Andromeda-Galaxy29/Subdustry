@@ -54,7 +54,7 @@ public class SubUnitTypes {
             color(e.color);
             stroke(e.fout() + 0.2f);
             Fill.circle(e.x, e.y, e.rotation * e.fout());
-            }).layer(Layer.bullet - 0.001f), 5f});
+            }), 5f));
       weapons.add(new Weapon(){{
         y = 0f;
         x = 0f;
@@ -85,6 +85,5 @@ public class SubUnitTypes {
         }),
             }};
       }});
-    }};
-  }
+  }};
 }
