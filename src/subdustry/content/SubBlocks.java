@@ -9,6 +9,7 @@ import mindustry.type.Category;
 import mindustry.world.Block;
 import mindustry.world.blocks.power.SolarGenerator;
 import subdustry.blocks.environment.*;
+import mindustry.world.blocks.effect.coreBlock;
 import mindustry.entities.bullet.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.consumers.*;
