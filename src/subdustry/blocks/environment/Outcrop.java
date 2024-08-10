@@ -41,7 +41,7 @@ public class Outcrop extends Block {
         inEditor = true;
         category = Category.effect;
         config(Boolean.class, (OutcropBuild build, Boolean b) -> {
-            if(b && !build.broken) build.mine(Vars.player.team());
+            if(b) build.mine(Vars.player.team());
         });
     }
 
@@ -62,21 +62,20 @@ public class Outcrop extends Block {
         public int timer = 0;
         public int growTime = maxGrowTime;
 
-        public void mine(Team playerTeam){
+        /** Mines the outcrop and deposits the items to the building*/
+        public void mine(Building b){
+            if (broken) return;
             broken = true;
 
             Fx.breakProp.wrap(color).at(x, y);
             Sounds.rockBreak.at(x, y);
 
-            Item item = drops.get(Mathf.random(0, drops.size-1));
-            Log.info(Mathf.random(0, drops.size-1));
-            int amount = Mathf.random(minDropAmount, maxDropAmount);
-            CoreBlock.CoreBuild core = playerTeam.core();
-
-            if(core == null){
-                Log.warn("Player breaking outcrop has no core!");
+            if(b == null){
                 return;
             }
+
+            Item item = drops.get(Mathf.random(0, drops.size-1));
+            int amount = Mathf.random(minDropAmount, maxDropAmount);
 
             new Effect(12f, e -> {
                 if(!(e.data instanceof Position to)) return;
@@ -87,9 +86,14 @@ public class Outcrop extends Block {
 
                 Draw.color(e.color);
                 Fill.circle(x, y, e.fslope() * 3f * size);
-            }).at(x, y, amount, item.color, core);
+            }).at(x, y, amount, item.color, b);
 
-            core.items.add(item, amount);
+            b.items.add(item, amount);
+        }
+
+        /** Mines the outcrop and deposits the items to the team's core*/
+        public void mine(Team playerTeam){
+            mine(playerTeam.core());
         }
 
         @Override

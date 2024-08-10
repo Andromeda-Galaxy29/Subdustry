@@ -33,7 +33,7 @@ public class SubItems {
 
         acidMushroom = new Item("acid-mushroom", Color.valueOf("#f3c4e7")){{
             flammability = 0.3f;
-            charge = 0.1f;
+            charge = 0.01f;
         }};
 
         glass = new Item("glass", Color.valueOf("#65b7ff"));

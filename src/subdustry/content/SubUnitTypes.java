@@ -119,7 +119,7 @@ public class SubUnitTypes{
                 y = 0f;
                 x = 0f;
                 reload = 50f;
-                shootSound = Sounds.shootSnap;
+                shootSound = Sounds.lasershoot;
                 bullet = new BasicBulletType(2, 16){{
                     width = 10f;
                     height = 10f;

@@ -15,6 +15,7 @@ import mindustry.entities.bullet.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.*;
 import subdustry.blocks.power.*;
+import subdustry.blocks.production.*;
 
 import static mindustry.type.ItemStack.*;
 
@@ -30,10 +31,13 @@ public class SubBlocks {
     // Turrets
     stab,
 
+    // Production/Drills
+    outcropCollector,
+
     // Power
     solarPanel, copperWireNode,
 
-    //walls
+    // Defense
     titaniumOreWall, largeTitaniumOreWall,
 
     // Effect/Storage
@@ -62,20 +66,6 @@ public class SubBlocks {
             minGrowTime = 80;
             maxGrowTime = 120;
             color = Color.valueOf("#9aa7c3");
-        }};
-
-        titaniumOreWall = new Wall("titaniumore-wall"){{
-            requirements(Category.defense, with(SubItems.titaniumOre, 6));
-            health = 320;
-            armor = 2f;
-            size = 1;
-        }};
-
-        largeTitaniumOreWall = new Wall("large-titaniumore-wall"){{
-            requirements(Category.defense, ItemStack.mult(titaniumOreWall.requirements, 4));
-            health = 320*4;
-            armor = 2f;
-            size = 2;
         }};
 
         limestoneFloor = new Floor("limestone-floor"){{
@@ -156,6 +146,16 @@ public class SubBlocks {
             }};
         }};
 
+        // Production/Drills
+        outcropCollector = new OutcropCollector("outcrop-collector"){{
+            requirements(Category.production, with(SubItems.copperOre, 30, SubItems.titaniumOre, 30));
+            size = 2;
+            squareSprite = false;
+            range = 6;
+            reload = 300;
+            consumePower(1f);
+        }};
+
         // Power
         solarPanel = new SolarGenerator("solar-panel"){{
             requirements(Category.power, with(SubItems.copperOre, 20, SubItems.titaniumOre, 40, SubItems.quartz, 40));
@@ -170,6 +170,21 @@ public class SubBlocks {
             range = 5;
         }};
 
+        // Defense/Walls
+        titaniumOreWall = new Wall("titaniumore-wall"){{
+            requirements(Category.defense, with(SubItems.titaniumOre, 6));
+            health = 320;
+            armor = 2f;
+            size = 1;
+        }};
+
+        largeTitaniumOreWall = new Wall("large-titaniumore-wall"){{
+            requirements(Category.defense, ItemStack.mult(titaniumOreWall.requirements, 4));
+            health = 320*4;
+            armor = 2f;
+            size = 2;
+        }};
+
         // Effect/Storage
         coreShallows = new CoreBlock("core-shallows"){{
             requirements(Category.effect, with(SubItems.titaniumOre, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
@@ -177,6 +192,7 @@ public class SubBlocks {
             //poopie
 
             isFirstTier = true;
+            squareSprite = false;
             unitType = SubUnitTypes.glide;
             health = 2400;
             itemCapacity = 3500;
