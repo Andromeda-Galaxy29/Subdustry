@@ -20,10 +20,10 @@ import mindustry.world.blocks.storage.CoreBlock;
 public class Outcrop extends Block {
     public float layer = Layer.blockProp;
     public Seq<Item> drops = new Seq<Item>();
-    public int minDropAmount = 3;
-    public int maxDropAmount = 5;
-    public int minGrowTime = 80;
-    public int maxGrowTime = 120;
+    public int minDropAmount = 8;
+    public int maxDropAmount = 10;
+    public int minGrowTime = 160;
+    public int maxGrowTime = 180;
     public Color color;
 
     public TextureRegion brokenRegion;
@@ -94,6 +94,10 @@ public class Outcrop extends Block {
 
         @Override
         public void updateTile(){
+            if(team() != Team.derelict){
+                changeTeam(Team.derelict);
+            }
+
             if(broken){
                 timer += 1;
             }
@@ -103,6 +107,10 @@ public class Outcrop extends Block {
                 timer = 0;
                 growTime = Mathf.random(minGrowTime, maxGrowTime);
             }
+        }
+
+        public boolean interactable(Team team){
+            return true;
         }
 
         @Override

@@ -1,55 +1,104 @@
 package subdustry.content;
 
 import arc.graphics.Color;
-import mindustry.content.Items;
-import mindustry.entities.part.RegionPart;
-import mindustry.gen.Sounds;
-import mindustry.content.Fx;
-import mindustry.type.Category;
-import mindustry.world.Block;
-import mindustry.world.blocks.power.SolarGenerator;
+import mindustry.entities.part.*;
+import mindustry.gen.*;
+import mindustry.content.*;
+import mindustry.type.*;
+import mindustry.world.*;
+import mindustry.world.blocks.environment.*;
+import mindustry.world.blocks.power.*;
 import subdustry.blocks.environment.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.entities.bullet.*;
 import mindustry.world.blocks.defense.turrets.*;
-import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
-import subdustry.blocks.power.WireNode;
+import subdustry.blocks.power.*;
 
 import static mindustry.type.ItemStack.*;
 
 public class SubBlocks {
     public static Block
 
-    limestoneOutcrop, seabedQuartz, stab, solarPanel, copperWireNode, coreShallows;
+    // Environment
+    limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
+    limestoneFloor, greenSeaGrassFloor, tableCoralFloor, acidMycelium,
+    limestoneWall, tableCoralWall,
+    greenSeaGrass, writhingWeed, veinedNettle,
+
+    // Turrets
+    stab,
+
+    // Power
+    solarPanel, copperWireNode,
+
+    // Effect/Storage
+    coreShallows;
 
     public static void load(){
-        coreShallows = new CoreBlock("core-shallows"){{
-            requirements(Category.effect, with(SubItems.titaniumOre, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
-            alwaysUnlocked = true;
-            //poopie
-
-            isFirstTier = true;
-            unitType = SubUnitTypes.glide;
-            health = 2400;
-            itemCapacity = 3500;
-            size = 3;
-
-            unitCapModifier = 10;
-        }};
-
+        //Environment
         limestoneOutcrop = new Outcrop("limestone-outcrop"){{
             drops.addAll(SubItems.titaniumOre, SubItems.copperOre);
+            minDropAmount = 8;
+            maxDropAmount = 10;
             color = Color.valueOf("#c0905c");
         }};
 
         seabedQuartz = new Outcrop("seabed-quartz"){{
             drops.addAll(SubItems.quartz);
-            minDropAmount = 1;
-            maxDropAmount = 3;
+            minDropAmount = 8;
+            maxDropAmount = 10;
             color = Color.valueOf("#9aa7c3");
         }};
 
+        seabedAcidMushroom = new Outcrop("seabed-acid-mushroom"){{
+            drops.addAll(SubItems.acidMushroom);
+            minDropAmount = 1;
+            maxDropAmount = 1;
+            minGrowTime = 80;
+            maxGrowTime = 120;
+            color = Color.valueOf("#9aa7c3");
+        }};
+
+        limestoneFloor = new Floor("limestone-floor"){{
+            variants = 3;
+        }};
+
+        greenSeaGrassFloor = new Floor("green-sea-grass-floor"){{
+            variants = 3;
+        }};
+
+        tableCoralFloor = new Floor("table-coral-floor"){{
+            variants = 3;
+        }};
+
+        acidMycelium = new Floor("acid-mycelium"){{
+            variants = 3;
+        }};
+
+        limestoneWall = new StaticWall("limestone-wall"){{
+            limestoneFloor.asFloor().wall = this;
+            variants = 2;
+        }};
+
+        tableCoralWall = new StaticWall("table-coral-wall"){{
+            tableCoralFloor.asFloor().wall = this;
+            variants = 2;
+        }};
+
+        greenSeaGrass = new SeaBush("green-sea-grass"){{
+            greenSeaGrassFloor.asFloor().decoration = this;
+        }};
+
+        writhingWeed = new Seaweed("writhing-weed"){{
+            variants = 3;
+        }};
+
+        veinedNettle = new Seaweed("veined-nettle"){{
+            variants = 1;
+        }};
+
+        //Turrets
         stab = new PowerTurret("stab"){{
             requirements(Category.turret, with(SubItems.titaniumOre, 25, SubItems.copperOre, 30));
             shootType = new RailBulletType(){{
@@ -89,6 +138,7 @@ public class SubBlocks {
             }};
         }};
 
+        // Power
         solarPanel = new SolarGenerator("solar-panel"){{
             requirements(Category.power, with(SubItems.copperOre, 20, SubItems.titaniumOre, 40, SubItems.quartz, 40));
             size = 2;
@@ -100,6 +150,21 @@ public class SubBlocks {
 
             size = 1;
             range = 5;
+        }};
+
+        // Effect/Storage
+        coreShallows = new CoreBlock("core-shallows"){{
+            requirements(Category.effect, with(SubItems.titaniumOre, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
+            alwaysUnlocked = true;
+            //poopie
+
+            isFirstTier = true;
+            unitType = SubUnitTypes.glide;
+            health = 2400;
+            itemCapacity = 3500;
+            size = 3;
+
+            unitCapModifier = 10;
         }};
     }
 }
