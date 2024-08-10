@@ -35,15 +35,19 @@ import static mindustry.Vars.tilesize;
 public class SubUnitTypes{
   public static UnitType
 
-  seamoth, prawn, glide;
+  seamoth,
+
+  krill,
+
+  glide;
 
   public static void load(){
-    prawn = new UnitType("prawn"){{
+    krill = new UnitType("krill"){{
       constructor = MechUnit::create;
       speed = 0.6f;
       hitSize = 10;
       health = 250;
-      weapons.add(new Weapon("subdustry-prawn-gun"){{
+      weapons.add(new Weapon("subdustry-krill-gun"){{
         reload = 25f;
         x = 4.5f;
         shootX = -0.25f;
@@ -71,11 +75,11 @@ public class SubUnitTypes{
           sprite = "missile-large";
           frontColor = Color.white;
           backColor = trailColor = hitColor = Color.lightGray;
-          width = 8f;
-          height = 10f;
+          width = 6f;
+          height = 8f;
           hitEffect = despawnEffect = Fx.hitBulletColor;
           trailLength = 10;
-          trailWidth = 4f;
+          trailWidth = 1f;
           trailParam = 1;
         }};
       }});
@@ -112,8 +116,8 @@ public class SubUnitTypes{
         reload = 50f;
         shootSound = Sounds.shootSnap;
         bullet = new BasicBulletType(2, 16){{
-          width = 6f;
-          height = 6f;
+          width = 10f;
+          height = 10f;
           shrinkY = 0f;
           shrinkX = 0f;
           lifetime = 60f;
