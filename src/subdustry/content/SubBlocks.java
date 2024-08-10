@@ -25,7 +25,7 @@ public class SubBlocks {
 
     public static void load(){
         coreShallows = new CoreBlock("core-shallows"){{
-            requirements(category.effect, with(SubItems.titaniumOre, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
+            requirements(Category.effect, with(SubItems.titaniumOre, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
             alwaysUnlocked = true;
 
             isFirstTier = true;
