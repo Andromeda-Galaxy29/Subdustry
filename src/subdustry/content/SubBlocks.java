@@ -20,15 +20,11 @@ import static mindustry.type.ItemStack.*;
 public class SubBlocks {
     public static Block
 
-<<<<<<< HEAD
-    limestoneOutcrop, seabedQuartz, titaniumOreWall, largeTitaniumOreWall, stab, solarPanel, copperWireNode, coreShallows;
-=======
     // Environment
     limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
     limestoneFloor, greenSeaGrassFloor, tableCoralFloor, acidMycelium,
     limestoneWall, tableCoralWall,
     greenSeaGrass, writhingWeed, veinedNettle,
->>>>>>> 2ff706715977dfabe72cb9d75ad9f0f37ed99f84
 
     // Turrets
     stab,
