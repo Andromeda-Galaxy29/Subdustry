@@ -72,7 +72,7 @@ public class SubBlocks {
         }};
 
         largeTitaniumOreWall = new Wall("large-titaniumore-wall"){{
-            requirements(Category.defense, ItemStack.mult(plastaniumWall.requirements, 4));
+            requirements(Category.defense, ItemStack.mult(titaniumOreWall.requirements, 4));
             health = 320*4;
             armor = 2f;
             size = 2;
