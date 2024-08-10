@@ -29,7 +29,7 @@ public class SubBlocks {
             alwaysUnlocked = true;
 
             isFirstTier = true;
-            unitType = UnitTypes.glide;
+            unitType = SubUnitTypes.glide;
             health = 2400;
             itemCapacity = 3500;
             size = 3;
