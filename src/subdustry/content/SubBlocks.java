@@ -47,15 +47,15 @@ public class SubBlocks {
         //Environment
         limestoneOutcrop = new Outcrop("limestone-outcrop"){{
             drops.addAll(SubItems.titaniumOre, SubItems.copperOre);
-            minDropAmount = 8;
-            maxDropAmount = 10;
+            minDropAmount = 6;
+            maxDropAmount = 8;
             color = Color.valueOf("#c0905c");
         }};
 
         seabedQuartz = new Outcrop("seabed-quartz"){{
             drops.addAll(SubItems.quartz);
-            minDropAmount = 8;
-            maxDropAmount = 10;
+            minDropAmount = 6;
+            maxDropAmount = 8;
             color = Color.valueOf("#9aa7c3");
         }};
 
@@ -152,8 +152,8 @@ public class SubBlocks {
             size = 2;
             squareSprite = false;
             range = 6;
-            reload = 300;
-            consumePower(1f);
+            reload = 360;
+            consumePower(1.5f);
         }};
 
         // Power

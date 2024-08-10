@@ -20,7 +20,7 @@ import static mindustry.Vars.*;
 
 public class OutcropCollector extends Block {
     public int range = 6;
-    public int reload = 300;
+    public int reload = 360;
 
     public OutcropCollector(String name){
         super(name);
@@ -28,6 +28,7 @@ public class OutcropCollector extends Block {
         solid = true;
         hasItems = true;
         itemCapacity = 300;
+        acceptsItems = false;
     }
 
     @Override
