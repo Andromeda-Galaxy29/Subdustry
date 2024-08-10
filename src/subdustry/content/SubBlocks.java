@@ -20,11 +20,15 @@ import static mindustry.type.ItemStack.*;
 public class SubBlocks {
     public static Block
 
+<<<<<<< HEAD
+    limestoneOutcrop, seabedQuartz, titaniumOreWall, largeTitaniumOreWall, stab, solarPanel, copperWireNode, coreShallows;
+=======
     // Environment
     limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
     limestoneFloor, greenSeaGrassFloor, tableCoralFloor, acidMycelium,
     limestoneWall, tableCoralWall,
     greenSeaGrass, writhingWeed, veinedNettle,
+>>>>>>> 2ff706715977dfabe72cb9d75ad9f0f37ed99f84
 
     // Turrets
     stab,
@@ -58,6 +62,20 @@ public class SubBlocks {
             minGrowTime = 80;
             maxGrowTime = 120;
             color = Color.valueOf("#9aa7c3");
+        }};
+
+        titaniumOreWall = new Wall("titaniumore-wall"){{
+            requirements(Category.defense, with(SubItems.titaniumOre, 6));
+            health = 320;
+            armor = 2f;
+            size = 1;
+        }};
+
+        largeTitaniumOreWall = new Wall("large-titaniumore-wall"){{
+            requirements(Category.defense, ItemStack.mult(plastaniumWall.requirements, 4));
+            health = 320*4;
+            armor = 2f;
+            size = 2;
         }};
 
         limestoneFloor = new Floor("limestone-floor"){{
