@@ -13,8 +13,8 @@ public class Subdustry extends Mod{
     @Override
     public void loadContent(){
         SubItems.load();
-        SubBlocks.load();
         SubUnitTypes.load();
+        SubBlocks.load();
     }
 
 }
