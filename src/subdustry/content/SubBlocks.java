@@ -27,6 +27,7 @@ public class SubBlocks {
         coreShallows = new CoreBlock("core-shallows"){{
             requirements(Category.effect, with(SubItems.titaniumOre, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
             alwaysUnlocked = true;
+            //poopie
 
             isFirstTier = true;
             unitType = SubUnitTypes.glide;
