@@ -32,6 +32,9 @@ public class SubBlocks {
     // Power
     solarPanel, copperWireNode,
 
+    //walls
+    titaniumOreWall, largeTitaniumOreWall,
+
     // Effect/Storage
     coreShallows;
 
