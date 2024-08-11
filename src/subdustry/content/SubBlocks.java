@@ -7,6 +7,7 @@ import mindustry.content.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
+import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.power.*;
 import subdustry.blocks.environment.*;
 import mindustry.world.blocks.storage.*;
@@ -27,6 +28,9 @@ public class SubBlocks {
     limestoneFloor, greenSeaGrassFloor, tableCoralFloor, acidMycelium,
     limestoneWall, tableCoralWall,
     greenSeaGrass, writhingWeed, veinedNettle,
+
+    //distribution
+    submarineDuct,
 
     // Turrets
     stab,
@@ -104,6 +108,13 @@ public class SubBlocks {
 
         veinedNettle = new Seaweed("veined-nettle"){{
             variants = 1;
+        }};
+
+        submarineDuct = new Duct("submarine-duct"){{
+            requirements(Category.distribution, with(SubItems.titaniumOre, 1));
+            health = 80;
+            speed = 5f;
+            researchCost = with(SubItems.titaniumOre, 10)
         }};
 
         //Turrets
