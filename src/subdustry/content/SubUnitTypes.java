@@ -95,7 +95,7 @@ public class SubUnitTypes{
             health = 1150;
             armor = 5f;
 
-            weapons.add(new Weapon(subdustry-prawn-2-gun){{
+            weapons.add(new Weapon("subdustry-prawn-2-gun"){{
                 reload = 35f;
                 x = 7.75f;
                 y = 3f;
@@ -136,8 +136,8 @@ public class SubUnitTypes{
                         colorTo = Color.white;
                         length = 16f;
                         baseLength = 16f;
-                        interp = pow3Out;
-                        sizeInterp = slope;
+                        interp = Interp.pow3Out;
+                        sizeInterp = Interp.slope;
                         sizeFrom = 0f;
                         sizeTo = 3f;
                         lifetime = 60f;
