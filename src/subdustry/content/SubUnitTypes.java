@@ -99,8 +99,8 @@ public class SubUnitTypes{
 
             weapons.add(new Weapon("subdustry-prawn-2-gun"){{
                 reload = 35f;
-                x = 7.75f;
-                y = 3f;
+                x = 7.25f;
+                y = 2.75f;
                 shootY = 7f;
                 shootX = -0.25f;
                 top = false;
