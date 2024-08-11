@@ -37,7 +37,7 @@ public class SubUnitTypes{
 
     seamoth,
 
-    krill,
+    krill, prawn,
 
     glide;
 
@@ -84,6 +84,77 @@ public class SubUnitTypes{
                 }};
             }});
         }};
+
+        prawn = new UnitType("prawn-2"){{
+            constructor = MechUnit::create;
+            speed = 0.6f;
+            canBoost = true;
+            boostMultiplier = 0.9;
+            engineColor = Pal.techBlue;
+            hitSize = 18f;
+            health = 1150;
+            armor = 5f;
+
+            weapons.add(new Weapon(subdustry-prawn-2-gun){{
+                reload = 35f;
+                x = 7.75f;
+                y = 3f;
+                shootY = 7f;
+                shootX = -0.25f;
+                top = false;
+                ejectEffect = new Effect(35f, e -> {
+                    color(Pal.sky, Color.lightGray, Pal.lightishGray, e.fin());
+                    alpha(e.fout(0.5f));
+                    float rot = Math.abs(e.rotation) + 90f;
+                    int i = -Mathf.sign(e.rotation);
+                    float len = (2f + e.finpow() * 10f) * i;
+                    float lr = rot + e.fin() * 20f * i;
+                    rect(Core.atlas.find("casing"),
+                        e.x + trnsx(lr, len) + Mathf.randomSeedRange(e.id + i + 7, 3f * e.fin()),
+                        e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
+                        2f, 3f, rot + e.fin() * 50f * i
+                    );
+                })
+                shootSound = Sounds.missile;
+                velocityRnd = 0.05f;
+                shoot = new ShootAlternate(){{
+                    shots = 2;
+                    spread = 1
+                    barrels = 2
+                }};
+                bullet = new MissileBulletType(0.5f, 25){{
+                    splashDamage = 15;
+                    drag = -0.5f;
+                    lifetime = 10f;
+                    height = 9f;
+                    width = 8f;
+                    sprite = "subdustry-torpedo";
+                    frontColor = Color.sky;
+                    backColor = Color.lightGray;
+                    hitEffect = new MultiEffect(Fx.shockwave, new ParticleEffect(){{
+                        colorFrom = Color.sky;
+                        colorTo = Color.white;
+                        length = 16f;
+                        baseLength = 16f;
+                        interp = pow3Out;
+                        sizeInterp = slope;
+                        sizeFrom = 0f;
+                        sizeTo = 3f;
+                        lifetime = 60f;
+                    }});
+                    splashDamageRadius = 15f;
+                    despawnEffect = Fx.none;
+                    hitSound = SubSounds.muffledExplosion;
+                    despawnHit = true;
+                    trailColor = Colors.sky;
+                }};
+            }});
+        }};
+
+
+
+
+
 
         seamoth = new UnitType("seamoth"){{
             constructor = UnitEntity::create;
