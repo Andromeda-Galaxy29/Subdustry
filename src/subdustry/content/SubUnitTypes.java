@@ -126,7 +126,7 @@ public class SubUnitTypes{
                 }};
                 bullet = new MissileBulletType(0.5f, 25){{
                     splashDamage = 15;
-                    drag = -0.05f;
+                    drag = -0.005f;
                     lifetime = 100f;
                     shootEffect = Fx.shootBigColor;
                     hitColor = Color.sky;
