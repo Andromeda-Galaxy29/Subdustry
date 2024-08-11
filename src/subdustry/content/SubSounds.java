@@ -10,7 +10,7 @@ import mindustry.Vars;
 import java.lang.reflect.Field;
 public class SubSounds{
     public static Sound
-            muffledExloposion = new Sound();
+            muffledExplosion = new Sound();
 
     public static void load(){
         Class<?> c = SubSounds.class;
