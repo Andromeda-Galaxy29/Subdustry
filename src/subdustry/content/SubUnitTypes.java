@@ -24,6 +24,7 @@ import mindustry.type.weapons.*;
 import mindustry.content.*;
 import mindustry.world.meta.*;
 import mindustry.world.meta.BlockFlag;
+import subdustry.content.SubSounds;
 
 import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
