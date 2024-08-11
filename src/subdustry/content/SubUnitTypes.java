@@ -148,7 +148,7 @@ public class SubUnitTypes{
                     despawnEffect = Fx.none;
                     hitSound = SubSounds.muffledExplosion;
                     despawnHit = true;
-                    trailColor = Colors.sky;
+                    trailColor = Color.sky;
                 }};
             }});
         }};
