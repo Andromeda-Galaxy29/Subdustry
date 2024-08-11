@@ -9,6 +9,7 @@ import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.power.*;
+import mindustry.world.blocks.production.GenericCrafter;
 import subdustry.blocks.environment.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.defense.*;
@@ -17,6 +18,7 @@ import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.*;
 import subdustry.blocks.power.*;
 import subdustry.blocks.production.*;
+import subdustry.graphics.DrawSynthesis;
 
 import static mindustry.type.ItemStack.*;
 
@@ -45,7 +47,10 @@ public class SubBlocks {
     titaniumOreWall, largeTitaniumOreWall,
 
     // Effect/Storage
-    coreShallows;
+    coreShallows,
+
+    //Precursor-only
+    ionCubeSynthesizer;
 
     public static void load(){
         //Environment
@@ -211,6 +216,21 @@ public class SubBlocks {
             size = 3;
 
             unitCapModifier = 10;
+        }};
+
+        //Precursor
+        ionCubeSynthesizer = new GenericCrafter("ion-cube-synthesizer"){{
+            size = 3;
+            consumePower(100/60f);
+            outputItem = new ItemStack(SubItems.ionCube, 4);
+            craftTime = 160f;
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawSynthesis("-deposit"),
+                    new DrawDefault()
+            );
+
+            requirements(Category.production, with(SubItems.titaniumOre, 10, SubItems.ionCube, 5));
         }};
     }
 }

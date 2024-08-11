@@ -9,6 +9,7 @@ import arc.struct.*;
 import arc.util.*;
 import mindustry.*;
 import mindustry.content.*;
+import mindustry.core.GameState;
 import mindustry.entities.*;
 import mindustry.game.*;
 import mindustry.gen.*;
@@ -18,7 +19,7 @@ import mindustry.world.*;
 
 public class HarvestingNode extends Block {
     public float layer = Layer.blockProp;
-    public Seq<Item> drops = new Seq<Item>();
+    public Seq<Item> drops = new Seq<>();
     public int minDropAmount = 8;
     public int maxDropAmount = 10;
     public int minGrowTime = 160;
@@ -142,7 +143,7 @@ public class HarvestingNode extends Block {
 
         @Override
         public boolean configTapped(){
-            if (broken) return false;
+            if (broken || Vars.state.is(GameState.State.paused)) return false;
             configure(true);
             return false;
         }
