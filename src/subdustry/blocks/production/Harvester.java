@@ -14,15 +14,15 @@ import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
-import subdustry.blocks.environment.Outcrop;
+import subdustry.blocks.environment.HarvestingNode;
 
 import static mindustry.Vars.*;
 
-public class OutcropCollector extends Block {
+public class Harvester extends Block {
     public int range = 6;
     public int reload = 360;
 
-    public OutcropCollector(String name){
+    public Harvester(String name){
         super(name);
         update = true;
         solid = true;
@@ -43,9 +43,9 @@ public class OutcropCollector extends Block {
             table.table(c -> {
                 int i = 0;
                 for(Block block : content.blocks()){
-                    if(!(block instanceof Outcrop)) continue;
+                    if(!(block instanceof HarvestingNode)) continue;
 
-                    Seq<Item> drops = ((Outcrop) block).drops;
+                    Seq<Item> drops = ((HarvestingNode) block).drops;
 
                     c.table(Styles.grayPanel, b -> {
                         b.image(block.uiIcon).size(40).pad(10f).left().scaling(Scaling.fit);
@@ -69,7 +69,7 @@ public class OutcropCollector extends Block {
     public void setBars(){
         super.setBars();
 
-        addBar("collect-progress", (OutcropCollectorBuild e) ->
+        addBar("collect-progress", (HarvesterBuild e) ->
                 new Bar(() -> Core.bundle.get("bar.collect-progress"), () -> Pal.ammo, () -> e.progress));
     }
 
@@ -84,7 +84,7 @@ public class OutcropCollector extends Block {
 
         Drawf.dashSquare(Pal.ammo, x, y, range * tilesize);
 
-        Vars.indexer.eachBlock(Team.derelict, Tmp.r1.setCentered(x, y, range * tilesize), b -> b instanceof Outcrop.OutcropBuild, t -> {
+        Vars.indexer.eachBlock(Team.derelict, Tmp.r1.setCentered(x, y, range * tilesize), b -> b instanceof HarvestingNode.HarvestingNodeBuild, t -> {
             Drawf.selected(t, Tmp.c1.set(Pal.ammo).a(Mathf.absin(4f, 1f)));
         });
     }
@@ -94,17 +94,17 @@ public class OutcropCollector extends Block {
         return true;
     }
 
-    public class OutcropCollectorBuild extends Building {
+    public class HarvesterBuild extends Building {
         public float progress = 0f;
         public float warmup = 0f;
-        public Seq<Outcrop.OutcropBuild> targets = new Seq<>();
+        public Seq<HarvestingNode.HarvestingNodeBuild> targets = new Seq<>();
 
         @Override
         public void updateTile(){
             targets.clear();
             Vars.indexer.eachBlock(Team.derelict, Tmp.r1.setCentered(x, y, range * tilesize),
-                    b -> b instanceof Outcrop.OutcropBuild,
-                    b -> targets.add((Outcrop.OutcropBuild)b)
+                    b -> b instanceof HarvestingNode.HarvestingNodeBuild,
+                    b -> targets.add((HarvestingNode.HarvestingNodeBuild)b)
             );
 
             if(efficiency > 0) {

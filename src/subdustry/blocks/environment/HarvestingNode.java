@@ -15,9 +15,8 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
-import mindustry.world.blocks.storage.CoreBlock;
 
-public class Outcrop extends Block {
+public class HarvestingNode extends Block {
     public float layer = Layer.blockProp;
     public Seq<Item> drops = new Seq<Item>();
     public int minDropAmount = 8;
@@ -29,7 +28,7 @@ public class Outcrop extends Block {
     public TextureRegion brokenRegion;
     public TextureRegion growingRegion;
 
-    public Outcrop(String name){
+    public HarvestingNode(String name){
         super(name);
         breakable = false;
         destructible = false;
@@ -40,7 +39,7 @@ public class Outcrop extends Block {
         drawTeamOverlay = false;
         inEditor = true;
         category = Category.effect;
-        config(Boolean.class, (OutcropBuild build, Boolean b) -> {
+        config(Boolean.class, (HarvestingNodeBuild build, Boolean b) -> {
             if(b) build.mine(Vars.player.team());
         });
     }
@@ -57,7 +56,7 @@ public class Outcrop extends Block {
         return Vars.state.isEditor();
     }
 
-    public class OutcropBuild extends Building{
+    public class HarvestingNodeBuild extends Building{
         public boolean broken = false;
         public int timer = 0;
         public int growTime = maxGrowTime;
@@ -124,9 +123,9 @@ public class Outcrop extends Block {
                 Draw.rect(block.region, x, y, drawrot());
             }else{
                 if (timer < growTime / 2.0){
-                    Draw.rect(((Outcrop)block).brokenRegion, x, y, drawrot());
+                    Draw.rect(((HarvestingNode)block).brokenRegion, x, y, drawrot());
                 }else{
-                    Draw.rect(((Outcrop)block).growingRegion, x, y, drawrot());
+                    Draw.rect(((HarvestingNode)block).growingRegion, x, y, drawrot());
                 }
             }
         }

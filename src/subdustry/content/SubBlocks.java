@@ -29,14 +29,14 @@ public class SubBlocks {
     limestoneWall, tableCoralWall,
     greenSeaGrass, writhingWeed, veinedNettle,
 
-    //distribution
-    submarineDuct,
-
     // Turrets
     stab,
 
     // Production/Drills
-    outcropCollector,
+    harvester,
+
+    //Distribution
+    submarineDuct,
 
     // Power
     solarPanel, copperWireNode,
@@ -49,21 +49,21 @@ public class SubBlocks {
 
     public static void load(){
         //Environment
-        limestoneOutcrop = new Outcrop("limestone-outcrop"){{
+        limestoneOutcrop = new HarvestingNode("limestone-outcrop"){{
             drops.addAll(SubItems.titaniumOre, SubItems.copperOre);
             minDropAmount = 6;
             maxDropAmount = 8;
             color = Color.valueOf("#c0905c");
         }};
 
-        seabedQuartz = new Outcrop("seabed-quartz"){{
+        seabedQuartz = new HarvestingNode("seabed-quartz"){{
             drops.addAll(SubItems.quartz);
             minDropAmount = 6;
             maxDropAmount = 8;
             color = Color.valueOf("#9aa7c3");
         }};
 
-        seabedAcidMushroom = new Outcrop("seabed-acid-mushroom"){{
+        seabedAcidMushroom = new HarvestingNode("seabed-acid-mushroom"){{
             drops.addAll(SubItems.acidMushroom);
             minDropAmount = 1;
             maxDropAmount = 1;
@@ -110,13 +110,6 @@ public class SubBlocks {
             variants = 1;
         }};
 
-        submarineDuct = new Duct("submarine-duct"){{
-            requirements(Category.distribution, with(SubItems.titaniumOre, 1));
-            health = 80;
-            speed = 5f;
-            researchCost = with(SubItems.titaniumOre, 10);
-        }};
-
         //Turrets
         stab = new PowerTurret("stab"){{
             requirements(Category.turret, with(SubItems.titaniumOre, 25, SubItems.copperOre, 30));
@@ -158,13 +151,21 @@ public class SubBlocks {
         }};
 
         // Production/Drills
-        outcropCollector = new OutcropCollector("outcrop-collector"){{
-            requirements(Category.production, with(SubItems.copperOre, 30, SubItems.titaniumOre, 30));
+        harvester = new Harvester("harvester"){{
+            requirements(Category.production, with(SubItems.copperOre, 60, SubItems.titaniumOre, 60, SubItems.acidMushroom, 30));
             size = 2;
             squareSprite = false;
             range = 6;
             reload = 360;
             consumePower(1.5f);
+        }};
+
+        //Distribution
+        submarineDuct = new Duct("submarine-duct"){{
+            requirements(Category.distribution, with(SubItems.titaniumOre, 1));
+            health = 80;
+            speed = 5f;
+            researchCost = with(SubItems.titaniumOre, 10);
         }};
 
         // Power
@@ -182,14 +183,14 @@ public class SubBlocks {
         }};
 
         // Defense/Walls
-        titaniumOreWall = new Wall("titaniumore-wall"){{
+        titaniumOreWall = new Wall("titanium-ore-wall"){{
             requirements(Category.defense, with(SubItems.titaniumOre, 6));
             health = 320;
             armor = 2f;
             size = 1;
         }};
 
-        largeTitaniumOreWall = new Wall("large-titaniumore-wall"){{
+        largeTitaniumOreWall = new Wall("titanium-ore-wall-large"){{
             requirements(Category.defense, ItemStack.mult(titaniumOreWall.requirements, 4));
             health = 320*4;
             armor = 2f;
