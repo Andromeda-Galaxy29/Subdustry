@@ -103,7 +103,7 @@ public class SubUnitTypes{
                 shootX = -0.25f;
                 top = false;
                 ejectEffect = new Effect(35f, e -> {
-                    color(Pal.sky, Color.lightGray, Pal.lightishGray, e.fin());
+                    color(Color.sky, Color.lightGray, Pal.lightishGray, e.fin());
                     alpha(e.fout(0.5f));
                     float rot = Math.abs(e.rotation) + 90f;
                     int i = -Mathf.sign(e.rotation);
