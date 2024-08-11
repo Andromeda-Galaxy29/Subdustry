@@ -136,8 +136,8 @@ public class SubUnitTypes{
                     keepVelocity = false;
                     weaveScale = 12f;
                     weaveMag = 2f;
-                    frontColor = Color.sky;
-                    backColor = Color.lightGray;
+                    backColor = Color.sky;
+                    frontColor = Color.lightGray;
                     hitEffect = new MultiEffect(Fx.shockwave, new ParticleEffect(){{
                         colorFrom = Color.sky;
                         colorTo = Color.white;
