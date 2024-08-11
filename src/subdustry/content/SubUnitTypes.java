@@ -114,13 +114,13 @@ public class SubUnitTypes{
                         e.y + trnsy(lr, len) + Mathf.randomSeedRange(e.id + i + 8, 3f * e.fin()),
                         2f, 3f, rot + e.fin() * 50f * i
                     );
-                })
+                });
                 shootSound = Sounds.missile;
                 velocityRnd = 0.05f;
                 shoot = new ShootAlternate(){{
                     shots = 2;
-                    spread = 1
-                    barrels = 2
+                    spread = 1;
+                    barrels = 2;
                 }};
                 bullet = new MissileBulletType(0.5f, 25){{
                     splashDamage = 15;
