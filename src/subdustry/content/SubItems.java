@@ -5,7 +5,8 @@ import mindustry.type.*;
 
 public class SubItems {
     public static Item
-            metalSalvage, titaniumOre, copperOre, quartz, caveSulfur, acidMushroom, glass;
+            metalSalvage, titaniumOre, copperOre, quartz, caveSulfur, acidMushroom, glass,
+            ionCube;
 
     public static void load() {
         metalSalvage = new Item("metal-salvage", Color.valueOf("#cbcadb")) {{
@@ -37,5 +38,11 @@ public class SubItems {
         }};
 
         glass = new Item("glass", Color.valueOf("#65b7ff"));
+
+        //precursor-exclusive
+        ionCube = new Item("ion-cube"){{
+           charge = 0.75f;
+           color = Color.valueOf("41a326");
+        }};
     }
 }
