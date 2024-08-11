@@ -89,7 +89,7 @@ public class SubUnitTypes{
             constructor = MechUnit::create;
             speed = 0.6f;
             canBoost = true;
-            boostMultiplier = 0.9;
+            boostMultiplier = 0.9f;
             engineColor = Pal.techBlue;
             hitSize = 18f;
             health = 1150;
