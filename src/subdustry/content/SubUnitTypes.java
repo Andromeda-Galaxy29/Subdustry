@@ -128,7 +128,7 @@ public class SubUnitTypes{
                     splashDamage = 15;
                     drag = -0.05f;
                     lifetime = 100f;
-                    shootEffect = shootBigColor;
+                    shootEffect = Fx.shootBigColor;
                     hitColor = Color.sky;
                     height = 9f;
                     width = 8f;
