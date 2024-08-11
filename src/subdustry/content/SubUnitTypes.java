@@ -126,11 +126,16 @@ public class SubUnitTypes{
                 }};
                 bullet = new MissileBulletType(0.5f, 25){{
                     splashDamage = 15;
-                    drag = -0.5f;
-                    lifetime = 10f;
+                    drag = -0.05f;
+                    lifetime = 100f;
+                    shootEffect = shootBigColor
+                    hitColor = Color.sky
                     height = 9f;
                     width = 8f;
                     sprite = "subdustry-torpedo";
+                    keepVelocity = false;
+                    weaveScale = 12f;
+                    weaveMag = 2f;
                     frontColor = Color.sky;
                     backColor = Color.lightGray;
                     hitEffect = new MultiEffect(Fx.shockwave, new ParticleEffect(){{
