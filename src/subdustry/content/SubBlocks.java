@@ -114,7 +114,7 @@ public class SubBlocks {
             requirements(Category.distribution, with(SubItems.titaniumOre, 1));
             health = 80;
             speed = 5f;
-            researchCost = with(SubItems.titaniumOre, 10)
+            researchCost = with(SubItems.titaniumOre, 10);
         }};
 
         //Turrets
