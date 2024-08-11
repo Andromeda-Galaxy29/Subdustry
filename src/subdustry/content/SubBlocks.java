@@ -27,9 +27,9 @@ public class SubBlocks {
 
     // Environment
     limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
-    limestoneFloor, greenSeaGrassFloor, tableCoralFloor, acidMycelium,
-    limestoneWall, tableCoralWall,
-    greenSeaGrass, writhingWeed, veinedNettle,
+    limestoneFloor, limesand, greenSeaGrassFloor, tableCoralFloor, tubeCoralFloor, acidMycelium,
+    limestoneWall, tableCoralWall, tubeCoralWall,
+    greenSeaGrass, tableCoral, tubeCoral, writhingWeed, veinedNettle,
 
     // Turrets
     stab,
@@ -81,11 +81,19 @@ public class SubBlocks {
             variants = 3;
         }};
 
+        limesand = new Floor("limesand"){{
+            variants = 3;
+        }};
+
         greenSeaGrassFloor = new Floor("green-sea-grass-floor"){{
             variants = 3;
         }};
 
         tableCoralFloor = new Floor("table-coral-floor"){{
+            variants = 3;
+        }};
+
+        tubeCoralFloor = new Floor("tube-coral-floor"){{
             variants = 3;
         }};
 
@@ -103,8 +111,21 @@ public class SubBlocks {
             variants = 2;
         }};
 
+        tubeCoralWall = new StaticWall("tube-coral-wall"){{
+            tubeCoralFloor.asFloor().wall = this;
+            variants = 2;
+        }};
+
         greenSeaGrass = new SeaBush("green-sea-grass"){{
             greenSeaGrassFloor.asFloor().decoration = this;
+        }};
+
+        tableCoral = new WallProp("table-coral"){{
+            variants = 2;
+        }};
+
+        tubeCoral = new WallProp("tube-coral"){{
+            variants = 2;
         }};
 
         writhingWeed = new Seaweed("writhing-weed"){{
