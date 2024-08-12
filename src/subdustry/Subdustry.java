@@ -12,6 +12,7 @@ public class Subdustry extends Mod{
 
     @Override
     public void loadContent(){
+        SubSounds.load();
         SubItems.load();
         SubUnitTypes.load();
         SubBlocks.load();
