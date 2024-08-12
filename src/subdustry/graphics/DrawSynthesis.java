@@ -6,6 +6,7 @@ import arc.graphics.g2d.Lines;
 import arc.graphics.g2d.TextureRegion;
 import mindustry.gen.Building;
 import mindustry.graphics.Layer;
+import mindustry.world.Block;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.DrawRegion;
 
@@ -53,5 +54,10 @@ public class DrawSynthesis extends DrawRegion {
 				Draw.z(z);
 			}
 		}
+	}
+
+	@Override
+	public TextureRegion[] icons(Block block){
+		return new TextureRegion[]{};
 	}
 }
