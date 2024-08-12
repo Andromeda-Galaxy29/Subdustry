@@ -4,35 +4,22 @@ import arc.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import arc.math.geom.*;
-import arc.struct.*;
-import arc.util.*;
-import mindustry.Vars;
-import mindustry.ai.*;
-import mindustry.ai.types.*;
 import mindustry.entities.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
-import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
-import mindustry.type.ammo.PowerAmmoType;
-import mindustry.type.unit.*;
 import mindustry.type.weapons.*;
 import mindustry.content.*;
 import mindustry.world.meta.*;
-import mindustry.world.meta.BlockFlag;
-import subdustry.content.SubSounds;
 
 import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 import static mindustry.Vars.*;
-import static mindustry.Vars.tilePayload;
-import static mindustry.Vars.tilesize;
 
 public class SubUnitTypes{
     public static UnitType
@@ -49,6 +36,8 @@ public class SubUnitTypes{
             speed = 0.6f;
             hitSize = 10;
             health = 250;
+            outlineColor = Color.valueOf("#424558");
+
             weapons.add(new Weapon("subdustry-krill-gun"){{
                 reload = 25f;
                 x = 4.5f;
@@ -75,8 +64,9 @@ public class SubUnitTypes{
                 bullet = new BasicBulletType(4f, 12){{
                     lifetime = 24f;
                     sprite = "missile-large";
+                    backColor = Color.sky;
                     frontColor = Color.white;
-                    backColor = trailColor = hitColor = Color.lightGray;
+                    trailColor = hitColor = Color.sky;
                     width = 6f;
                     height = 8f;
                     hitEffect = despawnEffect = Fx.hitBulletColor;
@@ -87,20 +77,23 @@ public class SubUnitTypes{
             }});
         }};
 
-        prawn = new UnitType("prawn-2"){{
+        prawn = new UnitType("prawn"){{
             constructor = MechUnit::create;
             speed = 0.6f;
             canBoost = true;
             boostMultiplier = 0.9f;
-            engineColor = Pal.techBlue;
+            engineColor = Color.sky;
+            engineOffset = 10;
+            engineSize = 5;
             hitSize = 18f;
             health = 1150;
             armor = 5f;
+            outlineColor = Color.valueOf("#424558");
 
-            weapons.add(new Weapon("subdustry-prawn-2-gun"){{
+            weapons.add(new Weapon("subdustry-prawn-gun"){{
                 reload = 35f;
-                x = 7.25f;
-                y = 2.75f;
+                x = 28 / 4f;
+                y = 12 / 4f;
                 shootY = 7f;
                 shootX = -0.25f;
                 top = false;
@@ -119,30 +112,24 @@ public class SubUnitTypes{
                 });
                 shootSound = Sounds.missile;
                 velocityRnd = 0.05f;
-                shoot = new ShootAlternate(){{
-                    shots = 2;
-                    spread = 1;
-                    barrels = 2;
-                }};
+                shoot.shots = 2;
                 bullet = new MissileBulletType(0.5f, 25){{
                     splashDamage = 15;
-                    drag = -0.1f;
+                    drag = -0.08f;
                     lifetime = 35f;
                     shootEffect = Fx.shootBigColor;
-                    hitColor = Color.sky;
-                    height = 9f;
-                    width = 8f;
+                    height = 12f;
+                    width = 10f;
                     sprite = "subdustry-torpedo";
                     keepVelocity = false;
-                    weaveScale = 12f;
-                    weaveMag = 2f;
                     backColor = Color.sky;
-                    frontColor = Color.lightGray;
+                    frontColor = Color.white;
+                    trailColor = hitColor = Color.sky;
                     hitEffect = new MultiEffect(Fx.shockwave, new ParticleEffect(){{
                         colorFrom = Color.sky;
                         colorTo = Color.white;
                         length = 16f;
-                        baseLength = 16f;
+                        baseLength = 2f;
                         interp = Interp.pow3Out;
                         sizeInterp = Interp.slope;
                         sizeFrom = 0f;
@@ -153,15 +140,12 @@ public class SubUnitTypes{
                     despawnEffect = Fx.none;
                     hitSound = SubSounds.muffledExplosion;
                     despawnHit = true;
-                    trailColor = Color.sky;
+                    homingDelay = 10;
+                    weaveScale = 12f;
+                    weaveMag = 2f;
                 }};
             }});
         }};
-
-
-
-
-
 
         seamoth = new UnitType("seamoth"){{
             constructor = UnitEntity::create;
@@ -174,6 +158,7 @@ public class SubUnitTypes{
             targetFlags = new BlockFlag[]{BlockFlag.factory, null};
             hitSize = 11;
             itemCapacity = 15;
+            outlineColor = Color.valueOf("#424558");
 
             parts.add(new RegionPart("-engine"){{
                 growY = 0.2f;
@@ -204,13 +189,13 @@ public class SubUnitTypes{
                     shrinkY = 0f;
                     shrinkX = 0f;
                     lifetime = 60f;
+                    backColor = Color.sky;
                     frontColor = Color.white;
+                    trailColor = hitColor = Color.sky;
                     sprite = "large-orb";
-                    trailColor = backColor = Color.lightGray;
                     trailEffect = Fx.missileTrail;
                     trailInterval = 3f;
                     hitEffect = despawnEffect = Fx.hitSquaresColor;
-                    hitColor = Color.white;
                     splashDamage = 10;
                     splashDamageRadius = 6f;
                     shootEffect = new MultiEffect(Fx.shootBigColor, Fx.shockwave);
@@ -245,6 +230,7 @@ public class SubUnitTypes{
             payloadCapacity = 2f * 2f * tilesize * tilesize;
             pickupUnits = false;
             vulnerableWithPayloads = true;
+            outlineColor = Color.valueOf("#424558");
 
             fogRadius = 0f;
             targetable = false;
