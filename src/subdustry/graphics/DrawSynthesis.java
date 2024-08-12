@@ -1,5 +1,6 @@
 package subdustry.graphics;
 
+import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
@@ -12,12 +13,19 @@ import mindustry.world.draw.DrawRegion;
 
 public class DrawSynthesis extends DrawRegion {
 	public int lightningAmount = 2, segmentAmount = 3;
+	public TextureRegion iconRegion;
 
 	public float lightningMinX = -6.5f, lightningMaxX = 4.5f,
 				lightningMaxYOffset = 6f;
 
 	public DrawSynthesis(String suffix){
 		super(suffix);
+	}
+
+	@Override
+	public void load(Block block){
+		super.load(block);
+		iconRegion = Core.atlas.find(block.name + suffix + "-icon");
 	}
 
 	@Override
@@ -58,6 +66,6 @@ public class DrawSynthesis extends DrawRegion {
 
 	@Override
 	public TextureRegion[] icons(Block block){
-		return new TextureRegion[]{};
+		return new TextureRegion[]{iconRegion};
 	}
 }
