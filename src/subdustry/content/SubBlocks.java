@@ -41,7 +41,7 @@ public class SubBlocks {
     shallowSeaGrass, tableCoral, tubeCoral, writhingWeed, veinedNettle,
 
     // Turrets
-    stab,
+    stab,dissolve,
 
     // Production/Drills
     harvester, metalGrinder,
@@ -222,6 +222,41 @@ public class SubBlocks {
                 );
             }};
         }};
+        
+        dissolve = new ItemTurret("dissolve"){{
+            reload = 40f;
+            shoot.shots = 5;
+            shoot.shotDelay = 4f;
+            requirements(Category.turret, with(SubItems.titaniumOre, 100, SubItems.copperOre, 60, SubItems.quartz, 80));
+            range = 120f;
+            size = 2;
+            recoil = 1f;
+            shootSound = Sounds.spray;
+            consumeAmmoOnce = false;
+            inaccuracy = 3f;
+            drawer = new DrawTurret(){{
+                parts.addAll(
+                    new RegionPart("-liquid"){{
+                        progress = PartProgress.reload;
+                        color = Color.gray;
+                        colorTo = new Color(1f, 1f, 1f, 0f);
+
+                    }}
+                );
+            }};
+            ammo(
+                SubItems.acidMushroom, new BasicBulletType(4f, 15){{
+                    lifetime = 30f;
+                    width = 8f;
+                    height = 10f;
+                    shrinkY = 0f;
+                    shrinkX = 0f;
+                    sprite = "circle-bullet";
+                    frontColor = Color.gray;
+                    backColor = Color.gray;
+                }};
+            );
+        }}
 
         // Production/Drills
         harvester = new Harvester("harvester"){{
