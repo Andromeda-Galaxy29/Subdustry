@@ -256,7 +256,7 @@ public class SubBlocks {
                     backColor = Color.gray;
                 }};
             );
-        }}
+        }};
 
         // Production/Drills
         harvester = new Harvester("harvester"){{
