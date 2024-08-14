@@ -13,7 +13,8 @@ import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.power.*;
-import mindustry.world.blocks.production.GenericCrafter;
+import mindustry.world.blocks.production.*;
+import mindustry.world.meta.Attribute;
 import subdustry.blocks.environment.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.defense.*;
@@ -22,7 +23,7 @@ import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.*;
 import subdustry.blocks.power.*;
 import subdustry.blocks.production.*;
-import subdustry.graphics.DrawSynthesis;
+import subdustry.graphics.*;
 
 import static mindustry.type.ItemStack.*;
 
@@ -31,15 +32,19 @@ public class SubBlocks {
 
     // Environment
     limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
+
     limestoneFloor, limesand, shallowSeaGrassFloor, tableCoralFloor, tubeCoralFloor, acidMycelium,
-    limestoneWall, tableCoralWall, tubeCoralWall,
+    steelFloor, steelPanels, wreckFloor, wreckTiles, wreckVent,
+
+    limestoneWall, tableCoralWall, tubeCoralWall, steelWall, wreckWall,
+
     shallowSeaGrass, tableCoral, tubeCoral, writhingWeed, veinedNettle,
 
     // Turrets
     stab,
 
     // Production/Drills
-    harvester,
+    harvester, metalGrinder,
 
     //Distribution
     submarineDuct,
@@ -81,6 +86,7 @@ public class SubBlocks {
             color = Color.valueOf("#9aa7c3");
         }};
 
+
         limestoneFloor = new Floor("limestone-floor"){{
             variants = 3;
         }};
@@ -105,6 +111,27 @@ public class SubBlocks {
             variants = 3;
         }};
 
+        steelFloor = new Floor("steel-floor"){{
+            variants = 3;
+        }};
+
+        steelPanels = new Floor("steel-panels"){{
+            variants = 3;
+        }};
+
+        wreckFloor = new Floor("wreck-floor"){{
+            variants = 3;
+        }};
+
+        wreckTiles = new Floor("wreck-tiles"){{
+            variants = 1;
+        }};
+
+        wreckVent = new Floor("wreck-vent"){{
+            variants = 1;
+        }};
+
+
         limestoneWall = new StaticWall("limestone-wall"){{
             limestoneFloor.asFloor().wall = this;
             variants = 2;
@@ -119,6 +146,22 @@ public class SubBlocks {
             tubeCoralFloor.asFloor().wall = this;
             variants = 2;
         }};
+
+        steelWall = new StaticWall("steel-wall"){{
+            steelFloor.asFloor().wall = this;
+            steelPanels.asFloor().wall = this;
+            variants = 3;
+            attributes.set(SubAttributes.metal, 1f);
+        }};
+
+        wreckWall = new StaticWall("wreck-wall"){{
+            wreckFloor.asFloor().wall = this;
+            wreckTiles.asFloor().wall = this;
+            wreckVent.asFloor().wall = this;
+            variants = 3;
+            attributes.set(SubAttributes.metal, 1f);
+        }};
+
 
         shallowSeaGrass = new SeaBush("shallow-sea-grass"){{
             shallowSeaGrassFloor.asFloor().decoration = this;
@@ -182,12 +225,24 @@ public class SubBlocks {
 
         // Production/Drills
         harvester = new Harvester("harvester"){{
-            requirements(Category.production, with(SubItems.copperOre, 60, SubItems.titaniumOre, 60, SubItems.acidMushroom, 30));
+            requirements(Category.production, with(SubItems.copperOre, 30, SubItems.titaniumOre, 30, SubItems.acidMushroom, 15));
             size = 2;
             squareSprite = false;
             range = 6;
             reload = 360;
             consumePower(1.5f);
+        }};
+
+        metalGrinder = new WallCrafter("metal-grinder"){{
+            requirements(Category.production, with(SubItems.titaniumOre, 45, SubItems.quartz, 15));
+            consumePower(1.5f);
+
+            drillTime = 110f;
+            size = 2;
+            attribute = SubAttributes.metal;
+            output = SubItems.metalSalvage;
+            ambientSound = Sounds.drill;
+            ambientSoundVolume = 0.04f;
         }};
 
         //Distribution
@@ -200,7 +255,7 @@ public class SubBlocks {
 
         // Power
         solarPanel = new SolarGenerator("solar-panel"){{
-            requirements(Category.power, with(SubItems.copperOre, 20, SubItems.titaniumOre, 40, SubItems.quartz, 40));
+            requirements(Category.power, with(SubItems.copperOre, 15, SubItems.titaniumOre, 30, SubItems.quartz, 30));
             size = 2;
             powerProduction = 0.5f;
         }};
