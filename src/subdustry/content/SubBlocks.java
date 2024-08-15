@@ -257,7 +257,7 @@ public class SubBlocks {
                     sprite = "circle-bullet";
                     frontColor = Color.gray;
                     backColor = Color.gray;
-                }};
+                }}
             );
         }};
 
