@@ -1,20 +1,20 @@
 package subdustry.content;
 
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
-import arc.math.Angles;
-import mindustry.entities.Effect;
+import arc.graphics.*;
+import arc.graphics.g2d.*;
+import arc.math.*;
+import mindustry.*;
+import mindustry.entities.*;
 import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.content.*;
+import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
-import mindustry.world.meta.Attribute;
 import subdustry.blocks.environment.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.defense.*;
@@ -54,6 +54,9 @@ public class SubBlocks {
 
     // Defense
     titaniumOreWall, largeTitaniumOreWall,
+
+    // Crafting
+    titaniumCrucible,
 
     // Effect/Storage
     coreShallows,
@@ -237,7 +240,7 @@ public class SubBlocks {
             requirements(Category.production, with(SubItems.titaniumOre, 45, SubItems.quartz, 15));
             consumePower(1.5f);
 
-            drillTime = 110f;
+            drillTime = 120f;
             size = 2;
             attribute = SubAttributes.metal;
             output = SubItems.metalSalvage;
@@ -280,6 +283,41 @@ public class SubBlocks {
             health = 320*4;
             armor = 2f;
             size = 2;
+        }};
+
+        // Crafting
+        titaniumCrucible = new GenericCrafter("titanium-crucible"){{
+            requirements(Category.crafting, with(SubItems.titaniumOre, 40, SubItems.quartz, 30));
+
+            size = 2;
+
+            drawer = new DrawMulti(
+                    new DrawDefault(),
+                    new DrawRegion("-crusher", 4, true),
+                    new DrawRegion("-crusher-top"),
+                    new DrawFlame(Color.sky){
+                        @Override
+                        public TextureRegion[] icons(Block block){
+                            return new TextureRegion[]{};
+                        }
+                    }
+            );
+
+            outputItem = new ItemStack(SubItems.titaniumOre, 4);
+            craftTime = 120;
+
+            craftEffect = new Effect(40, e -> {
+                Draw.color(Color.white);
+                Lines.stroke(e.fout() * 1.5f);
+
+                Angles.randLenVectors(e.id, 8, e.finpow() * 18f, (x, y) -> {
+                    float ang = Mathf.angle(x, y);
+                    Lines.lineAngle(e.x + x, e.y + y, ang, e.fout() * 4 + 1f);
+                });
+            });
+
+            consumeItem(SubItems.metalSalvage, 1);
+            consumePower(1f);
         }};
 
         // Effect/Storage
