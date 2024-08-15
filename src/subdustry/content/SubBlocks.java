@@ -188,7 +188,7 @@ public class SubBlocks {
 
         //Turrets
         stab = new PowerTurret("stab"){{
-            requirements(Category.turret, with(SubItems.titaniumOre, 25, SubItems.copperOre, 30));
+            requirements(Category.turret, with(SubItems.titaniumOre, 30, SubItems.copperOre, 40));
             shootType = new RailBulletType(){{
                 length = 24;
                 pointEffectSpace = 60f;
@@ -227,38 +227,52 @@ public class SubBlocks {
         }};
         
         dissolve = new ItemTurret("dissolve"){{
-            reload = 40f;
+            reload = 60f;
             shoot.shots = 5;
-            shoot.shotDelay = 4f;
-            requirements(Category.turret, with(SubItems.titaniumOre, 100, SubItems.copperOre, 60, SubItems.quartz, 80));
+            shoot.shotDelay = 3f;
+            requirements(Category.turret, with(SubItems.titaniumOre, 80, SubItems.copperOre, 40, SubItems.quartz, 60));
             range = 120f;
             size = 2;
             recoil = 1f;
-            shootSound = Sounds.spray;
+            loopSound = Sounds.spray;
+            shootSound = Sounds.flame2;
             consumeAmmoOnce = false;
             inaccuracy = 3f;
-            drawer = new DrawTurret(){{
-                parts.addAll(
-                    new RegionPart("-liquid"){{
-                        progress = PartProgress.reload;
-                        color = Color.gray;
-                        colorTo = new Color(1f, 1f, 1f, 0f);
-
-                    }}
-                );
-            }};
+            squareSprite = false;
+            outlineColor = Color.valueOf("#171724");
             ammo(
-                SubItems.acidMushroom, new BasicBulletType(4f, 15){{
+                SubItems.acidMushroom, new BasicBulletType(3.5f, 10){{
                     lifetime = 30f;
                     width = 8f;
                     height = 10f;
                     shrinkY = 0f;
                     shrinkX = 0f;
                     sprite = "circle-bullet";
-                    frontColor = Color.gray;
-                    backColor = Color.gray;
+                    frontColor = backColor = hitColor = SubItems.acidMushroom.color;
+
+                    ammoMultiplier = 1f;
+                    lifetime = 34f;
+                    statusDuration = 60f * 2f;
+                    despawnEffect = Fx.hitLiquid;
+                    hitEffect = Fx.hitLiquid;
+                    smokeEffect = Fx.none;
+                    shootEffect = Fx.none;
+                    drag = 0.001f;
+                    knockback = 0.55f;
+                    displayAmmoMultiplier = false;
                 }}
             );
+
+            drawer = new DrawTurret("alterra-"){{
+                parts.addAll(
+                        new RegionPart("-liquid-overlay"){{
+                            progress = PartProgress.smoothReload;
+                            color = SubItems.acidMushroom.color;
+                            colorTo = new Color(1f, 1f, 1f, 0f);
+                        }},
+                        new RegionPart("-top")
+                );
+            }};
         }};
 
         // Production/Drills

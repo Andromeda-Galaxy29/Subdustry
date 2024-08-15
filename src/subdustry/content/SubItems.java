@@ -32,7 +32,7 @@ public class SubItems {
             explosiveness = 0.6f;
         }};
 
-        acidMushroom = new Item("acid-mushroom", Color.valueOf("#f3c4e7")){{
+        acidMushroom = new Item("acid-mushroom", Color.valueOf("#a89fd6")){{
             flammability = 0.3f;
             charge = 0.01f;
         }};
