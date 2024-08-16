@@ -1,4 +1,4 @@
-package subdustry.blocks.production;
+package subdustry.world.blocks.production;
 
 import arc.*;
 import arc.graphics.g2d.*;
@@ -14,7 +14,7 @@ import mindustry.type.*;
 import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
-import subdustry.blocks.environment.HarvestingNode;
+import subdustry.world.blocks.environment.HarvestingNode;
 
 import static mindustry.Vars.*;
 

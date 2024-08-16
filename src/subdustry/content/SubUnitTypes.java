@@ -15,6 +15,7 @@ import mindustry.type.*;
 import mindustry.type.weapons.*;
 import mindustry.content.*;
 import mindustry.world.meta.*;
+import subdustry.type.unit.*;
 
 import static arc.graphics.g2d.Draw.*;
 import static arc.graphics.g2d.Lines.*;
@@ -31,12 +32,13 @@ public class SubUnitTypes{
     glide;
 
     public static void load(){
-        krill = new UnitType("krill"){{
+        krill = new AlterraUnitType("krill"){{
             constructor = MechUnit::create;
             speed = 0.6f;
             hitSize = 10;
             health = 250;
-            outlineColor = Color.valueOf("#424558");
+
+            envDisabled = Env.space;
 
             weapons.add(new Weapon("subdustry-krill-gun"){{
                 reload = 25f;
@@ -77,7 +79,7 @@ public class SubUnitTypes{
             }});
         }};
 
-        prawn = new UnitType("prawn"){{
+        prawn = new AlterraUnitType("prawn"){{
             constructor = MechUnit::create;
             speed = 0.6f;
             canBoost = true;
@@ -88,7 +90,8 @@ public class SubUnitTypes{
             hitSize = 18f;
             health = 1150;
             armor = 5f;
-            outlineColor = Color.valueOf("#424558");
+
+            envDisabled = Env.space;
 
             weapons.add(new Weapon("subdustry-prawn-gun"){{
                 reload = 35f;
@@ -147,7 +150,7 @@ public class SubUnitTypes{
             }});
         }};
 
-        seamoth = new UnitType("seamoth"){{
+        seamoth = new AlterraUnitType("seamoth"){{
             constructor = UnitEntity::create;
             speed = 2.5f;
             accel = 0.05f;
@@ -158,7 +161,8 @@ public class SubUnitTypes{
             targetFlags = new BlockFlag[]{BlockFlag.factory, null};
             hitSize = 11;
             itemCapacity = 15;
-            outlineColor = Color.valueOf("#424558");
+
+            envEnabled = Env.underwater | Env.space;
 
             parts.add(new RegionPart("-engine"){{
                 growY = 0.2f;
@@ -210,7 +214,7 @@ public class SubUnitTypes{
             }});
         }};
 
-        glide = new UnitType("glide"){{
+        glide = new AlterraUnitType("glide"){{
             constructor = PayloadUnit::create;
             speed = 5f;
             coreUnitDock = true;
@@ -230,7 +234,8 @@ public class SubUnitTypes{
             payloadCapacity = 2f * 2f * tilesize * tilesize;
             pickupUnits = false;
             vulnerableWithPayloads = true;
-            outlineColor = Color.valueOf("#424558");
+
+            envRequired = Env.underwater;
 
             fogRadius = 0f;
             targetable = false;

@@ -13,14 +13,14 @@ import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
-import subdustry.blocks.environment.*;
+import subdustry.world.blocks.environment.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.entities.bullet.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.*;
-import subdustry.blocks.power.*;
-import subdustry.blocks.production.*;
+import subdustry.world.blocks.power.*;
+import subdustry.world.blocks.production.*;
 import subdustry.graphics.*;
 
 import static mindustry.type.ItemStack.*;

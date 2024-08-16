@@ -9,7 +9,7 @@ public class SubItems {
             metalSalvage, titanium, copperOre, quartz, caveSulfur, acidMushroom, glass,
             ionCube;
 
-    public static final Seq<Item> whitelist = new Seq<>();
+    public static final Seq<Item> subnauticaItems = new Seq<>();
 
     public static void load() {
         metalSalvage = new Item("metal-salvage", Color.valueOf("#cbcadb")) {{
@@ -48,7 +48,7 @@ public class SubItems {
            color = Color.valueOf("41a326");
         }};
 
-        whitelist.addAll(
+        subnauticaItems.addAll(
                 metalSalvage, titanium, copperOre, quartz, caveSulfur, acidMushroom, glass,
                 ionCube
         );

@@ -1,4 +1,4 @@
-package subdustry.blocks.power;
+package subdustry.world.blocks.power;
 
 import arc.Core;
 import arc.graphics.Color;

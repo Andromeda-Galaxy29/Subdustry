@@ -1,6 +1,7 @@
 package subdustry.content;
 
 import arc.graphics.*;
+import mindustry.content.Planets;
 import mindustry.game.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
@@ -62,6 +63,7 @@ public class SubPlanets {
             atmosphereRadOut = 0.2f;
 
             visible = true;
+            bloom = false;
             iconColor = Color.valueOf("5682c7");
             hasAtmosphere = true;
 
@@ -71,7 +73,7 @@ public class SubPlanets {
                 r.showSpawns = true;
             };
 
-            itemWhitelist = SubItems.whitelist.copy();
+            itemWhitelist = SubItems.subnauticaItems.copy();
         }};
 
         moon1 = new Planet("moon1", planet4546B, 0.7f){{
@@ -103,5 +105,7 @@ public class SubPlanets {
             orbitRadius = 10;
             orbitTime = 15 * 60;
         }};
+
+        Planets.serpulo.hiddenItems.addAll(SubItems.subnauticaItems);
     }
 }

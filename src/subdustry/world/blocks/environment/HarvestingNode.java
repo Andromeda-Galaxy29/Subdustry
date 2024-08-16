@@ -1,4 +1,4 @@
-package subdustry.blocks.environment;
+package subdustry.world.blocks.environment;
 
 import arc.*;
 import arc.graphics.*;
