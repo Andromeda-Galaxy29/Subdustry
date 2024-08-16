@@ -1,12 +1,15 @@
 package subdustry.content;
 
 import arc.graphics.*;
+import arc.struct.Seq;
 import mindustry.type.*;
 
 public class SubItems {
     public static Item
             metalSalvage, titanium, copperOre, quartz, caveSulfur, acidMushroom, glass,
             ionCube;
+
+    public static final Seq<Item> whitelist = new Seq<>();
 
     public static void load() {
         metalSalvage = new Item("metal-salvage", Color.valueOf("#cbcadb")) {{
@@ -44,5 +47,10 @@ public class SubItems {
            charge = 0.75f;
            color = Color.valueOf("41a326");
         }};
+
+        whitelist.addAll(
+                metalSalvage, titanium, copperOre, quartz, caveSulfur, acidMushroom, glass,
+                ionCube
+        );
     }
 }
