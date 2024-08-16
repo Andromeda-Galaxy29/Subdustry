@@ -13,6 +13,7 @@ import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
+import subdustry.world.blocks.distribution.FlowDuct;
 import subdustry.world.blocks.environment.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.defense.*;
@@ -45,7 +46,7 @@ public class SubBlocks {
     harvester, metalGrinder,
 
     //Distribution
-    submarineDuct,
+    submarineDuct, submarineDuctRouter, submarineFlowDuct,
 
     // Power
     solarPanel, copperWireNode,
@@ -302,6 +303,24 @@ public class SubBlocks {
             speed = 5f;
             researchCost = with(SubItems.titanium, 10);
         }};
+
+        submarineDuctRouter = new DuctRouter("submarine-duct-router"){{
+            requirements(Category.distribution, with(SubItems.titanium, 5));
+            health = 80;
+            speed = 5f;
+            solid = false;
+            researchCost = with(SubItems.titanium, 30);
+        }};
+
+        submarineFlowDuct = new FlowDuct("submarine-flow-duct"){{
+            requirements(Category.distribution, with(SubItems.titanium, 8, SubItems.copperOre, 8));
+            health = 80;
+            speed = 5f;
+            solid = false;
+            squareSprite = false;
+            researchCostMultiplier = 1.5f;
+        }};
+
 
         // Power
         solarPanel = new SolarGenerator("solar-panel"){{
