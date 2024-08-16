@@ -35,8 +35,8 @@ public class SubPlanets {
 
             meshLoader = () -> new HexMesh(this, 5);
             cloudMeshLoader = () -> new MultiMesh(
-                    new HexSkyMesh(this, 42, 2f, 0.13f, 5, Color.valueOf("7ab2e3").a(0.75f), 3, 0.7f, 1f, 0.43f),
-                    new HexSkyMesh(this, 69, 2.4f, 0.12f, 5, Color.valueOf("b0f2ff").a(0.75f), 3, 0.7f, 1f, 0.45f)
+                    new HexSkyMesh(this, 11, 0.15f, 0.13f, 5, Color.valueOf("7ab2e3").a(0.75f), 2, 0.45f, 0.9f, 0.38f),
+                    new HexSkyMesh(this, 1, 0.6f, 0.16f, 5, Color.valueOf("b0f2ff").a(0.75f), 2, 0.45f, 1f, 0.41f)
             );
 
             alwaysUnlocked = true;
@@ -59,7 +59,7 @@ public class SubPlanets {
 
             atmosphereColor = Color.valueOf("7cc9ffaa");
             atmosphereRadIn = -0.01f;
-            atmosphereRadOut = 0.3f;
+            atmosphereRadOut = 0.2f;
 
             visible = true;
             iconColor = Color.valueOf("5682c7");
