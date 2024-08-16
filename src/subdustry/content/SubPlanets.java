@@ -30,7 +30,7 @@ public class SubPlanets {
             );
         }};
 
-        planet4546B = new Planet("4546b", star4546, 1.2f, 2){{
+        planet4546B = new Planet("4546b", star4546, 1.2f, 3){{
             generator = new Planet4546bGenerator();
 
             meshLoader = () -> new HexMesh(this, 5);
