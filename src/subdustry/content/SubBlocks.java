@@ -3,12 +3,10 @@ package subdustry.content;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import mindustry.*;
 import mindustry.entities.*;
 import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.content.*;
-import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
@@ -67,7 +65,7 @@ public class SubBlocks {
     public static void load(){
         //Environment
         limestoneOutcrop = new HarvestingNode("limestone-outcrop"){{
-            drops.addAll(SubItems.titaniumOre, SubItems.copperOre);
+            drops.addAll(SubItems.titanium, SubItems.copperOre);
             minDropAmount = 6;
             maxDropAmount = 8;
             color = Color.valueOf("#c0905c");
@@ -188,7 +186,7 @@ public class SubBlocks {
 
         //Turrets
         stab = new PowerTurret("stab"){{
-            requirements(Category.turret, with(SubItems.titaniumOre, 30, SubItems.copperOre, 40));
+            requirements(Category.turret, with(SubItems.titanium, 30, SubItems.copperOre, 40));
             shootType = new RailBulletType(){{
                 length = 24;
                 pointEffectSpace = 60f;
@@ -230,7 +228,7 @@ public class SubBlocks {
             reload = 60f;
             shoot.shots = 5;
             shoot.shotDelay = 3f;
-            requirements(Category.turret, with(SubItems.titaniumOre, 80, SubItems.copperOre, 40, SubItems.quartz, 60));
+            requirements(Category.turret, with(SubItems.titanium, 80, SubItems.copperOre, 40, SubItems.quartz, 60));
             range = 120f;
             size = 2;
             recoil = 1f;
@@ -277,7 +275,7 @@ public class SubBlocks {
 
         // Production/Drills
         harvester = new Harvester("harvester"){{
-            requirements(Category.production, with(SubItems.copperOre, 30, SubItems.titaniumOre, 30, SubItems.acidMushroom, 15));
+            requirements(Category.production, with(SubItems.copperOre, 30, SubItems.titanium, 30, SubItems.acidMushroom, 15));
             size = 2;
             squareSprite = false;
             range = 6;
@@ -286,7 +284,7 @@ public class SubBlocks {
         }};
 
         metalGrinder = new WallCrafter("metal-grinder"){{
-            requirements(Category.production, with(SubItems.titaniumOre, 45, SubItems.quartz, 15));
+            requirements(Category.production, with(SubItems.titanium, 45, SubItems.quartz, 15));
             consumePower(1.5f);
 
             drillTime = 120f;
@@ -299,15 +297,15 @@ public class SubBlocks {
 
         //Distribution
         submarineDuct = new Duct("submarine-duct"){{
-            requirements(Category.distribution, with(SubItems.titaniumOre, 1));
+            requirements(Category.distribution, with(SubItems.titanium, 1));
             health = 80;
             speed = 5f;
-            researchCost = with(SubItems.titaniumOre, 10);
+            researchCost = with(SubItems.titanium, 10);
         }};
 
         // Power
         solarPanel = new SolarGenerator("solar-panel"){{
-            requirements(Category.power, with(SubItems.copperOre, 15, SubItems.titaniumOre, 30, SubItems.quartz, 30));
+            requirements(Category.power, with(SubItems.copperOre, 15, SubItems.titanium, 30, SubItems.quartz, 30));
             size = 2;
             powerProduction = 0.5f;
         }};
@@ -321,7 +319,7 @@ public class SubBlocks {
 
         // Defense/Walls
         titaniumOreWall = new Wall("titanium-ore-wall"){{
-            requirements(Category.defense, with(SubItems.titaniumOre, 6));
+            requirements(Category.defense, with(SubItems.titanium, 6));
             health = 320;
             armor = 2f;
             size = 1;
@@ -336,7 +334,7 @@ public class SubBlocks {
 
         // Crafting
         titaniumCrucible = new GenericCrafter("titanium-crucible"){{
-            requirements(Category.crafting, with(SubItems.titaniumOre, 40, SubItems.quartz, 30));
+            requirements(Category.crafting, with(SubItems.titanium, 40, SubItems.quartz, 30));
 
             size = 2;
 
@@ -352,7 +350,7 @@ public class SubBlocks {
                     }
             );
 
-            outputItem = new ItemStack(SubItems.titaniumOre, 4);
+            outputItem = new ItemStack(SubItems.titanium, 4);
             craftTime = 120;
 
             craftEffect = new Effect(40, e -> {
@@ -371,7 +369,7 @@ public class SubBlocks {
 
         // Effect/Storage
         coreShallows = new CoreBlock("core-shallows"){{
-            requirements(Category.effect, with(SubItems.titaniumOre, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
+            requirements(Category.effect, with(SubItems.titanium, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
             alwaysUnlocked = true;
             //poopie
 
@@ -407,7 +405,7 @@ public class SubBlocks {
                 });
             });
 
-            requirements(Category.production, with(SubItems.titaniumOre, 10, SubItems.ionCube, 5));
+            requirements(Category.production, with(SubItems.titanium, 10, SubItems.ionCube, 5));
         }};
     }
 }
