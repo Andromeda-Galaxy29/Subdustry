@@ -7,23 +7,26 @@ import mindustry.entities.*;
 import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.content.*;
+import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
-import subdustry.world.blocks.distribution.FlowDuct;
-import subdustry.world.blocks.distribution.MultiDirectionDuctBridge;
+import mindustry.world.meta.*;
+import subdustry.world.blocks.distribution.*;
 import subdustry.world.blocks.environment.*;
+import subdustry.world.blocks.power.*;
+import subdustry.world.blocks.production.*;
+import subdustry.graphics.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.entities.bullet.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.*;
-import subdustry.world.blocks.power.*;
-import subdustry.world.blocks.production.*;
-import subdustry.graphics.*;
+
+import static mindustry.Vars.*;
 
 import static mindustry.type.ItemStack.*;
 
@@ -35,6 +38,8 @@ public class SubBlocks {
 
     limestoneFloor, limesand, shallowSeaGrassFloor, tableCoralFloor, tubeCoralFloor, acidMycelium,
     steelFloor, steelPanels, wreckFloor, wreckTiles, wreckVent,
+
+    limestoneGeyser,
 
     limestoneWall, tableCoralWall, tubeCoralWall, steelWall, wreckWall,
 
@@ -132,6 +137,14 @@ public class SubBlocks {
 
         wreckVent = new Floor("wreck-vent"){{
             variants = 1;
+        }};
+
+
+        limestoneGeyser = new SteamVent("limestone-geyser"){{
+            parent = blendGroup = limestoneFloor;
+            attributes.set(Attribute.steam, 1f);
+            variants = 1;
+            effectColor = Pal.ammo;
         }};
 
 
