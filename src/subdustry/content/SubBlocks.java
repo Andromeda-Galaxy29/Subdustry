@@ -14,6 +14,7 @@ import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
 import subdustry.world.blocks.distribution.FlowDuct;
+import subdustry.world.blocks.distribution.MultiDirectionDuctBridge;
 import subdustry.world.blocks.environment.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.defense.*;
@@ -46,7 +47,7 @@ public class SubBlocks {
     harvester, metalGrinder,
 
     //Distribution
-    submarineDuct, submarineDuctRouter, submarineFlowDuct,
+    submarineDuct, submarineDuctRouter, submarineFlowDuct, submarineDuctBridge,
 
     // Power
     solarPanel, copperWireNode,
@@ -321,6 +322,14 @@ public class SubBlocks {
             researchCostMultiplier = 1.5f;
         }};
 
+        submarineDuctBridge = new MultiDirectionDuctBridge("submarine-duct-bridge"){{
+            requirements(Category.distribution, with(SubItems.titanium, 6, SubItems.copperOre, 6));
+            fadeIn = moveArrows = false;
+            range = 4;
+            speed = 74f;
+            arrowSpacing = 6f;
+            bufferCapacity = 14;
+        }};
 
         // Power
         solarPanel = new SolarGenerator("solar-panel"){{
