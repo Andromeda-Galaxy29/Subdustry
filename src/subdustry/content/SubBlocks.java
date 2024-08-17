@@ -36,14 +36,14 @@ public class SubBlocks {
     // Environment
     limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
 
-    limestoneFloor, limesand, shallowSeaGrassFloor, tableCoralFloor, tubeCoralFloor, acidMycelium,
+    limestoneFloor, limesand, limeSeaGrassFloor, tableCoralFloor, tubeCoralFloor, acidMycelium,
     steelFloor, steelPanels, wreckFloor, wreckTiles, wreckVent,
 
     limestoneGeyser,
 
-    limestoneWall, tableCoralWall, tubeCoralWall, steelWall, wreckWall,
+    limestoneWall, limesandWall, tableCoralWall, tubeCoralWall, steelWall, wreckWall,
 
-    shallowSeaGrass, tableCoral, tubeCoral, writhingWeed, veinedNettle,
+    limeSeaGrass, tableCoral, tubeCoral, writhingWeed, veinedNettle,
 
     // Turrets
     stab,dissolve,
@@ -71,17 +71,17 @@ public class SubBlocks {
 
     public static void load(){
         //Environment
-        limestoneOutcrop = new HarvestingNode("limestone-outcrop"){{
+        limestoneOutcrop = new HarvestingNode("limestone-outcrop"){{ //TODO: Better RNG for outcrops
             drops.addAll(SubItems.titanium, SubItems.copperOre);
-            minDropAmount = 6;
-            maxDropAmount = 8;
+            minDropAmount = 8;
+            maxDropAmount = 10;
             color = Color.valueOf("#c0905c");
         }};
 
         seabedQuartz = new HarvestingNode("seabed-quartz"){{
             drops.addAll(SubItems.quartz);
-            minDropAmount = 6;
-            maxDropAmount = 8;
+            minDropAmount = 8;
+            maxDropAmount = 10;
             color = Color.valueOf("#9aa7c3");
         }};
 
@@ -103,7 +103,7 @@ public class SubBlocks {
             variants = 3;
         }};
 
-        shallowSeaGrassFloor = new Floor("shallow-sea-grass-floor"){{
+        limeSeaGrassFloor = new Floor("lime-sea-grass-floor"){{
             variants = 3;
         }};
 
@@ -153,6 +153,11 @@ public class SubBlocks {
             variants = 2;
         }};
 
+        limesandWall = new StaticWall("limesand-wall"){{
+            limesand.asFloor().wall = this;
+            variants = 2;
+        }};
+
         tableCoralWall = new StaticWall("table-coral-wall"){{
             tableCoralFloor.asFloor().wall = this;
             variants = 2;
@@ -179,8 +184,8 @@ public class SubBlocks {
         }};
 
 
-        shallowSeaGrass = new SeaBush("shallow-sea-grass"){{
-            shallowSeaGrassFloor.asFloor().decoration = this;
+        limeSeaGrass = new SeaBush("lime-sea-grass"){{
+            limeSeaGrassFloor.asFloor().decoration = this;
         }};
 
         tableCoral = new WallProp("table-coral"){{
@@ -200,50 +205,11 @@ public class SubBlocks {
         }};
 
         //Turrets
-        stab = new PowerTurret("stab"){{
-            requirements(Category.turret, with(SubItems.titanium, 30, SubItems.copperOre, 40));
-            shootType = new RailBulletType(){{
-                length = 24;
-                pointEffectSpace = 60f;
-                pierceEffect = Fx.hitBulletColor;
-                pointEffect = Fx.none;
-                hitEffect = Fx.hitBulletColor;
-                smokeEffect = Fx.none;
-                damage = 80;
-                collidesAir = true;
-                buildingDamageMultiplier = 0.2f;
-                ammoMultiplier = 1f;
-            }};
-            reload = 65f;
-            shootCone = 2f;
-            rotateSpeed = 6f;
-            targetAir = true;
-            range = 24f;
-            shootY = 0f;
-            shootEffect = Fx.none;
-            recoil = 0f;
-            size = 2;
-            health = 420;
-            shootSound = Sounds.shootAlt;
-            outlineColor = Color.valueOf("#171724");
-            consumePower(0.5f);
-            coolant = consumeCoolant(0.2f);
-            drawer = new DrawTurret("alterra-"){{
-                parts.addAll(
-                        new RegionPart("-knife"){{
-                            progress = PartProgress.recoil;
-                            moveY = 14f;
-                            mirror = false;
-                        }}
-                );
-            }};
-        }};
-        
         dissolve = new ItemTurret("dissolve"){{
             reload = 60f;
             shoot.shots = 5;
             shoot.shotDelay = 3f;
-            requirements(Category.turret, with(SubItems.titanium, 80, SubItems.copperOre, 40, SubItems.quartz, 60));
+            requirements(Category.turret, with(SubItems.titanium, 40, SubItems.copperOre, 20, SubItems.quartz, 30));
             range = 120f;
             size = 2;
             recoil = 1f;
@@ -284,6 +250,45 @@ public class SubBlocks {
                             colorTo = new Color(1f, 1f, 1f, 0f);
                         }},
                         new RegionPart("-top")
+                );
+            }};
+        }};
+
+        stab = new PowerTurret("stab"){{
+            requirements(Category.turret, with(SubItems.titanium, 30, SubItems.copperOre, 40));
+            shootType = new RailBulletType(){{
+                length = 24;
+                pointEffectSpace = 60f;
+                pierceEffect = Fx.hitBulletColor;
+                pointEffect = Fx.none;
+                hitEffect = Fx.hitBulletColor;
+                smokeEffect = Fx.none;
+                damage = 80;
+                collidesAir = true;
+                buildingDamageMultiplier = 0.2f;
+                ammoMultiplier = 1f;
+            }};
+            reload = 65f;
+            shootCone = 2f;
+            rotateSpeed = 6f;
+            targetAir = true;
+            range = 24f;
+            shootY = 0f;
+            shootEffect = Fx.none;
+            recoil = 0f;
+            size = 2;
+            health = 420;
+            shootSound = Sounds.shootAlt;
+            outlineColor = Color.valueOf("#171724");
+            consumePower(0.5f);
+            coolant = consumeCoolant(0.2f);
+            drawer = new DrawTurret("alterra-"){{
+                parts.addAll(
+                        new RegionPart("-knife"){{
+                            progress = PartProgress.recoil;
+                            moveY = 14f;
+                            mirror = false;
+                        }}
                 );
             }};
         }};

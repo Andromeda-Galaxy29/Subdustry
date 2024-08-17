@@ -88,7 +88,7 @@ public class SubPlanets {
             iconColor = Color.valueOf("724b36");
             startSector = 10;
             orbitRadius = 5;
-            orbitTime = 20 * 60;
+            orbitTime = 5 * 60;
         }};
 
         moon2 = new Planet("moon2", planet4546B, 0.3f){{
@@ -103,7 +103,7 @@ public class SubPlanets {
             iconColor = Color.valueOf("787986");
             startSector = 10;
             orbitRadius = 10;
-            orbitTime = 15 * 60;
+            orbitTime = 10 * 60;
         }};
 
         Planets.serpulo.hiddenItems.addAll(SubItems.subnauticaItems);
