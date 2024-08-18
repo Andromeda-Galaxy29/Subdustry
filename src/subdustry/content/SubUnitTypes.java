@@ -9,6 +9,7 @@ import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
+import mindustry.entities.pattern.ShootHelix;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -25,11 +26,12 @@ import static mindustry.Vars.*;
 public class SubUnitTypes{
     public static UnitType
 
-    seamoth,
+    seamoth, alvin, batyscaphe, nautilus, cyclops,
+    krill, prawn, crab, crayfish, lobster,
+    glide,
 
-    krill, prawn,
-
-    glide;
+    drone, droid, machine, automaton, construct,
+    keep, hold, secure, contain, preserve;
 
     public static void load(){
         krill = new AlterraUnitType("krill"){{
@@ -275,6 +277,144 @@ public class SubUnitTypes{
             }});
         }};
 
+        //Precursor
+        drone = new PrecursorUnitType("drone"){{
+            constructor = LegsUnit::create;
 
+            speed = 0.75f;
+            drag = 0.2f;
+            hitSize = 9;
+            rotateSpeed = 3;
+            health = 200;
+            armor = 0;
+            faceTarget = true;
+            targetAir = true;
+
+            legStraightness = 0.1f;
+            stepShake = 0;
+            legCount = 4;
+            legLength = 8;
+            lockLegBase = true;
+            legContinuousMove = true;
+            legExtension = -1;
+            legBaseOffset = 3;
+            legMaxLength = 1.1f;
+            legMinLength = 0.2f;
+            legLengthScl = 0.96f;
+            legForwardScl = 1.1f;
+            legGroupSize = 2;
+            legMoveSpace = 1.2f;
+
+            shadowElevation = 0.1f;
+
+            weapons.addAll(
+                    new Weapon("subdustry-drone-weapon"){{
+                        x = 4;
+                        y = 0;
+                        reload = 24;
+                        shootSound = Sounds.spark;
+                        mirror = true;
+                        rotate = true;
+                        alternate = true;
+                        rotateSpeed = 2;
+                        rotationLimit = 45;
+                        bullet = new LaserBulletType(){{
+                            damage = 14;
+                            colors = new Color[]{
+                                    Color.valueOf("#81e550"),
+                                    Color.valueOf("#ffffff")
+                            };
+                            hitEffect = Fx.hitLancer;
+                            sideLength = 2;
+                            hitSize = 3;
+                            lifetime = 8;
+                            drawSize = 300;
+                            collidesAir = true;
+                            healPercent = 5;
+                            collidesTeam = true;
+                            length = 50;
+                            width = 4;
+                            pierce = false;
+                            pierceCap = 1;
+                        }};
+                    }}
+            );
+        }};
+
+        keep = new PrecursorUnitType("keep"){{
+            constructor = ElevationMoveUnit::create;
+
+            drag = 0.07f;
+            speed = 1.5f;
+            rotateSpeed = 5f;
+            accel = 0.09f;
+
+            hitSize = 9;
+            rotateSpeed = 8;
+            health = 220;
+            armor = 0;
+            faceTarget = true;
+            targetAir = true;
+
+            hovering = true;
+
+            shadowElevation = 0.1f;
+
+            parts.addAll(
+                    new HoverPart(){{
+                        x = 4f;
+                        y = -4;
+                        mirror = true;
+                        radius = 5;
+                        phase = 90;
+                        stroke = 2;
+                        layerOffset = -0.01f;
+                        color = Color.valueOf("e174f7");
+                    }},
+                    new HoverPart(){{
+                        x = 4f;
+                        y = 3f;
+                        mirror = true;
+                        radius = 5;
+                        phase = 90;
+                        stroke = 2;
+                        layerOffset = -0.01f;
+                        color = Color.valueOf("e174f7");
+                    }}
+            );
+
+            abilities.add(new MoveEffectAbility(0f, -5f, Color.valueOf("e174f7"), Fx.missileTrailShort, 4f));
+
+            weapons.addAll(
+                    new Weapon("subdustry-keep-weapon"){{
+                        x = 0;
+                        y = 0;
+                        reload = 48;
+                        shootSound = Sounds.missile;
+                        mirror = false;
+                        rotate = false;
+                        top = false;
+                        layerOffset = -0.005f;
+                        shoot = new ShootHelix(){{
+                            mag = 2;
+                            scl = 2;
+                        }};
+                        bullet = new BasicBulletType(2f, 13){{
+                            lifetime = 30f;
+                            backColor = Color.valueOf("e174f7");
+                            frontColor = Color.white;
+                            trailColor = hitColor = Color.valueOf("e174f7");
+                            width = 10f;
+                            height = 10f;
+                            hitEffect = despawnEffect = Fx.hitBulletColor;
+                            trailEffect = Fx.colorTrail;
+                            trailInterval = 2;
+                            trailLength = 10;
+                            trailWidth = 2f;
+                            trailParam = 2;
+                        }};
+                    }}
+            );
+        }};
     }
 }
