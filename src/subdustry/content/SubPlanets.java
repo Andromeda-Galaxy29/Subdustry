@@ -69,7 +69,7 @@ public class SubPlanets {
 
             sectorSeed = 1204;
             ruleSetter = r -> {
-                r.waveTeam = Team.green;
+                r.waveTeam = SubTeams.precursor;
                 r.showSpawns = true;
             };
 

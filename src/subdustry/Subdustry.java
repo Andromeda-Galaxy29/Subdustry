@@ -17,7 +17,7 @@ public class Subdustry extends Mod{
         SubUnitTypes.load();
         SubAttributes.load();
         SubBlocks.load();
-
+        SubTeams.load();
         SubPlanets.load();
     }
 
