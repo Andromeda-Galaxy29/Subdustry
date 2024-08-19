@@ -4,6 +4,8 @@ import arc.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.struct.Seq;
+import arc.util.Time;
 import mindustry.entities.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
@@ -31,7 +33,8 @@ public class SubUnitTypes{
     glide,
 
     drone, droid, machine, automaton, construct,
-    keep, hold, secure, contain, preserve;
+    keep, hold, secure, contain, preserve,
+    probe, vessel, shuttle, satellite, station;
 
     public static void load(){
         krill = new AlterraUnitType("krill"){{
@@ -396,8 +399,8 @@ public class SubUnitTypes{
                         top = false;
                         layerOffset = -0.005f;
                         shoot = new ShootHelix(){{
-                            mag = 2;
-                            scl = 2;
+                            mag = 3;
+                            scl = 3;
                         }};
                         bullet = new BasicBulletType(2f, 13){{
                             lifetime = 30f;
@@ -412,6 +415,114 @@ public class SubUnitTypes{
                             trailLength = 10;
                             trailWidth = 2f;
                             trailParam = 2;
+                        }};
+                    }}
+            );
+        }};
+
+        probe = new PrecursorUnitType("probe"){{
+            constructor = UnitEntity::create;
+
+            lowAltitude = true;
+            speed = 2.2f;
+            rotateSpeed = 12;
+            accel = 0.1f;
+            drag = 0.04f;
+            flying = true;
+            health = 240;
+            hitSize = 8;
+            engineSize = 0;
+            faceTarget = true;
+            crashDamageMultiplier = 0f;
+
+            parts.addAll(
+                    new ShapePart(){{
+                        y = -6.3f;
+                        layerOffset = -0.01f;
+                        progress = PartProgress.constant(1);
+                        rotateSpeed = 2;
+                        color = Color.valueOf("71dfff");
+                        sides = 4;
+                        hollow = true;
+                        stroke = 0f;
+                        strokeTo = 1.2f;
+                        radius = 2.8f;
+                    }},
+                    new ShapePart(){{
+                        y = -6.3f;
+                        layerOffset = -0.011f;
+                        progress = PartProgress.constant(1);
+                        rotateSpeed = 2;
+                        color = Color.white;
+                        sides = 4;
+                        hollow = false;
+                        strokeTo = 1f;
+                        radius = 2.8f;
+                    }}
+            );
+
+            abilities.add(new MoveEffectAbility(0f, -6.3f, Color.valueOf("71dfff"),
+                new Effect(22, e -> {
+                    color(e.color);
+                    Fill.poly(e.x, e.y, 4, e.rotation * e.fout(), Time.time * 2);
+                }).layer(Layer.bullet - 0.001f),
+            4f));
+
+
+            weapons.addAll(
+                    new Weapon("subdustry-probe-weapon"){{
+                        x = 17/4f;
+                        y = -11/4f;
+                        reload = 18;
+                        shootSound = Sounds.lasershoot;
+                        ejectEffect = Fx.none;
+                        bullet = new BasicBulletType(){{
+                            speed = 3;
+                            damage = 8;
+                            lifetime = 10;
+                            width = 8;
+                            height = 8;
+                            trailWidth = 2f;
+                            trailLength = 8;
+                            backColor = trailColor = hitColor = Color.valueOf("71dfff");
+                            frontColor = Color.valueOf("#ffffff");
+                            shootEffect = Fx.shootSmallColor;
+                            despawnEffect = hitEffect = new Effect(9, e -> {
+                                color(Color.white, e.color, e.fin());
+                                stroke(0.7f + e.fout());
+                                Lines.square(e.x, e.y, e.fin() * 5f, e.rotation + 45f);
+
+                                Drawf.light(e.x, e.y, 23f, e.color, e.fout() * 0.7f);
+                            });
+
+                            fragBullets = 2;
+                            fragSpread = 90;
+                            fragAngle = 45;
+                            fragRandomSpread = 0;
+                            fragVelocityMax = 1;
+                            fragVelocityMin = 1;
+                            fragLifeMax = 1;
+                            fragLifeMin = 1;
+                            fragBullet = new BasicBulletType(){{
+                                speed = 3;
+                                damage = 5;
+                                lifetime = 25;
+                                width = 8;
+                                height = 8;
+                                trailWidth = 2f;
+                                trailLength = 8;
+                                backColor = trailColor = hitColor = Color.valueOf("71dfff");
+                                frontColor = Color.valueOf("#ffffff");
+                                despawnEffect = hitEffect = new Effect(9, e -> {
+                                    color(Color.white, e.color, e.fin());
+                                    stroke(0.7f + e.fout());
+                                    Lines.square(e.x, e.y, e.fin() * 5f, e.rotation + 45f);
+
+                                    Drawf.light(e.x, e.y, 23f, e.color, e.fout() * 0.7f);
+                                });
+                                homingPower = 0.19f;
+                                homingDelay = 4f;
+                            }};
                         }};
                     }}
             );

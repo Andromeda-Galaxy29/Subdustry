@@ -71,6 +71,7 @@ public class SubPlanets {
             ruleSetter = r -> {
                 r.waveTeam = SubTeams.precursor;
                 r.showSpawns = true;
+                r.coreIncinerates = true;
             };
 
             itemWhitelist = SubItems.subnauticaItems.copy();
