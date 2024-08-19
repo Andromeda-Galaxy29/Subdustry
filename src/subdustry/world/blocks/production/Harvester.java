@@ -152,7 +152,7 @@ public class Harvester extends Block {
             Draw.color(Pal.ammo);
 
             float drawRange = range * Vars.tilesize * warmup;
-            float scanX = x + (Mathf.sin(Time.time * Mathf.pi * 2f * efficiency() / reload) * ((drawRange - 3) / 2f));
+            float scanX = x + (Mathf.sin(Time.time * efficiency()) * ((drawRange - 3) / 2f));
 
             Draw.z(Layer.buildBeam);
             Fill.poly(x, y, 4, 4 * efficiency(), Time.time / 0.8f);

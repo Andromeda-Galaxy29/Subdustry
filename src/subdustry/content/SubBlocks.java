@@ -206,6 +206,7 @@ public class SubBlocks {
 
         //Turrets
         dissolve = new ItemTurret("dissolve"){{
+            researchCostMultiplier = 0.05f;
             reload = 60f;
             shoot.shots = 5;
             shoot.shotDelay = 3f;
@@ -300,7 +301,8 @@ public class SubBlocks {
             squareSprite = false;
             range = 6;
             reload = 360;
-            consumePower(1.5f);
+            consumePower(1f);
+            researchCost = with(SubItems.copperOre, 30, SubItems.titanium, 30, SubItems.acidMushroom, 15);
         }};
 
         metalGrinder = new WallCrafter("metal-grinder"){{
@@ -313,6 +315,7 @@ public class SubBlocks {
             output = SubItems.metalSalvage;
             ambientSound = Sounds.drill;
             ambientSoundVolume = 0.04f;
+            researchCostMultiplier = 0.5f;
         }};
 
         //Distribution
@@ -320,7 +323,7 @@ public class SubBlocks {
             requirements(Category.distribution, with(SubItems.titanium, 1));
             health = 80;
             speed = 5f;
-            researchCost = with(SubItems.titanium, 10);
+            researchCost = with(SubItems.titanium, 5);
         }};
 
         submarineDuctRouter = new DuctRouter("submarine-duct-router"){{
@@ -328,7 +331,7 @@ public class SubBlocks {
             health = 80;
             speed = 5f;
             solid = false;
-            researchCost = with(SubItems.titanium, 30);
+            researchCost = with(SubItems.titanium, 15);
         }};
 
         submarineFlowDuct = new FlowDuct("submarine-flow-duct"){{
@@ -338,6 +341,7 @@ public class SubBlocks {
             solid = false;
             squareSprite = false;
             researchCostMultiplier = 1.5f;
+            researchCost = with(SubItems.titanium, 40, SubItems.copperOre, 40);
         }};
 
         submarineDuctBridge = new MultiDirectionDuctBridge("submarine-duct-bridge"){{
@@ -347,6 +351,8 @@ public class SubBlocks {
             speed = 74f;
             arrowSpacing = 6f;
             bufferCapacity = 14;
+            ((Duct)submarineDuct).bridgeReplacement = this;
+            researchCost = with(SubItems.titanium, 30, SubItems.copperOre, 30);
         }};
 
         // Power
@@ -354,6 +360,7 @@ public class SubBlocks {
             requirements(Category.power, with(SubItems.copperOre, 15, SubItems.titanium, 30, SubItems.quartz, 30));
             size = 2;
             powerProduction = 0.5f;
+            researchCost = with(SubItems.copperOre, 5, SubItems.titanium, 10, SubItems.quartz, 10);
         }};
 
         copperWireNode = new WireNode("copper-wire-node"){{
@@ -361,6 +368,7 @@ public class SubBlocks {
 
             size = 1;
             range = 5;
+            researchCost = with(SubItems.copperOre, 3);
         }};
 
         // Defense/Walls

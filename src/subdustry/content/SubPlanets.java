@@ -1,6 +1,7 @@
 package subdustry.content;
 
 import arc.graphics.*;
+import arc.struct.Seq;
 import mindustry.content.Planets;
 import mindustry.game.*;
 import mindustry.graphics.g3d.*;
@@ -49,7 +50,7 @@ public class SubPlanets {
             allowWaveSimulation = true;
             clearSectorOnLose = true;
             allowWaves = true;
-            prebuildBase = true;
+            prebuildBase = false;
             defaultCore = SubBlocks.coreShallows;
 
             defaultEnv = Env.oxygen | Env.terrestrial | Env.underwater | Env.groundOil | Env.groundWater;
@@ -72,6 +73,9 @@ public class SubPlanets {
                 r.waveTeam = SubTeams.precursor;
                 r.showSpawns = true;
                 r.coreIncinerates = true;
+                r.weather = new Seq<Weather.WeatherEntry>(){
+                    //No weather
+                };
             };
 
             itemWhitelist = SubItems.subnauticaItems.copy();
