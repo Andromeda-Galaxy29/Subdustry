@@ -13,8 +13,6 @@ public class SubTeams {
                 Color.valueOf("41a326"),
                 Color.valueOf("117412")
         );
-
-        nature = newTeam(42, "nature", Color.valueOf("ffb92b"));
     }
 
     public static Team newTeam(int id, String name, Color color){

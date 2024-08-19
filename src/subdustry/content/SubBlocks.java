@@ -221,7 +221,7 @@ public class SubBlocks {
             squareSprite = false;
             outlineColor = Color.valueOf("#171724");
             ammo(
-                SubItems.acidMushroom, new BasicBulletType(3.5f, 10){{
+                SubItems.acidMushroom, new BasicBulletType(3.5f, 14){{
                     lifetime = 30f;
                     width = 8f;
                     height = 10f;
@@ -365,10 +365,12 @@ public class SubBlocks {
 
         copperWireNode = new WireNode("copper-wire-node"){{
             requirements(Category.power, with(SubItems.copperOre, 3));
+            consumesPower = outputsPower = true;
 
             size = 1;
             range = 5;
             researchCost = with(SubItems.copperOre, 3);
+            consumePowerBuffered(500f);
         }};
 
         // Defense/Walls
@@ -419,6 +421,8 @@ public class SubBlocks {
 
             consumeItem(SubItems.metalSalvage, 1);
             consumePower(1f);
+
+            researchCostMultiplier = 0.5f;
         }};
 
         // Effect/Storage
