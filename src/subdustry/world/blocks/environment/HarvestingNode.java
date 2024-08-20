@@ -29,6 +29,8 @@ public class HarvestingNode extends Block {
     public TextureRegion brokenRegion;
     public TextureRegion growingRegion;
 
+    private Seq<ItemStack> dropPool = new Seq<>();
+
     public HarvestingNode(String name){
         super(name);
         breakable = false;
@@ -74,8 +76,19 @@ public class HarvestingNode extends Block {
                 return;
             }
 
-            Item item = drops.get(Mathf.random(0, drops.size-1));
-            int amount = Mathf.random(minDropAmount, maxDropAmount);
+            if(dropPool.isEmpty()){
+                for(Item item : drops){
+                    for (int amount = minDropAmount; amount <= maxDropAmount; amount++){
+                        for(int i = 0; i<4; i++){
+                            dropPool.add(new ItemStack(item, amount));
+                        }
+                    }
+                }
+            }
+
+            int i = Mathf.random(0, dropPool.size-1);
+            ItemStack stack = dropPool.get(i);
+            dropPool.remove(i);
 
             new Effect(12f, e -> {
                 if(!(e.data instanceof Position to)) return;
@@ -86,9 +99,9 @@ public class HarvestingNode extends Block {
 
                 Draw.color(e.color);
                 Fill.circle(x, y, e.fslope() * 3f * size);
-            }).at(x, y, amount, item.color, b);
+            }).at(x, y, stack.amount, stack.item.color, b);
 
-            b.items.add(item, amount);
+            b.items.add(stack.item, stack.amount);
         }
 
         /** Mines the outcrop and deposits the items to the team's core*/
@@ -113,6 +126,7 @@ public class HarvestingNode extends Block {
             }
         }
 
+        @Override
         public boolean interactable(Team team){
             return true;
         }
