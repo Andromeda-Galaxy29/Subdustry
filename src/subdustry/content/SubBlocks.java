@@ -61,7 +61,7 @@ public class SubBlocks {
     titaniumOreWall, largeTitaniumOreWall,
 
     // Crafting
-    titaniumCrucible,
+    titaniumCrucible, trashCan,
 
     // Effect/Storage
     coreShallows,
@@ -433,6 +433,14 @@ public class SubBlocks {
             consumePower(1f);
 
             researchCostMultiplier = 0.5f;
+        }};
+
+        trashCan = new Incinerator("trash-can"){{
+            requirements(Category.crafting, with(SubItems.titanium, 10));
+
+            size = 1;
+            hasPower = false;
+            squareSprite = false;
         }};
 
         // Effect/Storage
