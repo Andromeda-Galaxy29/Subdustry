@@ -55,7 +55,7 @@ public class SubBlocks {
     submarineDuct, submarineDuctRouter, submarineFlowDuct, submarineDuctBridge,
 
     // Power
-    solarPanel, copperWireNode,
+    solarPanel, copperWireNode, battery,
 
     // Defense
     titaniumOreWall, largeTitaniumOreWall,
@@ -371,6 +371,16 @@ public class SubBlocks {
             range = 5;
             researchCost = with(SubItems.copperOre, 3);
             consumePowerBuffered(500f);
+        }};
+
+        battery = new Battery("battery"){{
+            requirements(Category.power, with(SubItems.copperOre, 10, SubItems.acidMushroom, 20));
+            consumePowerBuffered(4000f);
+            emptyLightColor = Color.valueOf("8ca8e8");
+            fullLightColor = Color.valueOf("d0efff");
+            baseExplosiveness = 1f;
+            size = 2;
+            researchCost = with(SubItems.copperOre, 50, SubItems.acidMushroom, 100);
         }};
 
         // Defense/Walls

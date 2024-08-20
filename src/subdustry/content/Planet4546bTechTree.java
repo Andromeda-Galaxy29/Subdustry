@@ -28,7 +28,9 @@ public class Planet4546bTechTree {
 
             node(solarPanel, ()->{
                 node(copperWireNode, ()->{
+                    node(battery, ()->{
 
+                    });
                 });
                 node(metalGrinder, ()->{
                     node(titaniumCrucible, ()->{
