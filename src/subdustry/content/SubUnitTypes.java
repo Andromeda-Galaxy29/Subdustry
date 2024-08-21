@@ -28,11 +28,11 @@ import static mindustry.Vars.*;
 public class SubUnitTypes{
     public static UnitType
 
-    seamoth, alvin, batyscaphe, nautilus, cyclops,
+    seamoth, nautilus, batyscaphe, cyclops, atlas,
     krill, prawn, crab, crayfish, lobster,
     glide,
 
-    drone, droid, machine, automaton, construct,
+    drone, droid, mechanoid, automaton, construct,
     keep, hold, secure, contain, preserve,
     probe, vessel, shuttle, satellite, station;
 
