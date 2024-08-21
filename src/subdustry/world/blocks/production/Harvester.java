@@ -27,7 +27,7 @@ public class Harvester extends Block {
         update = true;
         solid = true;
         hasItems = true;
-        itemCapacity = 300;
+        itemCapacity = 150;
         acceptsItems = false;
     }
 
@@ -98,6 +98,20 @@ public class Harvester extends Block {
         public float progress = 0f;
         public float warmup = 0f;
         public Seq<HarvestingNode.HarvestingNodeBuild> targets = new Seq<>();
+
+        @Override
+        public boolean shouldConsume() {
+            Seq<ItemStack> allItems = new Seq<>();
+            items.each((item, amount) -> {
+                allItems.add(new ItemStack(item, amount));
+            });
+            for(var item : allItems){
+                if(item.amount > itemCapacity){
+                    return false;
+                }
+            }
+            return true;
+        }
 
         @Override
         public void updateTile(){
