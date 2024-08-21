@@ -34,16 +34,18 @@ public class SubBlocks {
     public static Block
 
     // Environment
-    limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
+    limestoneOutcrop, seabedQuartz, seabedAcidMushroom, creepvineSeeds,
 
     limestoneFloor, limesand, limeSeaGrassFloor, tableCoralFloor, tubeCoralFloor, acidMycelium,
     steelFloor, steelPanels, wreckFloor, wreckTiles, wreckVent,
+    greenSeaGrassFloor, creepvineRoots, mossyStone,
 
-    limestoneGeyser,
+    limestoneGeyser, stoneGeyser, mossyStoneGeyser,
 
     limestoneWall, limesandWall, tableCoralWall, tubeCoralWall, steelWall, wreckWall,
+    greenSeaGrassWall, mossyStoneWall,
 
-    limeSeaGrass, tableCoral, tubeCoral, writhingWeed, veinedNettle,
+    limeSeaGrass, tableCoral, tubeCoral, writhingWeed, veinedNettle, greenSeaGrass, creepvine,
 
     // Turrets
     stab,dissolve,
@@ -94,6 +96,15 @@ public class SubBlocks {
             color = Color.valueOf("#9aa7c3");
         }};
 
+        creepvineSeeds = new HarvestingNode("creepvine-seeds"){{
+            drops.addAll(SubItems.creepvineSeedCluster);
+            minDropAmount = 1;
+            maxDropAmount = 1;
+            minGrowTime = 80;
+            maxGrowTime = 120;
+            color = Color.valueOf("#f7f006");
+        }};
+
 
         limestoneFloor = new Floor("limestone-floor"){{
             variants = 3;
@@ -128,7 +139,7 @@ public class SubBlocks {
         }};
 
         wreckFloor = new Floor("wreck-floor"){{
-            variants = 3;
+            variants = 1;
         }};
 
         wreckTiles = new Floor("wreck-tiles"){{
@@ -139,9 +150,35 @@ public class SubBlocks {
             variants = 1;
         }};
 
+        greenSeaGrassFloor = new Floor("green-sea-grass-floor"){{
+            variants = 3;
+        }};
+
+        creepvineRoots = new Floor("creepvine-roots"){{
+            variants = 2;
+        }};
+
+        mossyStone = new Floor("mossy-stone"){{
+            variants = 3;
+        }};
+
 
         limestoneGeyser = new SteamVent("limestone-geyser"){{
             parent = blendGroup = limestoneFloor;
+            attributes.set(Attribute.steam, 1f);
+            variants = 1;
+            effectColor = Pal.ammo;
+        }};
+
+        stoneGeyser = new SteamVent("stone-geyser"){{
+            parent = blendGroup = Blocks.stone;
+            attributes.set(Attribute.steam, 1f);
+            variants = 1;
+            effectColor = Pal.ammo;
+        }};
+
+        mossyStoneGeyser = new SteamVent("mossy-stone-geyser"){{
+            parent = blendGroup = mossyStone;
             attributes.set(Attribute.steam, 1f);
             variants = 1;
             effectColor = Pal.ammo;
@@ -183,6 +220,16 @@ public class SubBlocks {
             attributes.set(SubAttributes.metal, 1f);
         }};
 
+        greenSeaGrassWall = new StaticWall("green-sea-grass-wall"){{
+            greenSeaGrassFloor.asFloor().wall = this;
+            creepvineRoots.asFloor().wall = this;
+            variants = 2;
+        }};
+
+        mossyStoneWall = new StaticWall("mossy-stone-wall"){{
+            mossyStone.asFloor().wall = this;
+            variants = 2;
+        }};
 
         limeSeaGrass = new SeaBush("lime-sea-grass"){{
             limeSeaGrassFloor.asFloor().decoration = this;
@@ -202,6 +249,17 @@ public class SubBlocks {
 
         veinedNettle = new Seaweed("veined-nettle"){{
             variants = 1;
+        }};
+
+        greenSeaGrass = new Seaweed("green-sea-grass"){{
+            greenSeaGrassFloor.asFloor().decoration = this;
+            mossyStone.asFloor().decoration = this;
+            variants = 3;
+        }};
+
+        creepvine = new Kelp("creepvine"){{
+            scl = 60;
+            mag = 30;
         }};
 
         //Turrets

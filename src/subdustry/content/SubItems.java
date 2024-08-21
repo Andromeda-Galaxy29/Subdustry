@@ -6,7 +6,8 @@ import mindustry.type.*;
 
 public class SubItems {
     public static Item
-            metalSalvage, titanium, copperOre, quartz, caveSulfur, acidMushroom, glass,
+            metalSalvage, titanium, copperOre, quartz, acidMushroom,
+            caveSulfur, creepvineSeedCluster, glass,
             ionCube;
 
     public static final Seq<Item> subnauticaItems = new Seq<>();
@@ -30,14 +31,18 @@ public class SubItems {
             hardness = 2;
         }};
 
-        caveSulfur = new Item("cave-sulfur", Color.valueOf("#d0ae1f")){{
-            flammability = 1;
-            explosiveness = 0.6f;
-        }};
-
         acidMushroom = new Item("acid-mushroom", Color.valueOf("#a89fd6")){{
             flammability = 0.3f;
             charge = 0.01f;
+        }};
+
+        creepvineSeedCluster = new Item("creepvine-seed-cluster", Color.valueOf("#f7f006")){{
+            flammability = 0.3f;
+        }};
+
+        caveSulfur = new Item("cave-sulfur", Color.valueOf("#d0ae1f")){{
+            flammability = 1;
+            explosiveness = 0.6f;
         }};
 
         glass = new Item("glass", Color.valueOf("#65b7ff"));
@@ -49,7 +54,8 @@ public class SubItems {
         }};
 
         subnauticaItems.addAll(
-                metalSalvage, titanium, copperOre, quartz, caveSulfur, acidMushroom, glass,
+                metalSalvage, titanium, copperOre, quartz, acidMushroom,
+                caveSulfur, creepvineSeedCluster, glass,
                 ionCube
         );
     }
