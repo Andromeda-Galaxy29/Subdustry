@@ -73,6 +73,7 @@ public class SubPlanets {
                 r.waveTeam = SubTeams.precursor;
                 r.showSpawns = true;
                 r.coreIncinerates = true;
+                r.ambientLight = Color.black.a(0.5f);
                 r.weather = new Seq<Weather.WeatherEntry>(){
                     //No weather
                 };

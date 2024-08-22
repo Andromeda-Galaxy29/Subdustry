@@ -63,7 +63,7 @@ public class SubBlocks {
     titaniumOreWall, largeTitaniumOreWall,
 
     // Crafting
-    titaniumCrucible, trashCan,
+    titaniumCrucible, glassSmelter, trashCan,
 
     // Effect/Storage
     coreShallows,
@@ -498,6 +498,26 @@ public class SubBlocks {
             consumePower(1f);
 
             researchCostMultiplier = 0.5f;
+        }};
+
+        glassSmelter = new GenericCrafter("glass-smelter"){{
+            requirements(Category.crafting, with(SubItems.titanium, 30, SubItems.copperOre, 20, SubItems.siliconeRubber, 20));
+
+            size = 2;
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawCrucibleFlame(),
+                    new DrawRegion("-rotator", 3, true),
+                    new DrawDefault(),
+                    new DrawGlowRegion()
+            );
+
+            outputItem = new ItemStack(SubItems.glass, 1);
+            craftTime = 60;
+
+            consumeItem(SubItems.quartz, 2);
+            consumePower(1.5f);
         }};
 
         trashCan = new Incinerator("trash-can"){{
