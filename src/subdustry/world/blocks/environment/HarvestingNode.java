@@ -91,7 +91,8 @@ public class HarvestingNode extends Block {
             dropPool.remove(i);
 
             new Effect(12f, e -> {
-                if(!(e.data instanceof Position to)) return;
+                if(!(e.data instanceof Position)) return;
+                Position to = (Position) e.data;
                 Tmp.v1.set(e.x, e.y).interpolate(Tmp.v2.set(to), e.fin(), Interp.pow3)
                         .add(Tmp.v2.sub(e.x, e.y).nor().rotate90(1).scl(Mathf.randomSeedRange(e.id, 1f) * e.fslope() * 10f));
                 float x = Tmp.v1.x, y = Tmp.v1.y;
@@ -135,7 +136,7 @@ public class HarvestingNode extends Block {
         public void draw(){
             Draw.z(layer);
             if(!broken){
-                Draw.rect(block.region, x, y, drawrot());
+                super.draw();
             }else{
                 if (timer < growTime / 2.0){
                     Draw.rect(((HarvestingNode)block).brokenRegion, x, y, drawrot());
