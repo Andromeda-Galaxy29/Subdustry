@@ -3,7 +3,9 @@ package subdustry.content;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.math.geom.Vec2;
 import mindustry.entities.*;
+import mindustry.entities.effect.RadialEffect;
 import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.content.*;
@@ -63,7 +65,7 @@ public class SubBlocks {
     titaniumOreWall, largeTitaniumOreWall,
 
     // Crafting
-    titaniumCrucible, glassSmelter, trashCan,
+    titaniumCrucible, rubberSynthesizer, glassSmelter, trashCan,
 
     // Effect/Storage
     coreShallows,
@@ -314,7 +316,7 @@ public class SubBlocks {
         }};
 
         stab = new PowerTurret("stab"){{
-            requirements(Category.turret, with(SubItems.titanium, 30, SubItems.copperOre, 40));
+            requirements(Category.turret, with(SubItems.titanium, 30, SubItems.siliconeRubber, 40));
             shootType = new RailBulletType(){{
                 length = 24;
                 pointEffectSpace = 60f;
@@ -500,10 +502,63 @@ public class SubBlocks {
             researchCostMultiplier = 0.5f;
         }};
 
+        rubberSynthesizer = new GenericCrafter("rubber-synthesizer"){{
+            requirements(Category.crafting, with(SubItems.titanium, 40, SubItems.copperOre, 20, SubItems.quartz, 30));
+
+            size = 3;
+
+            ambientSound = Sounds.techloop;
+            ambientSoundVolume = 0.02f;
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawCircles(){{
+                        color = Color.valueOf("51b5c3");
+                        strokeMax = 2.5f;
+                        radius = 10f;
+                        amount = 3;
+                    }},
+                    new DrawRegion("-mid"),
+                    new DrawBubbles(){{
+                        color = Color.valueOf("51b5c3");
+                    }},
+                    new DrawDefault(),
+                    new DrawGlowRegion(){{
+                        color = Color.valueOf("51b5c3");
+                        alpha = 0.7f;
+                    }}
+            );
+            craftEffect = new RadialEffect(new Effect(160f, e -> {
+                Vec2 v = new Vec2();
+
+                Draw.color(Color.valueOf("51b5c3"));
+                Draw.alpha(0.6f);
+
+                Mathf.rand.setSeed(e.id);
+                for(int i = 0; i < 3; i++){
+                    float len = Mathf.rand.random(6f), rot = Mathf.rand.range(40f) + e.rotation;
+
+                    e.scaled(e.lifetime * Mathf.rand.random(0.3f, 1f), b -> {
+                        v.trns(rot, len * b.finpow());
+                        Fill.circle(e.x + v.x, e.y + v.y, 2f * b.fslope() + 0.2f);
+                    });
+                }
+            }), 4, 90f, 7f);
+
+            outputItem = new ItemStack(SubItems.siliconeRubber, 2);
+            craftTime = 120;
+
+            consumeItem(SubItems.creepvineSeedCluster, 1);
+            consumePower(1.5f);
+        }};
+
         glassSmelter = new GenericCrafter("glass-smelter"){{
             requirements(Category.crafting, with(SubItems.titanium, 30, SubItems.copperOre, 20, SubItems.siliconeRubber, 20));
 
             size = 2;
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.02f;
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
