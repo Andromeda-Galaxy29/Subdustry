@@ -1,4 +1,4 @@
-package subdustry.graphics;
+package subdustry.world.draw;
 
 import arc.Core;
 import arc.graphics.Color;

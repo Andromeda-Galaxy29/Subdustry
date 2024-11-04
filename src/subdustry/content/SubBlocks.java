@@ -21,14 +21,12 @@ import subdustry.world.blocks.distribution.*;
 import subdustry.world.blocks.environment.*;
 import subdustry.world.blocks.power.*;
 import subdustry.world.blocks.production.*;
-import subdustry.graphics.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.entities.bullet.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.*;
-
-import static mindustry.Vars.*;
+import subdustry.world.draw.*;
 
 import static mindustry.type.ItemStack.*;
 
@@ -97,16 +95,6 @@ public class SubBlocks {
             maxGrowTime = 120;
             color = Color.valueOf("#9aa7c3");
         }};
-
-        creepvineSeeds = new HarvestingNode("creepvine-seeds"){{
-            drops.addAll(SubItems.creepvineSeedCluster);
-            minDropAmount = 1;
-            maxDropAmount = 1;
-            minGrowTime = 80;
-            maxGrowTime = 120;
-            color = Color.valueOf("#f7f006");
-        }};
-
 
         limestoneFloor = new Floor("limestone-floor"){{
             variants = 3;
@@ -260,8 +248,7 @@ public class SubBlocks {
         }};
 
         creepvine = new Kelp("creepvine"){{
-            scl = 60;
-            mag = 30;
+            itemDrop = SubItems.creepvineSeedCluster;
         }};
 
         //Turrets
