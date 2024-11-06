@@ -11,15 +11,13 @@ import subdustry.graphics.DrawPseudo3D;
 
 public class Kelp extends Prop {
 
-    public float shadowLayer = Layer.power - 1;
+    public float shadowLayer = Layer.blockProp - 1;
     public float topLayer = Layer.light;
 
     public float rotationScl = 60, rotationMag = 30;
-    public float minLength = 0.1f, maxLength = 0.5f;
+    public float minLength = 0.2f, maxLength = 0.5f;
     /** Amount of segments in the stem */
     public int segments = 10;
-    /** Elevation of the seeds on the kelp plant as a fraction of height */
-    public float seedsElevation = 0.8f;
 
     public TextureRegion bottomRegion;
     public TextureRegion stemRegion;
@@ -45,6 +43,11 @@ public class Kelp extends Prop {
         rootRegion = Core.atlas.find(name+"-root");
         leavesRegion = Core.atlas.find(name+"-leaves");
         seedsRegion = Core.atlas.find(name+"-seeds");
+    }
+
+    @Override
+    public TextureRegion[] icons(){
+        return new TextureRegion[]{seedsRegion, bottomRegion, region};
     }
 
     @Override
@@ -83,10 +86,8 @@ public class Kelp extends Prop {
             Draw.reset();
         }
 
-        //Draws the seeds
-        draw3DRegion(seedsRegion, x, y, length * seedsElevation, topLayer, angle * Draw.scl);
-
         //Draws the top part of the kelp
+        draw3DRegion(seedsRegion, x, y, length - 0.075f, topLayer, -angle * Draw.scl);
         draw3DRegion(bottomRegion, x, y, length - 0.05f, topLayer, angle * Draw.scl);
         draw3DRegion(bottomRegion, x, y, length - 0.025f, topLayer, -angle * Draw.scl);
         draw3DRegion(region, x, y, length, topLayer, angle * Draw.scl);

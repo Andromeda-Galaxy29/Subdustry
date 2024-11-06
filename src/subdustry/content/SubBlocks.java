@@ -34,7 +34,7 @@ public class SubBlocks {
     public static Block
 
     // Environment
-    limestoneOutcrop, seabedQuartz, seabedAcidMushroom, creepvineSeeds,
+    limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
 
     limestoneFloor, limesand, limeSeaGrassFloor, tableCoralFloor, tubeCoralFloor, acidMycelium,
     steelFloor, steelPanels, wreckFloor, wreckTiles, wreckVent,
@@ -45,10 +45,10 @@ public class SubBlocks {
     limestoneWall, limesandWall, tableCoralWall, tubeCoralWall, steelWall, wreckWall,
     greenSeaGrassWall, mossyStoneWall,
 
-    limeSeaGrass, tableCoral, tubeCoral, writhingWeed, veinedNettle, greenSeaGrass, creepvine,
+    limeSeaGrass, tableCoral, tubeCoral, writhingWeed, veinedNettle, brainCoral, greenSeaGrass, creepvine,
 
     // Turrets
-    stab,dissolve,
+    dissolve,
 
     // Production/Drills
     harvester, metalGrinder,
@@ -241,6 +241,10 @@ public class SubBlocks {
             variants = 1;
         }};
 
+        brainCoral = new BrainCoral("brain-coral"){{
+            variants = 1;
+        }};
+
         greenSeaGrass = new Seaweed("green-sea-grass"){{
             greenSeaGrassFloor.asFloor().decoration = this;
             mossyStone.asFloor().decoration = this;
@@ -298,45 +302,6 @@ public class SubBlocks {
                             colorTo = new Color(1f, 1f, 1f, 0f);
                         }},
                         new RegionPart("-top")
-                );
-            }};
-        }};
-
-        stab = new PowerTurret("stab"){{
-            requirements(Category.turret, with(SubItems.titanium, 30, SubItems.siliconeRubber, 40));
-            shootType = new RailBulletType(){{
-                length = 24;
-                pointEffectSpace = 60f;
-                pierceEffect = Fx.hitBulletColor;
-                pointEffect = Fx.none;
-                hitEffect = Fx.hitBulletColor;
-                smokeEffect = Fx.none;
-                damage = 80;
-                collidesAir = true;
-                buildingDamageMultiplier = 0.2f;
-                ammoMultiplier = 1f;
-            }};
-            reload = 65f;
-            shootCone = 2f;
-            rotateSpeed = 6f;
-            targetAir = true;
-            range = 24f;
-            shootY = 0f;
-            shootEffect = Fx.none;
-            recoil = 0f;
-            size = 2;
-            health = 420;
-            shootSound = Sounds.shootAlt;
-            outlineColor = Color.valueOf("#171724");
-            consumePower(0.5f);
-            coolant = consumeCoolant(0.2f);
-            drawer = new DrawTurret("alterra-"){{
-                parts.addAll(
-                        new RegionPart("-knife"){{
-                            progress = PartProgress.recoil;
-                            moveY = 14f;
-                            mirror = false;
-                        }}
                 );
             }};
         }};
