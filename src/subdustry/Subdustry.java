@@ -14,6 +14,7 @@ public class Subdustry extends Mod{
     public void loadContent(){
         SubSounds.load();
         SubItems.load();
+        SubLiquids.load();
         SubUnitTypes.load();
         SubAttributes.load();
         SubBlocks.load();

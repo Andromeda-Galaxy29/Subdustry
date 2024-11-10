@@ -3,9 +3,9 @@ package subdustry.content;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import arc.math.geom.Vec2;
+import arc.math.geom.*;
 import mindustry.entities.*;
-import mindustry.entities.effect.RadialEffect;
+import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.content.*;
@@ -63,7 +63,7 @@ public class SubBlocks {
     titaniumOreWall, largeTitaniumOreWall,
 
     // Crafting
-    titaniumCrucible, rubberSynthesizer, glassSmelter, trashCan,
+    titaniumCrucible, rubberSynthesizer, lubricantSqueezer, glassSmelter, trashCan,
 
     // Effect/Storage
     coreShallows,
@@ -501,6 +501,37 @@ public class SubBlocks {
             craftTime = 120;
 
             consumeItem(SubItems.creepvineSeedCluster, 1);
+            consumePower(1.5f);
+        }};
+
+        lubricantSqueezer = new GenericCrafter("lubricant-squeezer"){{
+            requirements(Category.crafting, with(SubItems.titanium, 20, SubItems.quartz, 30, SubItems.siliconeRubber, 20));
+
+            size = 2;
+
+            ambientSound = Sounds.bioLoop;
+            ambientSoundVolume = 0.03f;
+
+            drawer = new DrawMulti(
+                    new DrawRegion("-bottom"),
+                    new DrawLiquidTile(SubLiquids.lubricant),
+                    new DrawPistons(){{
+                        sinMag = 2f;
+                        sinScl = 5f;
+                        sides = 4;
+                        angleOffset = 45;
+                    }},
+                    new DrawItemSqueeze(SubItems.creepvineSeedCluster, 3.5f, 10){{
+                        sinMag = 2f;
+                        sinScl = 5f;
+                    }},
+                    new DrawDefault()
+            );
+
+            outputLiquid = new LiquidStack(SubLiquids.lubricant, 6 /60f);
+            craftTime = 60;
+
+            consumeItem(SubItems.creepvineSeedCluster, 2);
             consumePower(1.5f);
         }};
 
