@@ -11,6 +11,12 @@ public class Subdustry extends Mod{
     }
 
     @Override
+    public void init() {
+        super.init();
+        SubIcons.load();
+    }
+
+    @Override
     public void loadContent(){
         SubSounds.load();
         SubItems.load();
@@ -18,9 +24,7 @@ public class Subdustry extends Mod{
         SubUnitTypes.load();
         SubAttributes.load();
         SubBlocks.load();
-
         SubTeams.load();
-
         SubPlanets.load();
         Planet4546bSectors.load();
         Planet4546bTechTree.load();

@@ -1,26 +1,22 @@
 package subdustry.content;
 
-import arc.Core;
 import arc.graphics.Color;
 import mindustry.game.Team;
 
 public class SubTeams {
-    public static Team precursor, nature;
+    public static Team precursor;
 
     public static void load(){
-        precursor = newTeam(41, "precursor", Color.valueOf("81e550"),
+        precursor = newTeam(41, "[#81e550]\uEB33[]", "precursor", Color.valueOf("81e550"),
                 Color.valueOf("81e550"),
                 Color.valueOf("41a326"),
                 Color.valueOf("117412")
         );
     }
 
-    public static Team newTeam(int id, String name, Color color){
-        return newTeam(id, name, color, color, color.cpy().mul(0.75f), color.cpy().mul(0.5f));
-    }
-
-    public static Team newTeam(int id, String name, Color color, Color pal1, Color pal2, Color pal3){
+    public static Team newTeam(int id, String icon, String name, Color color, Color pal1, Color pal2, Color pal3){
         Team team = Team.get(id);
+        team.emoji = icon;
         team.name = name;
         team.color.set(color);
         team.palette[0] = pal1;
