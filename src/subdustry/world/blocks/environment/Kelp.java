@@ -7,7 +7,7 @@ import arc.util.*;
 import mindustry.graphics.Layer;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
-import subdustry.graphics.DrawPseudo3D;
+import subdustry.graphics.Pseudo3D;
 
 public class Kelp extends Prop {
 
@@ -70,34 +70,26 @@ public class Kelp extends Prop {
 
             //Draws the leaves
             if(i != 0) { //Don't draw leaves at the ground
-                draw3DRegion(leavesRegion, x, y, currentHeight, topLayer, leavesRotation + angle * Draw.scl * leavesRotationMult);
+                Pseudo3D.draw3DRegion(leavesRegion, x, y, currentHeight, topLayer, leavesRotation + angle * Draw.scl * leavesRotationMult);
             }
 
             //Draws the stem
-            Draw.z(topLayer + DrawPseudo3D.layerOffset(x, y));
-            Draw.alpha(DrawPseudo3D.heightFade(currentHeight));
+            Draw.z(topLayer + Pseudo3D.layerOffset(x, y));
+            Draw.alpha(Pseudo3D.heightFade(currentHeight));
             Lines.stroke(stemRegion.height / 4f);
             Lines.line(
                     stemRegion,
-                    DrawPseudo3D.xHeight(x, currentHeight), DrawPseudo3D.yHeight(y, currentHeight),
-                    DrawPseudo3D.xHeight(x, nextHeight), DrawPseudo3D.yHeight(y, nextHeight),
+                    Pseudo3D.xHeight(x, currentHeight), Pseudo3D.yHeight(y, currentHeight),
+                    Pseudo3D.xHeight(x, nextHeight), Pseudo3D.yHeight(y, nextHeight),
                     false
             );
             Draw.reset();
         }
 
         //Draws the top part of the kelp
-        draw3DRegion(seedsRegion, x, y, length - 0.075f, topLayer, -angle * Draw.scl);
-        draw3DRegion(bottomRegion, x, y, length - 0.05f, topLayer, angle * Draw.scl);
-        draw3DRegion(bottomRegion, x, y, length - 0.025f, topLayer, -angle * Draw.scl);
-        draw3DRegion(region, x, y, length, topLayer, angle * Draw.scl);
-    }
-
-    public void draw3DRegion(TextureRegion region, float x, float y, float height, float layer, float rotation){
-        Draw.z(layer + DrawPseudo3D.layerOffset(x, y));
-        Draw.scl(DrawPseudo3D.hScale(height));
-        Draw.alpha(DrawPseudo3D.heightFade(height));
-        Draw.rect(region, DrawPseudo3D.xHeight(x, height), DrawPseudo3D.yHeight(y, height), rotation);
-        Draw.reset();
+        Pseudo3D.draw3DRegion(seedsRegion, x, y, length - 0.075f, topLayer, -angle * Draw.scl);
+        Pseudo3D.draw3DRegion(bottomRegion, x, y, length - 0.05f, topLayer, angle * Draw.scl);
+        Pseudo3D.draw3DRegion(bottomRegion, x, y, length - 0.025f, topLayer, -angle * Draw.scl);
+        Pseudo3D.draw3DRegion(region, x, y, length, topLayer, angle * Draw.scl);
     }
 }

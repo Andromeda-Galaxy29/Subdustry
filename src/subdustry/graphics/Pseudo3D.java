@@ -1,5 +1,6 @@
 package subdustry.graphics;
 
+import arc.graphics.g2d.*;
 import arc.math.*;
 import mindustry.*;
 
@@ -7,7 +8,7 @@ import static arc.Core.*;
 import static arc.math.Mathf.*;
 
 // Thanks MEEPofFaith for this code
-public class DrawPseudo3D{
+public class Pseudo3D {
     public static float xHeight(float x, float height){
         if(height <= 0) return x;
         return x + xOffset(x, height);
@@ -42,5 +43,14 @@ public class DrawPseudo3D{
     public static float heightFade(float height){
         float scl = hScale(height);
         return 1f - Mathf.curve(scl, 1.5f, 7f);
+    }
+
+
+    public static void draw3DRegion(TextureRegion region, float x, float y, float height, float layer, float rotation){
+        Draw.z(layer + Pseudo3D.layerOffset(x, y));
+        Draw.scl(Pseudo3D.hScale(height));
+        Draw.alpha(Pseudo3D.heightFade(height));
+        Draw.rect(region, Pseudo3D.xHeight(x, height), Pseudo3D.yHeight(y, height), rotation);
+        Draw.reset();
     }
 }
