@@ -35,7 +35,6 @@ public class KelpCollector extends Block {
     public TextureRegion previewRegion;
 
     public float reload = 300f;
-    public int outputAmount = 1;
     public float armRotation = 10;
     public Interp interp = Interp.smooth;
 
@@ -160,16 +159,16 @@ public class KelpCollector extends Block {
                 }
             }
 
-            if(efficiency > 0 && target != null) {
+            if(items.total() < itemCapacity && efficiency > 0 && target != null) {
                 progress += getProgressIncrease(reload);
             }
             armOffset = Mathf.lerp(armOffset, progress>0.45 ? armRotation : -armRotation, 0.08f);
 
             if(progress >= 1f){
                 consume();
-                if(items.total() <= itemCapacity - outputAmount && target != null && target.block().itemDrop != null){
-                    items.add(target.block().itemDrop, outputAmount);
-                    produced(target.block().itemDrop, outputAmount);
+                if(target != null && target.block().itemDrop != null){
+                    items.add(target.block().itemDrop, 1);
+                    produced(target.block().itemDrop);
                 }
                 progress -= 1;
             }

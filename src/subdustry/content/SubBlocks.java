@@ -14,8 +14,10 @@ import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.distribution.*;
+import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
+import mindustry.world.consumers.*;
 import mindustry.world.meta.*;
 import subdustry.world.blocks.distribution.*;
 import subdustry.world.blocks.environment.*;
@@ -53,8 +55,11 @@ public class SubBlocks {
     // Production/Drills
     harvester, metalGrinder, kelpCollector,
 
-    //Distribution
-    submarineDuct, submarineDuctRouter, submarineFlowDuct, submarineDuctBridge,
+    // Distribution
+    submergedDuct, submergedDuctRouter, submergedFlowDuct, submergedDuctBridge,
+
+    // Liquid
+    submergedConduit,
 
     // Power
     solarPanel, tidalGenerator, copperWireNode, battery,
@@ -304,6 +309,8 @@ public class SubBlocks {
                         new RegionPart("-top")
                 );
             }};
+
+            coolant = consume(new ConsumeLiquid(SubLiquids.lubricant, 6f / 60f));
         }};
 
         // Production/Drills
@@ -331,11 +338,10 @@ public class SubBlocks {
         }};
 
         kelpCollector = new KelpCollector("kelp-collector"){{
-            requirements(Category.production, with(SubItems.titanium, 45, SubItems.copperOre, 30));
+            requirements(Category.production, with(SubItems.titanium, 45, SubItems.copperOre, 30, SubItems.quartz, 15));
             consumePower(2f);
 
-            reload = 200f;
-            outputAmount = 2;
+            reload = 180f;
             armRotation = 12;
             size = 2;
             squareSprite = false;
@@ -343,14 +349,14 @@ public class SubBlocks {
         }};
 
         //Distribution
-        submarineDuct = new Duct("submarine-duct"){{
+        submergedDuct = new Duct("submarine-duct"){{
             requirements(Category.distribution, with(SubItems.titanium, 1));
             health = 80;
             speed = 5f;
             researchCost = with(SubItems.titanium, 5);
         }};
 
-        submarineDuctRouter = new DuctRouter("submarine-duct-router"){{
+        submergedDuctRouter = new DuctRouter("submarine-duct-router"){{
             requirements(Category.distribution, with(SubItems.titanium, 5));
             health = 80;
             speed = 5f;
@@ -358,7 +364,7 @@ public class SubBlocks {
             researchCost = with(SubItems.titanium, 15);
         }};
 
-        submarineFlowDuct = new FlowDuct("submarine-flow-duct"){{
+        submergedFlowDuct = new FlowDuct("submarine-flow-duct"){{
             requirements(Category.distribution, with(SubItems.titanium, 8, SubItems.copperOre, 8));
             health = 80;
             speed = 5f;
@@ -368,15 +374,24 @@ public class SubBlocks {
             researchCost = with(SubItems.titanium, 40, SubItems.copperOre, 40);
         }};
 
-        submarineDuctBridge = new MultiDirectionDuctBridge("submarine-duct-bridge"){{
+        submergedDuctBridge = new MultiDirectionDuctBridge("submarine-duct-bridge"){{
             requirements(Category.distribution, with(SubItems.titanium, 6, SubItems.copperOre, 6));
             fadeIn = moveArrows = false;
             range = 4;
             speed = 74f;
             arrowSpacing = 6f;
             bufferCapacity = 14;
-            ((Duct)submarineDuct).bridgeReplacement = this;
+            ((Duct) submergedDuct).bridgeReplacement = this;
             researchCost = with(SubItems.titanium, 30, SubItems.copperOre, 30);
+        }};
+
+        // Liquid
+        submergedConduit = new ArmoredConduit("submerged-conduit"){{
+            requirements(Category.liquid, with(SubItems.titanium, 1, SubItems.quartz, 1));
+            liquidCapacity = 16f;
+            liquidPressure = 1f;
+            health = 80;
+            botColor = Color.valueOf("#2c2c3d");
         }};
 
         // Power
@@ -541,7 +556,7 @@ public class SubBlocks {
             );
 
             outputLiquid = new LiquidStack(SubLiquids.lubricant, 6 /60f);
-            craftTime = 60;
+            craftTime = 120;
 
             consumeItem(SubItems.creepvineSeedCluster, 2);
             consumePower(1.5f);

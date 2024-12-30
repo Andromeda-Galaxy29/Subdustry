@@ -4,19 +4,16 @@ import static mindustry.content.TechTree.*;
 import static subdustry.content.SubBlocks.*;
 import static subdustry.content.SubItems.*;
 import static subdustry.content.Planet4546bSectors.*;
-import static subdustry.content.SubUnitTypes.*;
-import static mindustry.content.Liquids.*;
-import static mindustry.game.Objectives.*;
 
 public class Planet4546bTechTree {
     public static void load(){
         SubPlanets.planet4546B.techTree = nodeRoot("@planet.subdustry-4546b.name", coreShallows, false, () ->{
-            node(submarineDuct, ()->{
-                node(submarineDuctRouter, ()->{
-                    node(submarineDuctBridge, ()->{
+            node(submergedDuct, ()->{
+                node(submergedDuctRouter, ()->{
+                    node(submergedDuctBridge, ()->{
 
                     });
-                    node(submarineFlowDuct, ()->{
+                    node(submergedFlowDuct, ()->{
 
                     });
                 });
