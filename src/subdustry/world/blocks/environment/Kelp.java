@@ -13,6 +13,7 @@ public class Kelp extends Prop {
 
     public float shadowLayer = Layer.blockProp - 1;
     public float topLayer = Layer.light;
+    public float midLayer = Layer.light - 1;
 
     public float rotationScl = 60, rotationMag = 30;
     public float minLength = 0.2f, maxLength = 0.5f;
@@ -50,11 +51,15 @@ public class Kelp extends Prop {
         return new TextureRegion[]{seedsRegion, bottomRegion, region};
     }
 
+    public float getLength(Tile tile){
+        return Mathf.randomSeed(tile.x * tile.y, minLength, maxLength);
+    }
+
     @Override
     public void drawBase(Tile tile) {
         float x = tile.worldx(), y = tile.worldy();
         float angle = Mathf.sin(Time.time, rotationScl, rotationMag);
-        float length = Mathf.randomSeed(tile.x * tile.y, minLength, maxLength);
+        float length = getLength(tile);
 
         Draw.z(shadowLayer);
         Draw.rect(customShadowRegion, x, y);
@@ -70,11 +75,12 @@ public class Kelp extends Prop {
 
             //Draws the leaves
             if(i != 0) { //Don't draw leaves at the ground
-                Pseudo3D.draw3DRegion(leavesRegion, x, y, currentHeight, topLayer, leavesRotation + angle * Draw.scl * leavesRotationMult);
+                Draw.z(midLayer);
+                Pseudo3D.rect(leavesRegion, x, y, currentHeight, leavesRotation + angle * Draw.scl * leavesRotationMult);
             }
 
             //Draws the stem
-            Draw.z(topLayer + Pseudo3D.layerOffset(x, y));
+            Draw.z(midLayer + Pseudo3D.layerOffset(x, y));
             Draw.alpha(Pseudo3D.heightFade(currentHeight));
             Lines.stroke(stemRegion.height / 4f);
             Lines.line(
@@ -87,9 +93,10 @@ public class Kelp extends Prop {
         }
 
         //Draws the top part of the kelp
-        Pseudo3D.draw3DRegion(seedsRegion, x, y, length - 0.075f, topLayer, -angle * Draw.scl);
-        Pseudo3D.draw3DRegion(bottomRegion, x, y, length - 0.05f, topLayer, angle * Draw.scl);
-        Pseudo3D.draw3DRegion(bottomRegion, x, y, length - 0.025f, topLayer, -angle * Draw.scl);
-        Pseudo3D.draw3DRegion(region, x, y, length, topLayer, angle * Draw.scl);
+        Draw.z(topLayer);
+        Pseudo3D.rect(seedsRegion, x, y, length - 0.075f, -angle * Draw.scl);
+        Pseudo3D.rect(bottomRegion, x, y, length - 0.05f, angle * Draw.scl);
+        Pseudo3D.rect(bottomRegion, x, y, length - 0.025f, -angle * Draw.scl);
+        Pseudo3D.rect(region, x, y, length, angle * Draw.scl);
     }
 }

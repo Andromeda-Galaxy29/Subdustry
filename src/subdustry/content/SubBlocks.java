@@ -51,7 +51,7 @@ public class SubBlocks {
     dissolve,
 
     // Production/Drills
-    harvester, metalGrinder,
+    harvester, metalGrinder, kelpCollector,
 
     //Distribution
     submarineDuct, submarineDuctRouter, submarineFlowDuct, submarineDuctBridge,
@@ -327,6 +327,18 @@ public class SubBlocks {
             output = SubItems.metalSalvage;
             ambientSound = Sounds.drill;
             ambientSoundVolume = 0.04f;
+            researchCostMultiplier = 0.5f;
+        }};
+
+        kelpCollector = new KelpCollector("kelp-collector"){{
+            requirements(Category.production, with(SubItems.titanium, 45, SubItems.copperOre, 30));
+            consumePower(2f);
+
+            reload = 200f;
+            outputAmount = 2;
+            armRotation = 12;
+            size = 2;
+            squareSprite = false;
             researchCostMultiplier = 0.5f;
         }};
 

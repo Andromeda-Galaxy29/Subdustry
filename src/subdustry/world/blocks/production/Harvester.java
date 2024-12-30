@@ -130,7 +130,7 @@ public class Harvester extends Block {
                 for(var target : targets){
                     target.mine(this);
                 }
-                progress = 0;
+                progress -= 1;
             }
 
             dumpOutputs();

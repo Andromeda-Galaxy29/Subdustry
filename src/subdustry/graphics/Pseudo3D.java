@@ -1,5 +1,6 @@
 package subdustry.graphics;
 
+import arc.Core;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import mindustry.*;
@@ -46,11 +47,34 @@ public class Pseudo3D {
     }
 
 
-    public static void draw3DRegion(TextureRegion region, float x, float y, float height, float layer, float rotation){
-        Draw.z(layer + Pseudo3D.layerOffset(x, y));
+    public static void rect(TextureRegion region, float x, float y, float height){
+        rect(region, x, y, height, 0);
+    }
+
+    public static void rect(TextureRegion region, float x, float y, float height, float rotation){
+        float z = Draw.z();
+        Draw.z(z + Pseudo3D.layerOffset(x, y));
         Draw.scl(Pseudo3D.hScale(height));
         Draw.alpha(Pseudo3D.heightFade(height));
         Draw.rect(region, Pseudo3D.xHeight(x, height), Pseudo3D.yHeight(y, height), rotation);
         Draw.reset();
+        Draw.z(z);
+    }
+
+    public static void line(float x, float y, float h, float x2, float y2, float h2){
+        line(x, y, h, x2, y2, h2, true);
+    }
+
+    public static void line(float x, float y, float h, float x2, float y2, float h2, boolean cap){
+        line(Core.atlas.white(), x, y, h, x2, y2, h2, cap);
+    }
+
+    public static void line(TextureRegion region, float x, float y, float h, float x2, float y2, float h2, boolean cap){
+        float z = Draw.z();
+        Draw.z(z + Pseudo3D.layerOffset(x, y));
+        Draw.alpha(Pseudo3D.heightFade(h2));
+        Lines.line(region, Pseudo3D.xHeight(x, h), Pseudo3D.yHeight(y, h), Pseudo3D.xHeight(x2, h2), Pseudo3D.yHeight(y2, h2), cap);
+        Draw.reset();
+        Draw.z(z);
     }
 }
