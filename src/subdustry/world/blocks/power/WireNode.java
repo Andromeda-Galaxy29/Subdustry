@@ -12,11 +12,13 @@ import mindustry.world.blocks.power.*;
 
 public class WireNode extends BeamNode {
 
+    public TextureRegion wireShadowRegion;
+
     public WireNode(String name){
         super(name);
 
         laserColor1 = Color.valueOf("#ffffff");
-        laserColor2 = Color.valueOf("#969696");
+        laserColor2 = Color.valueOf("#b1b1b1");
         pulseMag = 0;
         pulseScl = 0;
     }
@@ -26,6 +28,7 @@ public class WireNode extends BeamNode {
         super.load();
         laser = Core.atlas.find(name+"-wire");
         laserEnd = Core.atlas.find(name+"-wire-end");
+        wireShadowRegion = Core.atlas.find(name+"-wire-shadow");
     }
 
     public class WireNodeBuild extends BeamNodeBuild {
@@ -67,9 +70,11 @@ public class WireNode extends BeamNode {
                         Draw.rect(laserEnd, startX, startY, i * 90);
 
                         for(float ix = Math.min(startX, endX) + Vars.tilesize; ix<Math.max(startX, endX); ix += Vars.tilesize){
+                            Draw.rect(wireShadowRegion, ix, startY, i * 90);
                             Draw.rect(laser, ix, startY, i * 90);
                         }
                         for(float iy = Math.min(startY, endY) + Vars.tilesize; iy<Math.max(startY, endY); iy += Vars.tilesize){
+                            Draw.rect(wireShadowRegion, startX, iy, i * 90);
                             Draw.rect(laser, startX, iy, i * 90);
                         }
 
