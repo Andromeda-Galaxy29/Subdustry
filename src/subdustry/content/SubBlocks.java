@@ -23,12 +23,13 @@ import subdustry.world.blocks.distribution.*;
 import subdustry.world.blocks.environment.*;
 import subdustry.world.blocks.power.*;
 import subdustry.world.blocks.production.*;
+import subdustry.world.blocks.research.*;
+import subdustry.world.draw.*;
 import mindustry.world.blocks.storage.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.entities.bullet.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.draw.*;
-import subdustry.world.draw.*;
 
 import static mindustry.type.ItemStack.*;
 
@@ -72,6 +73,10 @@ public class SubBlocks {
 
     // Effect/Storage
     coreShallows,
+
+    // Reseach
+    scanner,
+    seamothFragment,
 
     //Precursor-only
     ionCubeSynthesizer;
@@ -597,7 +602,6 @@ public class SubBlocks {
         coreShallows = new CoreBlock("core-shallows"){{
             requirements(Category.effect, with(SubItems.titanium, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
             alwaysUnlocked = true;
-            //poopie
 
             isFirstTier = true;
             squareSprite = false;
@@ -607,6 +611,18 @@ public class SubBlocks {
             size = 3;
 
             unitCapModifier = 10;
+        }};
+
+        // Research
+        scanner = new Scanner("scanner"){{
+            requirements(Category.effect, with(SubItems.titanium, 60, SubItems.copperOre, 30, SubItems.acidMushroom, 35));
+            consumePower(30/60f);
+            researchCostMultiplier = 0.1f;
+        }};
+
+        seamothFragment = new Fragment("seamoth-fragment"){{
+            content = SubUnitTypes.seamoth;
+            size = 2;
         }};
 
         //Precursor

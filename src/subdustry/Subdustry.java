@@ -3,6 +3,7 @@ package subdustry;
 import arc.util.*;
 import mindustry.mod.*;
 import subdustry.content.*;
+import subdustry.game.SubTeams;
 
 public class Subdustry extends Mod{
 

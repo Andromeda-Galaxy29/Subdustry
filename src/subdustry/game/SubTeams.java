@@ -1,4 +1,4 @@
-package subdustry.content;
+package subdustry.game;
 
 import arc.graphics.Color;
 import mindustry.game.Team;

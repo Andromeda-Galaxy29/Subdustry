@@ -11,7 +11,8 @@ public class AlterraUnitType extends UnitType{
 
     public AlterraUnitType(String name){
         super(name);
-        outlineColor = Color.valueOf("#424558");
+        outlineColor = Color.valueOf("#171724");
         ammoType = new PowerAmmoType();
+        researchCostMultiplier = 0;
     }
 }

@@ -3,10 +3,10 @@ package subdustry.content;
 import arc.graphics.*;
 import arc.struct.Seq;
 import mindustry.content.Planets;
-import mindustry.game.*;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
 import mindustry.world.meta.*;
+import subdustry.game.SubTeams;
 import subdustry.planet.*;
 
 public class SubPlanets {

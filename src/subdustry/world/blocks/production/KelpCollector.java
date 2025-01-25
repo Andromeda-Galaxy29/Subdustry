@@ -78,7 +78,7 @@ public class KelpCollector extends Block {
         super.setBars();
 
         addBar("collect-progress", (KelpCollectorBuild e) ->
-                new Bar(() -> Core.bundle.get("bar.collect-progress"), () -> Color.valueOf("#79b647"), () -> e.progress));
+                new Bar(() -> Core.bundle.get("bar.collect-progress"), () -> Pal.ammo, () -> e.progress));
     }
 
     @Override
