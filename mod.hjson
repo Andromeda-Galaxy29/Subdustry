@@ -11,11 +11,12 @@ author: "AndromedaGalaxy29, Haznobrain, Photon_Gravity"
 main: "subdustry.Subdustry"
 
 #the mod description as seen in the mod dialog
-description: "A Mindustry mod inspired by Subnautica. Here, after the events of subnautica, a sharded ship lands on 4546b and starts colonizing it.
+description: "A Mindustry mod inspired by Subnautica. Here, after the events of the original game, a Sharded ship lands on 4546b and starts colonizing it.
 
 Warning: This mod may not work in multiplayer. Report any bugs that occur to the developers.
 
 [#9b59b6[]]Special thanks:[white[]]
+- Unknown[#556ea8[]]Worlds[white[]] Entertainment for the original game, Subnautica
 - [#5865f2[]]@meepoffaith[white[]] for the pseudo-3D drawing code.
 - [#5865f2[]]@thomas_has_things[white[]] and [#5865f2[]]@twcash.[white[]] for the main menu title font
 "
