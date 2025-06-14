@@ -159,14 +159,14 @@ public class SubAlterraBlocks {
         }};
 
         //Distribution
-        submergedDuct = new Duct("submarine-duct"){{
+        submergedDuct = new Duct("submerged-duct"){{
             requirements(Category.distribution, with(SubItems.titanium, 1));
             health = 80;
             speed = 5f;
             researchCost = with(SubItems.titanium, 5);
         }};
 
-        submergedDuctRouter = new DuctRouter("submarine-duct-router"){{
+        submergedDuctRouter = new DuctRouter("submerged-duct-router"){{
             requirements(Category.distribution, with(SubItems.titanium, 5));
             health = 80;
             speed = 5f;
@@ -174,7 +174,7 @@ public class SubAlterraBlocks {
             researchCost = with(SubItems.titanium, 15);
         }};
 
-        submergedFlowDuct = new FlowDuct("submarine-flow-duct"){{
+        submergedFlowDuct = new FlowDuct("submerged-flow-duct"){{
             requirements(Category.distribution, with(SubItems.titanium, 8, SubItems.copperOre, 8));
             health = 80;
             speed = 5f;
@@ -184,7 +184,7 @@ public class SubAlterraBlocks {
             researchCost = with(SubItems.titanium, 40, SubItems.copperOre, 40);
         }};
 
-        submergedDuctBridge = new MultiDirectionDuctBridge("submarine-duct-bridge"){{
+        submergedDuctBridge = new MultiDirectionDuctBridge("submerged-duct-bridge"){{
             requirements(Category.distribution, with(SubItems.titanium, 6, SubItems.copperOre, 6));
             fadeIn = moveArrows = false;
             range = 4;

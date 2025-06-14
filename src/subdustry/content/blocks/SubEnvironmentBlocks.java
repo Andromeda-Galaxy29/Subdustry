@@ -15,16 +15,16 @@ public class SubEnvironmentBlocks {
     // Harvesting Nodes
     limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
     // Floors
-    limestoneFloor, limesand, limeSeaGrassFloor, tableCoralFloor, tubeCoralFloor, acidMycelium,
+    limestoneFloor, limesand, limeSeagrassFloor, orangeMoss, tubeCoralFloor, acidMycelium,
     steelFloor, steelPanels, wreckFloor, wreckTiles, wreckVent,
-    greenSeaGrassFloor, creepvineRoots, mossyStone,
+    greenSeagrassFloor, creepvineRoots, mossyStone,
     // Geysers
     limestoneGeyser, stoneGeyser, mossyStoneGeyser,
     // Walls
-    limestoneWall, limesandWall, tableCoralWall, tubeCoralWall, steelWall, wreckWall,
-    greenSeaGrassWall, mossyStoneWall,
+    limestoneWall, limesandWall, orangeMossWall, tubeCoralWall, steelWall, wreckWall,
+    greenSeagrassWall, mossyStoneWall,
     // Props
-    limeSeaGrass, tableCoral, tubeCoral, writhingWeed, veinedNettle, brainCoral, greenSeaGrass, creepvine;
+    limeSeagrass, tableCoral, tubeCoral, writhingWeed, veinedNettle, brainCoral, greenSeagrass, creepvine;
 
     public static void load() {
         //Environment
@@ -59,11 +59,11 @@ public class SubEnvironmentBlocks {
             variants = 3;
         }};
 
-        limeSeaGrassFloor = new Floor("lime-sea-grass-floor") {{
+        limeSeagrassFloor = new Floor("lime-seagrass-floor") {{
             variants = 3;
         }};
 
-        tableCoralFloor = new Floor("table-coral-floor") {{
+        orangeMoss = new Floor("orange-moss") {{
             variants = 3;
         }};
 
@@ -95,7 +95,7 @@ public class SubEnvironmentBlocks {
             variants = 1;
         }};
 
-        greenSeaGrassFloor = new Floor("green-sea-grass-floor") {{
+        greenSeagrassFloor = new Floor("green-seagrass-floor") {{
             variants = 3;
         }};
 
@@ -140,8 +140,8 @@ public class SubEnvironmentBlocks {
             variants = 2;
         }};
 
-        tableCoralWall = new StaticWall("table-coral-wall") {{
-            tableCoralFloor.asFloor().wall = this;
+        orangeMossWall = new StaticWall("orange-moss-wall") {{
+            orangeMoss.asFloor().wall = this;
             variants = 2;
         }};
 
@@ -165,8 +165,8 @@ public class SubEnvironmentBlocks {
             attributes.set(SubAttributes.metal, 1f);
         }};
 
-        greenSeaGrassWall = new StaticWall("green-sea-grass-wall") {{
-            greenSeaGrassFloor.asFloor().wall = this;
+        greenSeagrassWall = new StaticWall("green-seagrass-wall") {{
+            greenSeagrassFloor.asFloor().wall = this;
             creepvineRoots.asFloor().wall = this;
             variants = 2;
         }};
@@ -176,8 +176,8 @@ public class SubEnvironmentBlocks {
             variants = 2;
         }};
 
-        limeSeaGrass = new SeaBush("lime-sea-grass") {{
-            limeSeaGrassFloor.asFloor().decoration = this;
+        limeSeagrass = new SeaBush("lime-seagrass") {{
+            limeSeagrassFloor.asFloor().decoration = this;
         }};
 
         tableCoral = new WallProp("table-coral") {{
@@ -200,8 +200,8 @@ public class SubEnvironmentBlocks {
             variants = 1;
         }};
 
-        greenSeaGrass = new Seaweed("green-sea-grass") {{
-            greenSeaGrassFloor.asFloor().decoration = this;
+        greenSeagrass = new Seaweed("green-seagrass") {{
+            greenSeagrassFloor.asFloor().decoration = this;
             mossyStone.asFloor().decoration = this;
             variants = 3;
         }};
