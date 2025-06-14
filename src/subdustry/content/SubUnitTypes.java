@@ -344,6 +344,95 @@ public class SubUnitTypes{
             );
         }};
 
+        droid = new PrecursorUnitType("droid"){{
+            constructor = LegsUnit::create;
+
+            speed = 0.6f;
+            drag = 0.2f;
+            hitSize = 13;
+            rotateSpeed = 3;
+            health = 600;
+            armor = 0;
+            faceTarget = true;
+            targetAir = true;
+
+            legCount = 6;
+            legLength = 14;
+            lockLegBase = false;
+            legContinuousMove = false;
+            legExtension = -3f;
+            legBaseOffset = 5f;
+            legMaxLength = 1.1f;
+            legMinLength = 0.2f;
+            legLengthScl = 0.95f;
+            legForwardScl = 0.7f;
+
+            shadowElevation = 0.2f;
+
+            weapons.addAll(
+                    new Weapon("subdustry-droid-weapon"){{
+                        x = -6;
+                        y = -3;
+                        reload = 24;
+                        shootSound = Sounds.artillery;
+                        mirror = true;
+                        rotate = true;
+                        alternate = true;
+                        rotateSpeed = 2;
+                        rotationLimit = 45;
+                        bullet = new BasicBulletType() {{
+                            speed = 3;
+                            damage = 22;
+                            lifetime = 30;
+                            width = 14;
+                            height = 14;
+                            trailWidth = 2.5f;
+                            trailLength = 8;
+                            backSprite = "large-bomb-back";
+                            sprite = "large-bomb";
+                            backColor = trailColor = hitColor = Color.valueOf("81e550");
+                            frontColor = Color.valueOf("#ffffff");
+                            shootEffect = Fx.shootSmallColor;
+                            despawnEffect = hitEffect = new Effect(9, e -> {
+                                color(Color.white, e.color, e.fin());
+                                stroke(1f + e.fout());
+                                Lines.square(e.x, e.y, e.fin() * 10f, e.rotation + 45f);
+
+                                Drawf.light(e.x, e.y, 23f, e.color, e.fout() * 0.7f);
+                            });
+
+                            healPercent = 12;
+                            collidesTeam = true;
+
+                            fragBullets = 4;
+                            fragSpread = 90;
+                            fragRandomSpread = 0;
+                            fragVelocityMax = 1;
+                            fragVelocityMin = 1;
+                            fragLifeMax = 1;
+                            fragLifeMin = 1;
+                            fragBullet = new BasicBulletType() {{
+                                speed = 3;
+                                damage = 8;
+                                lifetime = 10;
+                                width = 6;
+                                height = 6;
+                                trailWidth = 1.5f;
+                                trailLength = 8;
+                                backSprite = "large-bomb-back";
+                                sprite = "large-bomb";
+                                backColor = trailColor = hitColor = Color.valueOf("81e550");
+                                frontColor = Color.valueOf("#ffffff");
+                                hitEffect = despawnEffect = Fx.hitBulletColor;
+
+                                healPercent = 3;
+                                collidesTeam = true;
+                            }};
+                        }};
+                    }}
+            );
+        }};
+
         keep = new PrecursorUnitType("keep"){{
             constructor = ElevationMoveUnit::create;
 
@@ -497,7 +586,6 @@ public class SubUnitTypes{
 
                             fragBullets = 2;
                             fragSpread = 90;
-                            fragAngle = 45;
                             fragRandomSpread = 0;
                             fragVelocityMax = 1;
                             fragVelocityMin = 1;
