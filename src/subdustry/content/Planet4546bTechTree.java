@@ -4,10 +4,8 @@ import arc.struct.*;
 
 import static mindustry.content.TechTree.*;
 import static mindustry.game.Objectives.*;
-import static subdustry.game.SubObjectives.*;
-import static subdustry.content.SubBlocks.*;
+import static subdustry.content.blocks.SubAlterraBlocks.*;
 import static subdustry.content.SubItems.*;
-import static subdustry.content.SubUnitTypes.*;
 import static subdustry.content.Planet4546bSectors.*;
 
 public class Planet4546bTechTree {

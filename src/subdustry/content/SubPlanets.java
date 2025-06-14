@@ -2,10 +2,10 @@ package subdustry.content;
 
 import arc.graphics.*;
 import arc.struct.Seq;
-import mindustry.content.Planets;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
 import mindustry.world.meta.*;
+import subdustry.content.blocks.SubAlterraBlocks;
 import subdustry.game.SubTeams;
 import subdustry.planet.*;
 
@@ -51,7 +51,7 @@ public class SubPlanets {
             clearSectorOnLose = true;
             allowWaves = true;
             prebuildBase = false;
-            defaultCore = SubBlocks.coreShallows;
+            defaultCore = SubAlterraBlocks.coreShallows;
 
             defaultEnv = Env.terrestrial | Env.underwater | Env.groundOil | Env.groundWater;
 
