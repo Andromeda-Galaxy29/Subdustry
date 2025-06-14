@@ -169,7 +169,7 @@ public class Harvester extends Block {
             float scanX = x + Mathf.sin(Time.time, 30f, (drawRange - 3) / 2f);
 
             Draw.z(Layer.buildBeam);
-            Fill.poly(x, y, 4, 4 * efficiency(), Time.time / 0.8f);
+            Fill.poly(x, y, 4, 4 * efficiency, Time.time / 0.8f);
             Fill.tri(x, y, scanX, y + (drawRange / 2f), scanX, y - (drawRange / 2f));
 
             Draw.z(Layer.effect);

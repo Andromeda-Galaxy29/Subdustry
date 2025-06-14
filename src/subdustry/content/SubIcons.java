@@ -1,13 +1,11 @@
 package subdustry.content;
 
 import arc.Core;
-import arc.graphics.Color;
 import arc.graphics.Texture;
 import arc.graphics.g2d.Font;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.geom.Vec2;
 import arc.struct.Seq;
-import arc.util.Log;
 import arc.util.Scaling;
 import mindustry.ui.Fonts;
 

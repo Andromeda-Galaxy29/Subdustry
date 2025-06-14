@@ -53,7 +53,7 @@ public class SubPlanets {
             prebuildBase = false;
             defaultCore = SubBlocks.coreShallows;
 
-            defaultEnv = Env.oxygen | Env.terrestrial | Env.underwater | Env.groundOil | Env.groundWater;
+            defaultEnv = Env.terrestrial | Env.underwater | Env.groundOil | Env.groundWater;
 
             drawOrbit = true;
             orbitRadius = 50;
@@ -78,8 +78,6 @@ public class SubPlanets {
                     //No weather
                 };
             };
-
-            itemWhitelist = SubItems.subnauticaItems.copy();
         }};
 
         moon1 = new Planet("moon1", planet4546B, 0.7f){{
@@ -111,7 +109,5 @@ public class SubPlanets {
             orbitRadius = 10;
             orbitTime = 10 * 60;
         }};
-
-        Planets.serpulo.hiddenItems.addAll(SubItems.subnauticaItems);
     }
 }

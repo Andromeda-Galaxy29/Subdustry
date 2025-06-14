@@ -1,16 +1,8 @@
-#the mod name as displayed in-game
 displayName: "Subdustry"
-
-#the internal name of your mod
 name: "subdustry"
-
-#your name
 author: "AndromedaGalaxy29, Haznobrain, Photon_Gravity"
-
-#the fully qualified main class of the mod
 main: "subdustry.Subdustry"
 
-#the mod description as seen in the mod dialog
 description: "A Mindustry mod inspired by Subnautica. Here, after the events of subnautica, a sharded ship lands on 4546b and starts colonizing it.
 
 Warning: This mod may not work in multiplayer. Report any bugs that occur to the developers.
@@ -20,11 +12,6 @@ Warning: This mod may not work in multiplayer. Report any bugs that occur to the
 - [#5865f2[]]@thomas_has_things[white[]] and [#5865f2[]]@twcash.[white[]] for the main menu title font
 "
 
-#the mod version
 version: 0.1
-
-#the minimum game build required to run this mod
-minGameVersion: 145
-
-#this is a java mod
+minGameVersion: 147
 java: true

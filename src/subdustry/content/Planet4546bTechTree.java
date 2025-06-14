@@ -59,14 +59,23 @@ public class Planet4546bTechTree {
             });
 
             nodeProduce(titanium, ()->{
+                nodeProduce(metalSalvage, ()->{
+
+                });
                 nodeProduce(copperOre, ()->{
 
                 });
                 nodeProduce(quartz, ()->{
+                    nodeProduce(glass, ()->{
 
+                    });
                 });
                 nodeProduce(acidMushroom, ()->{
+                    nodeProduce(creepvineSeedCluster, ()->{
+                        nodeProduce(siliconeRubber, ()->{
 
+                        });
+                    });
                 });
             });
 

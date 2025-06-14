@@ -54,11 +54,5 @@ public class SubItems {
            charge = 0.75f;
            color = Color.valueOf("41a326");
         }};
-
-        subnauticaItems.addAll(
-                metalSalvage, titanium, copperOre, quartz, acidMushroom,
-                caveSulfur, creepvineSeedCluster, siliconeRubber, glass,
-                ionCube
-        );
     }
 }
