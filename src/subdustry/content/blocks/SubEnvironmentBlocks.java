@@ -19,15 +19,18 @@ public class SubEnvironmentBlocks {
     steelFloor, steelPanels, wreckFloor, wreckTiles, wreckVent,
     greenSeagrassFloor, creepvineRoots, mossyStone,
     // Geysers
-    limestoneGeyser, stoneGeyser, mossyStoneGeyser,
+    limestoneGeyser,
+    stoneGeyser, mossyStoneGeyser,
     // Walls
-    limestoneWall, limesandWall, orangeMossWall, tubeCoralWall, steelWall, wreckWall,
+    limestoneWall, limesandWall, orangeMossWall, tubeCoralWall,
+    steelWall, wreckWall,
     greenSeagrassWall, mossyStoneWall,
     // Props
-    limeSeagrass, tableCoral, tubeCoral, writhingWeed, veinedNettle, brainCoral, greenSeagrass, creepvine;
+    limeSeagrass, slantedShellPlates, tableCoral, tubeCoral, writhingWeed, veinedNettle, brainCoral,
+    greenSeagrass, creepvine;
 
     public static void load() {
-        //Environment
+        //Harvesting Nodes
         limestoneOutcrop = new HarvestingNode("limestone-outcrop") {{
             drops.addAll(SubItems.titanium, SubItems.copperOre);
             minDropAmount = 8;
@@ -51,6 +54,7 @@ public class SubEnvironmentBlocks {
             color = Color.valueOf("#9aa7c3");
         }};
 
+        // Floors
         limestoneFloor = new Floor("limestone-floor") {{
             variants = 3;
         }};
@@ -107,7 +111,7 @@ public class SubEnvironmentBlocks {
             variants = 3;
         }};
 
-
+        // Geysers
         limestoneGeyser = new SteamVent("limestone-geyser") {{
             parent = blendGroup = limestoneFloor;
             attributes.set(Attribute.steam, 1f);
@@ -129,7 +133,7 @@ public class SubEnvironmentBlocks {
             effectColor = Pal.ammo;
         }};
 
-
+        // Walls
         limestoneWall = new StaticWall("limestone-wall") {{
             limestoneFloor.asFloor().wall = this;
             variants = 2;
@@ -176,8 +180,13 @@ public class SubEnvironmentBlocks {
             variants = 2;
         }};
 
+        // Props
         limeSeagrass = new SeaBush("lime-seagrass") {{
             limeSeagrassFloor.asFloor().decoration = this;
+        }};
+
+        slantedShellPlates = new Prop("slanted-shell-plates") {{
+            variants = 3;
         }};
 
         tableCoral = new WallProp("table-coral") {{

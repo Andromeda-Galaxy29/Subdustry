@@ -12,6 +12,7 @@ public class WallProp extends Prop {
 
     public WallProp(String name){
         super(name);
+        layer = 33f;
     }
 
     @Override
