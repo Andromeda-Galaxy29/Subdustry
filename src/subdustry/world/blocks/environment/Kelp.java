@@ -11,7 +11,7 @@ import subdustry.graphics.Pseudo3D;
 
 public class Kelp extends Prop {
 
-    public float shadowLayer = Layer.blockProp - 1;
+    public float shadowLayer = Layer.blockProp + 1;
     public float topLayer = Layer.light;
     public float midLayer = Layer.light - 1;
 
@@ -31,7 +31,7 @@ public class Kelp extends Prop {
         variants = 0;
         breakable = alwaysReplace = false;
         solid = false;
-        layer = Layer.blockProp;
+        layer = Layer.blockProp + 2;
         hasShadow = true;
         clipSize = 100;
     }

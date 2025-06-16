@@ -54,7 +54,7 @@ public class WireNode extends BeamNode {
                         Draw.reset();
                         Draw.color(laserColor1, laserColor2, 1f - power.graph.getSatisfaction());
                         Draw.alpha(Renderer.laserOpacity);
-                        Draw.z(Layer.blockOver + 0.1f);
+                        Draw.z(Layer.power - 1f);
 
                         if (i == 1 || i == 2){
                             Draw.yscl = -1;
