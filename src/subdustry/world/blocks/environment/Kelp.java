@@ -6,18 +6,13 @@ import arc.math.*;
 import arc.util.*;
 import mindustry.graphics.Layer;
 import mindustry.world.*;
-import mindustry.world.blocks.environment.*;
 import subdustry.graphics.Pseudo3D;
 
-public class Kelp extends Prop {
+public class Kelp extends FloatingProp {
 
-    public float shadowLayer = Layer.blockProp + 1;
-    public float topLayer = Layer.light;
+    public float bottomLayer = Layer.blockProp + 2;
     public float midLayer = Layer.light - 1;
 
-    public float rotationScl = 60, rotationMag = 30;
-    public float minLength = 0.2f, maxLength = 0.5f;
-    /** Amount of segments in the stem */
     public int segments = 10;
 
     public TextureRegion bottomRegion;
@@ -29,11 +24,11 @@ public class Kelp extends Prop {
     public Kelp(String name) {
         super(name);
         variants = 0;
-        breakable = alwaysReplace = false;
-        solid = false;
-        layer = Layer.blockProp + 2;
-        hasShadow = true;
-        clipSize = 100;
+        layer = Layer.light;
+        rotationScl = 60;
+        rotationMag = 30;
+        minHeight = 0.2f;
+        maxHeight = 0.5f;
     }
 
     @Override
@@ -51,27 +46,20 @@ public class Kelp extends Prop {
         return new TextureRegion[]{seedsRegion, bottomRegion, region};
     }
 
-    public float getLength(Tile tile){
-        return Mathf.randomSeed(tile.x * tile.y, minLength, maxLength);
-    }
-
     @Override
     public void drawBase(Tile tile) {
-        float x = tile.worldx(), y = tile.worldy();
+        float x = tile.drawx(), y = tile.drawy();
         float angle = Mathf.sin(Time.time, rotationScl, rotationMag);
-        float length = getLength(tile);
+        float height = getHeight(tile);
 
-        Draw.z(shadowLayer);
-        Draw.rect(customShadowRegion, x, y);
-
-        Draw.z(layer);
+        Draw.z(bottomLayer);
         Draw.rect(rootRegion, x, y);
 
         for(int i = 0; i < segments; i++){
             float leavesRotation = Mathf.randomSeed(i * tile.x * tile.y, 0, 360);
             float leavesRotationMult = Mathf.randomSeed(i * tile.x * tile.y, -2f, 2f);
-            float currentHeight = (length / segments) * i;
-            float nextHeight = (length / segments) * (i + 1);
+            float currentHeight = (height / segments) * i;
+            float nextHeight = (height / segments) * (i + 1);
 
             //Draws the leaves
             if(i != 0) { //Don't draw leaves at the ground
@@ -80,23 +68,17 @@ public class Kelp extends Prop {
             }
 
             //Draws the stem
-            Draw.z(midLayer + Pseudo3D.layerOffset(x, y));
-            Draw.alpha(Pseudo3D.heightFade(currentHeight));
+            Draw.z(midLayer);
             Lines.stroke(stemRegion.height / 4f);
-            Lines.line(
-                    stemRegion,
-                    Pseudo3D.xHeight(x, currentHeight), Pseudo3D.yHeight(y, currentHeight),
-                    Pseudo3D.xHeight(x, nextHeight), Pseudo3D.yHeight(y, nextHeight),
-                    false
-            );
-            Draw.reset();
+            Pseudo3D.line(stemRegion, x, y, currentHeight, x, y, nextHeight, false);
         }
 
         //Draws the top part of the kelp
-        Draw.z(topLayer);
-        Pseudo3D.rect(seedsRegion, x, y, length - 0.075f, -angle * Draw.scl);
-        Pseudo3D.rect(bottomRegion, x, y, length - 0.05f, angle * Draw.scl);
-        Pseudo3D.rect(bottomRegion, x, y, length - 0.025f, -angle * Draw.scl);
-        Pseudo3D.rect(region, x, y, length, angle * Draw.scl);
+        Draw.z(layer);
+        Pseudo3D.rect(seedsRegion, x, y, height - 0.075f, -angle * Draw.scl);
+        Pseudo3D.rect(bottomRegion, x, y, height - 0.05f, angle * Draw.scl);
+        Pseudo3D.rect(bottomRegion, x, y, height - 0.025f, -angle * Draw.scl);
+
+        super.drawBase(tile);
     }
 }

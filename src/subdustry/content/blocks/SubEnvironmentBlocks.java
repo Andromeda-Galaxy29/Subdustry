@@ -26,7 +26,7 @@ public class SubEnvironmentBlocks {
     steelWall, wreckWall,
     greenSeagrassWall, mossyStoneWall,
     // Props
-    limeSeagrass, slantedShellPlates, tableCoral, tubeCoral, giantCoralTube, writhingWeed, veinedNettle, brainCoral,
+    limeSeagrass, slantedShellPlates, tableCoral, tubeCoral, giantCoralTube, floatingRock, writhingWeed, veinedNettle, brainCoral,
     greenSeagrass, creepvine;
 
     public static void load() {
@@ -199,6 +199,10 @@ public class SubEnvironmentBlocks {
 
         giantCoralTube = new ShapedProp("giant-coral-tube") {{
             variants = 1;
+        }};
+
+        floatingRock = new FloatingProp("floating-rock") {{
+            variants = 2;
         }};
 
         writhingWeed = new Seaweed("writhing-weed") {{

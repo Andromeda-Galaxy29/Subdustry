@@ -307,6 +307,7 @@ public class SubUnitTypes{
             legForwardScl = 1.1f;
             legGroupSize = 2;
             legMoveSpace = 1.2f;
+            groundLayer = Layer.legUnit;
 
             shadowElevation = 0.1f;
 
@@ -366,6 +367,7 @@ public class SubUnitTypes{
             legMinLength = 0.2f;
             legLengthScl = 0.95f;
             legForwardScl = 0.7f;
+            groundLayer = Layer.legUnit;
 
             shadowElevation = 0.2f;
 

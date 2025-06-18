@@ -36,9 +36,9 @@ public class Pseudo3D {
         return height * Vars.renderer.getDisplayScale();
     }
 
-    public static float layerOffset(float x, float y){
+    public static float layerOffset(float x, float y, float height){
         float max = Math.max(camera.width, camera.height);
-        return -dst(x, y, camera.position.x, camera.position.y) / max / 1000f;
+        return -dst(x, y, camera.position.x, camera.position.y) / max / 1000f + height / 10000f;
     }
 
     public static float heightFade(float height){
@@ -53,7 +53,7 @@ public class Pseudo3D {
 
     public static void rect(TextureRegion region, float x, float y, float height, float rotation){
         float z = Draw.z();
-        Draw.z(z + Pseudo3D.layerOffset(x, y));
+        Draw.z(z + Pseudo3D.layerOffset(x, y, height));
         Draw.scl(Pseudo3D.hScale(height));
         Draw.alpha(Pseudo3D.heightFade(height));
         Draw.rect(region, Pseudo3D.xHeight(x, height), Pseudo3D.yHeight(y, height), rotation);
@@ -71,7 +71,7 @@ public class Pseudo3D {
 
     public static void line(TextureRegion region, float x, float y, float h, float x2, float y2, float h2, boolean cap){
         float z = Draw.z();
-        Draw.z(z + Pseudo3D.layerOffset(x, y));
+        Draw.z(z + Pseudo3D.layerOffset(x, y, h2));
         Draw.alpha(Pseudo3D.heightFade(h2));
         Lines.line(region, Pseudo3D.xHeight(x, h), Pseudo3D.yHeight(y, h), Pseudo3D.xHeight(x2, h2), Pseudo3D.yHeight(y2, h2), cap);
         Draw.reset();

@@ -191,7 +191,7 @@ public class KelpCollector extends Block {
             float height = 0;
             float angle = 0;
             if (target != null && target.block() instanceof Kelp) {
-                height = (((Kelp) target.block()).getLength(target) - 0.075f) * interp.apply(Interp.slope.apply(progress));
+                height = (((Kelp) target.block()).getHeight(target) - 0.075f) * interp.apply(Interp.slope.apply(progress));
                 angle = angleTo(target.x * Vars.tilesize, target.y * Vars.tilesize);
             }
 
