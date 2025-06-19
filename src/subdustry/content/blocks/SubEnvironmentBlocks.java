@@ -15,7 +15,7 @@ public class SubEnvironmentBlocks {
     // Harvesting Nodes
     limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
     // Floors
-    limestoneFloor, limesand, limeSeagrassFloor, orangeMoss, tubeCoralFloor, acidMycelium,
+    limestone, limesand, limeSeagrassFloor, orangeMoss, tubeCoralFloor, acidMycelium,
     steelFloor, steelPanels, wreckFloor, wreckTiles, wreckVent,
     greenSeagrassFloor, creepvineRoots, mossyStone,
     // Geysers
@@ -55,7 +55,7 @@ public class SubEnvironmentBlocks {
         }};
 
         // Floors
-        limestoneFloor = new Floor("limestone-floor") {{
+        limestone = new Floor("limestone") {{
             variants = 3;
         }};
 
@@ -113,7 +113,7 @@ public class SubEnvironmentBlocks {
 
         // Geysers
         limestoneGeyser = new SteamVent("limestone-geyser") {{
-            parent = blendGroup = limestoneFloor;
+            parent = blendGroup = limestone;
             attributes.set(Attribute.steam, 1f);
             variants = 1;
             effectColor = Pal.ammo;
@@ -135,7 +135,7 @@ public class SubEnvironmentBlocks {
 
         // Walls
         limestoneWall = new StaticWall("limestone-wall") {{
-            limestoneFloor.asFloor().wall = this;
+            limestone.asFloor().wall = this;
             variants = 2;
         }};
 
