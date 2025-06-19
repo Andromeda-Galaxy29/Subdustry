@@ -1,13 +1,13 @@
 package subdustry.world.blocks.environment;
 
+import arc.*;
 import arc.files.Fi;
-import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.math.geom.Point2;
 import arc.struct.Seq;
 import arc.util.Log;
 import mindustry.Vars;
-import mindustry.graphics.CacheLayer;
 import mindustry.graphics.Layer;
 import mindustry.world.Tile;
 import mindustry.world.blocks.environment.Prop;
@@ -22,6 +22,8 @@ public class ShapedProp extends Prop {
     public float shadowAlpha = 0.2f;
     public float shadowLayer = Layer.groundUnit + 1;
 
+    public ShapedPropPlacer placer;
+
     public ShapedProp(String name) {
         super(name);
         solid = true;
@@ -31,6 +33,8 @@ public class ShapedProp extends Prop {
         variants = 0;
         layer = Layer.groundUnit + 2;
         fillsTile = false;
+
+        placer = new ShapedPropPlacer(name + "-placer", this);
     }
 
     @Override
@@ -84,7 +88,7 @@ public class ShapedProp extends Prop {
             for (Point2 p : parsedShape) {
                 p.x -= centerX;
                 p.y -= centerY;
-                p.y = - p.y; //Flips the y because in-game y goes from the bottom, in the file it goes from the top
+                p.y = -p.y; //Flips the y because in-game y goes from the bottom, in the file it goes from the top
             }
         }else{
             Log.warn("No center point in shape " + file.nameWithoutExtension());
@@ -123,6 +127,24 @@ public class ShapedProp extends Prop {
             Draw.reset();
             Draw.z(layer);
             super.drawBase(tile);
+        }
+    }
+
+    public class ShapedPropPlacer extends Prop {
+
+        ShapedProp prop;
+
+        public ShapedPropPlacer(String name, ShapedProp prop) {
+            super(name);
+            this.prop = prop;
+            this.variants = 0;
+            this.localizedName = Core.bundle.format("block.subdustry-placer", prop.localizedName);
+        }
+
+        public void place(Tile tile){
+            for(Point2 p : prop.shape){
+                Vars.world.tile(tile.x + p.x, tile.y + p.y).setNet(prop);
+            }
         }
     }
 }
