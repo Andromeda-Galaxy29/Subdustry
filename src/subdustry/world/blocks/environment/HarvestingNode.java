@@ -61,13 +61,15 @@ public class HarvestingNode extends Block {
 
     public class HarvestingNodeBuild extends Building{
         public boolean broken = false;
-        public int timer = 0;
+        public float progress = 0;
         public int growTime = maxGrowTime;
 
         /** Mines the outcrop and deposits the items to the building*/
         public void mine(Building b){
             if (broken) return;
+
             broken = true;
+            growTime = Mathf.random(minGrowTime, maxGrowTime);
 
             Fx.breakProp.wrap(color).at(x, y);
             Sounds.rockBreak.at(x, y);
@@ -117,14 +119,18 @@ public class HarvestingNode extends Block {
             }
 
             if(broken){
-                timer += 1;
+                progress += getProgressIncrease(growTime);
             }
 
-            if (timer >= growTime){
+            if (progress >= 1f){
                 broken = false;
-                timer = 0;
-                growTime = Mathf.random(minGrowTime, maxGrowTime);
+                progress -= 1f;
             }
+        }
+
+        @Override
+        public float edelta() {
+            return delta();
         }
 
         @Override
@@ -138,7 +144,7 @@ public class HarvestingNode extends Block {
             if(!broken){
                 super.draw();
             }else{
-                if (timer < growTime / 2.0){
+                if (progress < 0.5f){
                     Draw.rect(((HarvestingNode)block).brokenRegion, x, y, drawrot());
                 }else{
                     Draw.rect(((HarvestingNode)block).growingRegion, x, y, drawrot());
