@@ -40,8 +40,8 @@ public class SubEnvironmentBlocks {
 
         seabedQuartz = new HarvestingNode("seabed-quartz") {{
             drops.addAll(SubItems.quartz);
-            minDropAmount = 8;
-            maxDropAmount = 10;
+            minDropAmount = 4;
+            maxDropAmount = 5;
             color = Color.valueOf("#9aa7c3");
         }};
 
