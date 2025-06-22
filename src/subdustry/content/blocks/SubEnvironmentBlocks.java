@@ -33,8 +33,8 @@ public class SubEnvironmentBlocks {
         //Harvesting Nodes
         limestoneOutcrop = new HarvestingNode("limestone-outcrop") {{
             drops.addAll(SubItems.titanium, SubItems.copperOre);
-            minDropAmount = 8;
-            maxDropAmount = 10;
+            minDropAmount = 4;
+            maxDropAmount = 5;
             color = Color.valueOf("#c0905c");
         }};
 

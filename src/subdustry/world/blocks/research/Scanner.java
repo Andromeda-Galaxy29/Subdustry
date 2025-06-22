@@ -11,13 +11,13 @@ import mindustry.graphics.*;
 import mindustry.logic.*;
 import mindustry.ui.*;
 import mindustry.world.blocks.payloads.*;
+import mindustry.world.meta.BuildVisibility;
 
 import static mindustry.Vars.*;
 
 public class Scanner extends PayloadBlock {
     public float maxPayloadSize = 3;
-    public float deconstructTime = 240f;
-    public int dumpRate = 4;
+    public float scanTime = 240f;
     public Effect scanEffect = new Effect(12, e -> {
         Draw.color(Pal.techBlue);
         Lines.stroke(3f - e.fin() * 2f);
@@ -38,9 +38,8 @@ public class Scanner extends PayloadBlock {
         solid = true;
         size = 3;
         payloadSpeed = 1f;
-        hasItems = true;
         hasPower = true;
-        itemCapacity = 100;
+        buildVisibility = BuildVisibility.campaignOnly;
     }
 
     @Override
@@ -52,7 +51,6 @@ public class Scanner extends PayloadBlock {
 
     public class ScannerBuild extends PayloadBlockBuild<Payload> {
         public @Nullable Payload scanning;
-        public @Nullable float[] accum;
         public float progress;
         public float time, speedScl;
 
@@ -93,29 +91,18 @@ public class Scanner extends PayloadBlock {
         }
 
         @Override
-        public void handlePayload(Building source, Payload payload){
-            super.handlePayload(source, payload);
-            accum = null;
-        }
-
-        @Override
         public boolean acceptPayload(Building source, Payload payload) {
             if (payload instanceof BuildPayload) {
                 if (!(((BuildPayload) payload).build instanceof Fragment.FragmentBuild)) {
                     return false;
                 }
             }
-            return scanning == null && this.payload == null && super.acceptPayload(source, payload) && payload.requirements().length > 0 && payload.fits(maxPayloadSize);
+            return scanning == null && this.payload == null && super.acceptPayload(source, payload) && payload.fits(maxPayloadSize);
         }
 
         @Override
         public void updateTile(){
             super.updateTile();
-            if(items.total() > 0){
-                for(int i = 0; i < dumpRate; i++){
-                    dumpAccumulate();
-                }
-            }
 
             if(scanning == null){
                 progress = 0f;
@@ -124,82 +111,29 @@ public class Scanner extends PayloadBlock {
             payRotation = Angles.moveToward(payRotation, 90f, payloadRotateSpeed * edelta());
 
             if(scanning != null){
-                var reqs = scanning.requirements();
-                if(accum == null || reqs.length != accum.length){
-                    accum = new float[reqs.length];
-                }
+                float shift = edelta() / scanTime;
 
-                //check if there is enough space to get the items for scanning output
-                boolean canProgress = items.total() <= itemCapacity;
-                if(canProgress){
-                    for(var ac : accum){
-                        if(ac >= 1f){
-                            canProgress = false;
-                            break;
-                        }
-                    }
-                }
+                progress += shift;
+                time += edelta();
 
-                //move progress forward if possible
-                if(canProgress){
-                    float shift = edelta() / deconstructTime;
-                    float realShift = Math.min(shift, 1f - progress);
+                speedScl = Mathf.lerpDelta(speedScl, 1f, 0.1f);
 
-                    progress += shift;
-                    time += edelta();
-
-                    for(int i = 0; i < reqs.length; i++){
-                        accum[i] += reqs[i].amount * (scanning instanceof BuildPayload ? state.rules.buildCostMultiplier : state.rules.unitCost(team)) * realShift;
-                    }
-                }
-
-                speedScl = Mathf.lerpDelta(speedScl, canProgress ? 1f : 0f, 0.1f);
-
-                //transfer items from accumulation buffer into block inventory when they reach integers
-                for(int i = 0; i < reqs.length; i++){
-                    int taken = Math.min((int)accum[i], itemCapacity - items.total());
-                    if(taken > 0){
-                        items.add(reqs[i].item, taken);
-                        accum[i] -= taken;
-                    }
-                }
-
-                //finish scanning, prepare for next payload.
                 if(progress >= 1f){
-                    canProgress = true;
-                    //check for rounding errors
-                    for(int i = 0; i < reqs.length; i++){
-                        if(Mathf.equal(accum[i], 1f, 0.0001f)){
-                            if(items.total() < itemCapacity){
-                                items.add(reqs[i].item, 1);
-                                accum[i] = 0f;
+                    scanEffect.at(x, y, scanning.size() / tilesize);
+
+                    if (scanning instanceof BuildPayload && ((BuildPayload) scanning).build instanceof Fragment.FragmentBuild){
+                        if(player.team() == team()){
+                            if(state.isCampaign()){
+                                //TODO: More than one fragment to unlock content
+                                ((Fragment) ((BuildPayload) scanning).build.block).content.unlock();
                             }else{
-                                canProgress = false;
-                                break;
+                                ui.hudfrag.showToast(Icon.cancel, Core.bundle.get("ui.scanner-not-campaign"));
                             }
                         }
                     }
-
-                    if(canProgress){
-                        scanEffect.at(x, y, scanning.size() / tilesize);
-
-                        if (scanning instanceof BuildPayload && ((BuildPayload) scanning).build instanceof Fragment.FragmentBuild){
-                            if(player.team() == team()){
-                                if(state.isCampaign()){
-                                    //TODO: More than one fragment to unlock content
-                                    ((Fragment) ((BuildPayload) scanning).build.block).content.unlock();
-                                }else{
-                                    ui.hudfrag.showToast(Icon.cancel, Core.bundle.get("ui.scanner-not-campaign"));
-                                }
-                            }
-                        }
-
-                        scanning = null;
-                        accum = null;
-                    }
+                    scanning = null;
                 }
             }else if(moveInPayload(false) && payload != null){
-                accum = new float[payload.requirements().length];
                 scanning = payload;
                 payload = null;
                 progress = 0f;
@@ -222,14 +156,6 @@ public class Scanner extends PayloadBlock {
             super.write(write);
 
             write.f(progress);
-            if(accum != null){
-                write.s(accum.length);
-                for(float v : accum){
-                    write.f(v);
-                }
-            }else{
-                write.s(0);
-            }
             Payload.write(scanning, write);
         }
 
@@ -238,13 +164,6 @@ public class Scanner extends PayloadBlock {
             super.read(read, revision);
 
             progress = read.f();
-            short accums = read.s();
-            if(accums > 0){
-                accum = new float[accums];
-                for(int i = 0; i < accums; i++){
-                    accum[i] = read.f();
-                }
-            }
             scanning = Payload.read(read);
         }
     }

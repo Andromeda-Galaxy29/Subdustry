@@ -29,7 +29,7 @@ public class HarvestingNode extends Block {
     public TextureRegion brokenRegion;
     public TextureRegion growingRegion;
 
-    private Seq<ItemStack> dropPool = new Seq<>();
+    private Seq<ItemStack> dropPool = new Seq<>(); //TODO: This may not work in multiplayer
 
     public HarvestingNode(String name){
         super(name);

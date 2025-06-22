@@ -95,8 +95,7 @@ public class Harvester extends Block {
     }
 
     public class HarvesterBuild extends Building {
-        public float progress = 0f;
-        public float warmup = 0f;
+        public float progress, time, warmup = 0f;
         public Seq<HarvestingNode.HarvestingNodeBuild> targets = new Seq<>();
 
         @Override
@@ -123,6 +122,7 @@ public class Harvester extends Block {
 
             if(efficiency > 0) {
                 progress += getProgressIncrease(reload);
+                time += edelta();
             }
 
             if(progress >= 1f){
@@ -166,7 +166,7 @@ public class Harvester extends Block {
             Draw.color(Pal.ammo);
 
             float drawRange = range * Vars.tilesize * warmup;
-            float scanX = x + Mathf.sin(Time.time, 30f, (drawRange - 3) / 2f);
+            float scanX = x + Mathf.sin(time, 30f, (drawRange - 3) / 2f);
 
             Draw.z(Layer.buildBeam);
             Fill.poly(x, y, 4, 4 * efficiency, Time.time / 0.8f);
