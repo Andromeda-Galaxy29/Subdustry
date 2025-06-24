@@ -31,9 +31,6 @@ public class Planet4546bTechTree {
             });
 
             node(solarPanel, ()->{
-                node(tidalGenerator, ()->{
-
-                });
                 node(copperWireNode, ()->{
                     node(battery, ()->{
 

@@ -37,7 +37,6 @@ import subdustry.content.SubLiquids;
 import subdustry.content.SubUnitTypes;
 import subdustry.world.blocks.distribution.FlowDuct;
 import subdustry.world.blocks.distribution.MultiDirectionDuctBridge;
-import subdustry.world.blocks.power.TidalGenerator;
 import subdustry.world.blocks.power.WireNode;
 import subdustry.world.blocks.production.Harvester;
 import subdustry.world.blocks.production.KelpCollector;
@@ -58,7 +57,7 @@ public class SubAlterraBlocks {
     // Liquid
     submergedConduit,
     // Power
-    solarPanel, tidalGenerator, copperWireNode, battery,
+    solarPanel, copperWireNode, battery,
     // Defense
     titaniumOreWall, largeTitaniumOreWall,
     // Crafting
@@ -210,13 +209,6 @@ public class SubAlterraBlocks {
             size = 2;
             powerProduction = 0.5f;
             researchCost = with(SubItems.copperOre, 5, SubItems.titanium, 10, SubItems.quartz, 10);
-        }};
-
-        tidalGenerator = new TidalGenerator("tidal-generator"){{
-            requirements(Category.power, with(SubItems.titanium, 20, SubItems.quartz, 35, SubItems.acidMushroom, 35));
-            size = 3;
-            powerProduction = 15/60f;
-            researchCost = with(SubItems.titanium, 8, SubItems.quartz, 12, SubItems.acidMushroom, 12);
         }};
 
         copperWireNode = new WireNode("copper-wire-node"){{
