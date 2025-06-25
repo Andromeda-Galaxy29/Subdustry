@@ -2,32 +2,26 @@ package subdustry;
 
 import arc.*;
 import arc.util.*;
-import mindustry.*;
 import mindustry.game.*;
 import mindustry.mod.*;
 import subdustry.content.*;
 import subdustry.game.SubTeams;
-import subdustry.world.blocks.environment.ShapedProp;
+import subdustry.ui.EditorUIModifier;
 
 public class Subdustry extends Mod{
 
     public Subdustry(){
         Log.info("Subdustry loaded");
+
+        Events.on(EventType.ClientLoadEvent.class, (event) -> {
+            EditorUIModifier.modify();
+        });
     }
 
     @Override
     public void init() {
         super.init();
         SubIcons.load();
-
-        //TODO: Make a button for this in the map editor
-        Events.on(EventType.WorldLoadEvent.class, (event) -> {
-            Vars.world.tiles.eachTile(tile -> {
-                if(tile.block() instanceof ShapedProp.ShapedPropPlacer placer){
-                    placer.place(tile);
-                }
-            });
-        });
     }
 
     @Override
