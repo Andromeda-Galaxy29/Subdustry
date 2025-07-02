@@ -12,6 +12,8 @@ import subdustry.world.blocks.environment.*;
 
 public class SubEnvironmentBlocks {
     public static Block
+
+    cliff, cliffHelper,
     // Harvesting Nodes
     limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
     // Floors
@@ -30,6 +32,10 @@ public class SubEnvironmentBlocks {
     greenSeagrass, creepvine;
 
     public static void load() {
+
+        cliff = new SCliff("cliff");
+        cliffHelper = new SCliffHelper("cliff-helper");
+
         //Harvesting Nodes
         limestoneOutcrop = new HarvestingNode("limestone-outcrop") {{
             drops.addAll(SubItems.titanium, SubItems.copperOre);
@@ -55,28 +61,34 @@ public class SubEnvironmentBlocks {
         }};
 
         // Floors
-        limestone = new Floor("limestone") {{
+        limestone = new SFloor("limestone") {{
             variants = 3;
+            cliffColor = Color.valueOf("c5a879");
         }};
 
-        limesand = new Floor("limesand") {{
+        limesand = new SFloor("limesand") {{
             variants = 3;
+            cliffColor = Color.valueOf("fbd9a9");
         }};
 
-        limeSeagrassFloor = new Floor("lime-seagrass-floor") {{
+        limeSeagrassFloor = new SFloor("lime-seagrass-floor") {{
             variants = 3;
+            cliffColor = Color.valueOf("e2e597");
         }};
 
-        orangeMoss = new Floor("orange-moss") {{
+        orangeMoss = new SFloor("orange-moss") {{
             variants = 3;
+            cliffColor = Color.valueOf("fa992f");
         }};
 
-        tubeCoralFloor = new Floor("tube-coral-floor") {{
+        tubeCoralFloor = new SFloor("tube-coral-floor") {{
             variants = 3;
+            cliffColor = Color.valueOf("f7d485");
         }};
 
-        acidMycelium = new Floor("acid-mycelium") {{
+        acidMycelium = new SFloor("acid-mycelium") {{
             variants = 3;
+            cliffColor = Color.valueOf("a89fd6");
         }};
 
         steelFloor = new Floor("steel-floor") {{
@@ -99,16 +111,19 @@ public class SubEnvironmentBlocks {
             variants = 1;
         }};
 
-        greenSeagrassFloor = new Floor("green-seagrass-floor") {{
+        greenSeagrassFloor = new SFloor("green-seagrass-floor") {{
             variants = 3;
+            cliffColor = Color.valueOf("95c85b");
         }};
 
-        creepvineRoots = new Floor("creepvine-roots") {{
+        creepvineRoots = new SFloor("creepvine-roots") {{
             variants = 2;
+            cliffColor = Color.valueOf("79b647");
         }};
 
-        mossyStone = new Floor("mossy-stone") {{
+        mossyStone = new SFloor("mossy-stone") {{
             variants = 3;
+            cliffColor = Color.valueOf("696971");
         }};
 
         // Geysers

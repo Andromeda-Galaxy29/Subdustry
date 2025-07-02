@@ -2,12 +2,15 @@ package subdustry.ui;
 
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
-import mindustry.Vars;
+import mindustry.content.Blocks;
 import mindustry.game.*;
 import mindustry.gen.*;
 import mindustry.ui.*;
+import mindustry.world.Tile;
 import subdustry.game.SubTeams;
 import subdustry.world.blocks.environment.ShapedProp;
+import subdustry.world.blocks.environment.SCliff;
+import subdustry.world.blocks.environment.SCliffHelper;
 
 import static mindustry.Vars.*;
 
@@ -27,6 +30,12 @@ public class EditorUIModifier {
             mid.table(t -> {
                 t.button("@editor.subdustry-shaped-props", Icon.powerOldSmall, Styles.flatt, EditorUIModifier::placeShapedProps).growX().margin(9f);
             }).growX().top();
+
+            // Adds cliffs button
+            mid.row();
+            mid.table(t -> {
+                t.button("@editor.subdustry-cliffs", Icon.terrain, Styles.flatt, EditorUIModifier::processCliffs).growX().margin(9f);
+            }).growX().top();
         });
     }
 
@@ -41,10 +50,23 @@ public class EditorUIModifier {
     }
 
     public static void placeShapedProps(){
-        Vars.world.tiles.eachTile(tile -> {
+        for(Tile tile : world.tiles){
             if(tile.block() instanceof ShapedProp.ShapedPropPlacer placer){
                 placer.place(tile);
             }
-        });
+        }
+    }
+
+    public static void processCliffs(){
+        for(Tile tile : world.tiles){
+            if(tile.block() instanceof SCliff cliff){
+                cliff.process(tile);
+            }
+        }
+        for(Tile tile : world.tiles){
+            if(tile.block() instanceof SCliffHelper){
+                tile.setNet(Blocks.air);
+            }
+        }
     }
 }
