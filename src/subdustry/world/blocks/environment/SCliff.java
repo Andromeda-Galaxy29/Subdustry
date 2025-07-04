@@ -1,27 +1,26 @@
 package subdustry.world.blocks.environment;
 
 import arc.*;
-import arc.graphics.Color;
+import arc.graphics.*;
 import arc.graphics.g2d.*;
+import arc.math.*;
+import arc.math.geom.*;
 import arc.util.*;
-import mindustry.*;
+import mindustry.Vars;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 
 public class SCliff extends Prop {
-
-    /** 0, 1, 2, 3 - straight segments;
-     * 4, 5, 6, 7 - outer corners;
-     * 8, 9, 10, 11 - inner corners */
-    public TextureRegion[] regions;
-    public TextureRegion[] capRegions;
+    public TextureRegion[] lightRegions;
+    public TextureRegion[] darkRegions;
+    public TextureRegion capRegion;
 
     public SCliff(String name) {
         super(name);
         breakable = alwaysReplace = false;
-        cacheLayer = CacheLayer.walls;
         solid = true;
+        cacheLayer = CacheLayer.walls;
         fillsTile = false;
         hasShadow = false;
         variants = 0;
@@ -31,15 +30,16 @@ public class SCliff extends Prop {
     @Override
     public void load() {
         super.load();
-        regions = new TextureRegion[12];
+        lightRegions = new TextureRegion[12];
         for(int i = 0; i < 12; i++){
-            regions[i] = Core.atlas.find(name+i);
+            lightRegions[i] = Core.atlas.find(name+i+"-light", "subdustry-empty");
+        }
+        darkRegions = new TextureRegion[12];
+        for(int i = 0; i < 12; i++){
+            darkRegions[i] = Core.atlas.find(name+i+"-dark", "subdustry-empty");
         }
 
-        capRegions = new TextureRegion[2];
-        for(int i = 0; i < 2; i++){
-            capRegions[i] = Core.atlas.find(name+"-cap"+i);
-        }
+        capRegion = Core.atlas.find(name+"-cap", "subdustry-empty");
     }
 
     @Override
@@ -47,102 +47,102 @@ public class SCliff extends Prop {
         return getColor(tile).rgba();
     }
 
-    @Override
-    public void drawBase(Tile tile) {
-        Draw.color(getColor(tile));
-        if(tile.data == 0){
-            Draw.z(Layer.floor + 1f);
-            Draw.rect(region, tile.worldx(), tile.worldy());
-        }else{
-            Draw.z(Layer.floor + 1f);
-            Draw.rect(regions[tile.data - 1], tile.worldx(), tile.worldy());
-        }
-        drawCap(tile);
-        Draw.reset();
-    }
-
     public Color getColor(Tile tile){
-        if(tile.floor() instanceof SFloor sFloor){
-            return sFloor.cliffColor;
+        if(tile.floor() instanceof SFloor sFloor && sFloor.cliffLightColor != null){
+            return sFloor.cliffLightColor;
         }else{
             return Tmp.c1.set(tile.floor().mapColor).mul(1.6f);
         }
     }
 
-    public void drawCap(Tile tile) {
-        Draw.z(Layer.floor + 1f);
-        if(shouldDrawCapAt(tile, tile.nearby(1, 0))){
-            if(tile.data == 4 || tile.data == 8 || tile.data == 11){
-                Draw.rect(capRegions[0], tile.worldx() + Vars.tilesize, tile.worldy());
-            }
-            if(tile.data == 2 || tile.data == 7 || tile.data == 12){
-                Draw.rect(capRegions[1], tile.worldx() + Vars.tilesize, tile.worldy());
-            }
-        }
-        if(shouldDrawCapAt(tile, tile.nearby(0, -1))){
-            if(tile.data == 1 || tile.data == 5 || tile.data == 12){
-                Draw.rect(capRegions[0], tile.worldx(), tile.worldy() - Vars.tilesize, -90);
-            }
-            if(tile.data == 3 || tile.data == 8 || tile.data == 9){
-                Draw.rect(capRegions[1], tile.worldx(), tile.worldy() - Vars.tilesize, -90);
-            }
-        }
-        if(shouldDrawCapAt(tile, tile.nearby(-1, 0))){
-            if(tile.data == 4 || tile.data == 5 || tile.data == 10){
-                Draw.rect(capRegions[0], tile.worldx() - Vars.tilesize, tile.worldy(), 180);
-            }
-            if(tile.data == 2 || tile.data == 6 || tile.data == 9){
-                Draw.rect(capRegions[1], tile.worldx() - Vars.tilesize, tile.worldy(), 180);
-            }
-        }
-        if(shouldDrawCapAt(tile, tile.nearby(0, 1))){
-            if(tile.data == 1 || tile.data == 6 || tile.data == 11){
-                Draw.rect(capRegions[0], tile.worldx(), tile.worldy() + Vars.tilesize, 90);
-            }
-            if(tile.data == 3 || tile.data == 7 || tile.data == 10){
-                Draw.rect(capRegions[1], tile.worldx(), tile.worldy() + Vars.tilesize, 90);
-            }
+    public Color getDarkColor(Tile tile){
+        if(tile.floor() instanceof SFloor sFloor && sFloor.cliffDarkColor != null){
+            return sFloor.cliffDarkColor;
+        }else{
+            return Tmp.c1.set(tile.floor().mapColor).mul(0.7f);
         }
     }
 
-    public boolean shouldDrawCapAt(Tile tile, Tile other){
-        return !(other.block() instanceof SCliff) || tile.floor() != other.floor();
+    @Override
+    public void drawBase(Tile tile) {
+        Draw.z(Layer.floor + 1f);
+        if(tile.data == 0){
+            Draw.color(getDarkColor(tile));
+            Draw.rect(region, tile.worldx(), tile.worldy());
+        }else{
+            Draw.color(getDarkColor(tile));
+            Draw.rect(darkRegions[tile.data - 1], tile.worldx(), tile.worldy());
+            Draw.color(getColor(tile));
+            Draw.rect(lightRegions[tile.data - 1], tile.worldx(), tile.worldy());
+        }
+        drawCaps(tile);
+        Draw.reset();
+    }
+
+    public void drawCaps(Tile tile) {
+        if (tile.data <= 4){ // Straight segments
+            boolean light = Geometry.d4x(tile.data-1) + Geometry.d4y(tile.data-1) > 0; //Checks if cliff is facing right or up
+            drawCap(tile, tile.data-1 - 1, light);
+            drawCap(tile, tile.data-1 + 1, light);
+        }else if (tile.data <= 12) { // Corners
+            boolean light1 = Geometry.d4x(tile.data - 1) + Geometry.d4y(tile.data - 1) > 0;
+            boolean light2 = Geometry.d4x(tile.data) + Geometry.d4y(tile.data) > 0;
+            if (tile.data > 8) { // Flips colors for inner corners
+                light1 = !light1;
+                light2 = !light2;
+            }
+            drawCap(tile, tile.data - 1 - 1, light1);
+            drawCap(tile, tile.data - 1 + 2, light2);
+        }
+    }
+
+    public void drawCap(Tile tile, int rotation, boolean light){
+        if (shouldDrawCapAt(tile, rotation)){
+            if (light) {
+                Draw.color(getColor(tile));
+            }else{
+                Draw.color(getDarkColor(tile));
+            }
+            Draw.rect(capRegion, tile.worldx() + Geometry.d4x(rotation) * Vars.tilesize, tile.worldy() + Geometry.d4y(rotation) * Vars.tilesize, rotation * 90);
+        }
+    }
+
+    public boolean shouldDrawCapAt(Tile tile, int rotation){
+        rotation = Mathf.mod(rotation, 4);
+        if(tile.nearby(rotation) == null){
+            return false;
+        }
+        return !(tile.nearby(rotation).block() instanceof SCliff) || tile.floor() != tile.nearby(rotation).floor();
     }
 
     public void process(Tile tile) {
         //Inner corners
-        if(helperAt(tile, 1, 0) && helperAt(tile, 0, 1)){
-            tile.data = (byte) 9;
-        }else if(helperAt(tile, 1, 0) && helperAt(tile, 0, -1)){
-            tile.data = (byte) 10;
-        }else if(helperAt(tile, -1, 0) && helperAt(tile, 0, -1)){
-            tile.data = (byte) 11;
-        }else if(helperAt(tile, -1, 0) && helperAt(tile, 0, 1)){
-            tile.data = (byte) 12;
-        }else
+        for(int i = 0; i < 4; i++) {
+            if (helperAt(tile, Geometry.d4(i)) && helperAt(tile, Geometry.d4(i + 1))) {
+                tile.data = (byte) (Mathf.mod(i, 4) + 9);
+                return;
+            }
+        }
         //Straight segments
-        if(helperAt(tile, -1, 0)){
-            tile.data = (byte) 1;
-        }else if(helperAt(tile, 0, 1)){
-            tile.data = (byte) 2;
-        }else if(helperAt(tile, 1, 0)){
-            tile.data = (byte) 3;
-        }else if(helperAt(tile, 0, -1)){
-            tile.data = (byte) 4;
-        }else
+        for (int i = 0; i < 4; i++){
+            if (helperAt(tile, Geometry.d4(i))){
+                tile.data = (byte) (Mathf.mod(i + 2, 4) + 1);
+                return;
+            }
+        }
         //Outer corners
-        if(helperAt(tile, -1, -1)){
-            tile.data = (byte) 5;
-        }else if(helperAt(tile, -1, 1)){
-            tile.data = (byte) 6;
-        }else if(helperAt(tile, 1, 1)){
-            tile.data = (byte) 7;
-        }else if(helperAt(tile, 1, -1)){
-            tile.data = (byte) 8;
+        for(int i = 0; i < 4; i++){
+            if (helperAt(tile, Geometry.d8edge(i))){
+                tile.data = (byte) (Mathf.mod(i + 2, 4) + 5);
+                return;
+            }
         }
     }
 
-    public boolean helperAt(Tile tile, int xOffset, int yOffset){
-        return tile.nearby(xOffset, yOffset).block() instanceof SCliffHelper;
+    public boolean helperAt(Tile tile, Point2 point){
+        if(tile.nearby(point) == null){
+            return false;
+        }
+        return tile.nearby(point).block() instanceof SCliffHelper;
     }
 }

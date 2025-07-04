@@ -63,32 +63,34 @@ public class SubEnvironmentBlocks {
         // Floors
         limestone = new SFloor("limestone") {{
             variants = 3;
-            cliffColor = Color.valueOf("c5a879");
+            cliffLightColor = Color.valueOf("c5a879");
         }};
 
         limesand = new SFloor("limesand") {{
             variants = 3;
-            cliffColor = Color.valueOf("fbd9a9");
+            cliffLightColor = Color.valueOf("fbd9a9");
         }};
 
         limeSeagrassFloor = new SFloor("lime-seagrass-floor") {{
             variants = 3;
-            cliffColor = Color.valueOf("e2e597");
+            cliffLightColor = Color.valueOf("e2e597");
         }};
 
         orangeMoss = new SFloor("orange-moss") {{
             variants = 3;
-            cliffColor = Color.valueOf("fa992f");
+            cliffLightColor = Color.valueOf("fa992f");
         }};
 
         tubeCoralFloor = new SFloor("tube-coral-floor") {{
             variants = 3;
-            cliffColor = Color.valueOf("f7d485");
+            cliffLightColor = Color.valueOf("f7d485");
+            cliffDarkColor = Color.valueOf("936534");
         }};
 
         acidMycelium = new SFloor("acid-mycelium") {{
             variants = 3;
-            cliffColor = Color.valueOf("a89fd6");
+            cliffLightColor = Color.valueOf("a89fd6");
+            cliffDarkColor = Color.valueOf("080823");
         }};
 
         steelFloor = new Floor("steel-floor") {{
@@ -113,17 +115,18 @@ public class SubEnvironmentBlocks {
 
         greenSeagrassFloor = new SFloor("green-seagrass-floor") {{
             variants = 3;
-            cliffColor = Color.valueOf("95c85b");
+            cliffLightColor = Color.valueOf("95c85b");
         }};
 
         creepvineRoots = new SFloor("creepvine-roots") {{
             variants = 2;
-            cliffColor = Color.valueOf("79b647");
+            cliffLightColor = Color.valueOf("79b647");
         }};
 
         mossyStone = new SFloor("mossy-stone") {{
             variants = 3;
-            cliffColor = Color.valueOf("696971");
+            cliffLightColor = Color.valueOf("696971");
+            cliffDarkColor = Color.valueOf("2e2e31");
         }};
 
         // Geysers
