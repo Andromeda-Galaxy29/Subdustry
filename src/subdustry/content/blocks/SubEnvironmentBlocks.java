@@ -39,6 +39,7 @@ public class SubEnvironmentBlocks {
         //Harvesting Nodes
         limestoneOutcrop = new HarvestingNode("limestone-outcrop") {{
             drops.addAll(SubItems.titanium, SubItems.copperOre);
+            variants = 3;
             minDropAmount = 4;
             maxDropAmount = 5;
             color = Color.valueOf("#c0905c");
@@ -46,6 +47,7 @@ public class SubEnvironmentBlocks {
 
         seabedQuartz = new HarvestingNode("seabed-quartz") {{
             drops.addAll(SubItems.quartz);
+            variants = 2;
             minDropAmount = 4;
             maxDropAmount = 5;
             color = Color.valueOf("#9aa7c3");
@@ -53,11 +55,12 @@ public class SubEnvironmentBlocks {
 
         seabedAcidMushroom = new HarvestingNode("seabed-acid-mushroom") {{
             drops.addAll(SubItems.acidMushroom);
+            variants = 3;
             minDropAmount = 1;
             maxDropAmount = 1;
             minGrowTime = 80;
             maxGrowTime = 120;
-            color = Color.valueOf("#9aa7c3");
+            color = Color.valueOf("#a89fd6");
         }};
 
         // Floors

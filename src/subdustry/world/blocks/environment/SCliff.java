@@ -20,7 +20,6 @@ public class SCliff extends Prop {
         super(name);
         breakable = alwaysReplace = false;
         solid = true;
-        cacheLayer = CacheLayer.walls;
         fillsTile = false;
         hasShadow = false;
         variants = 0;
