@@ -14,12 +14,12 @@ import mindustry.world.draw.DrawDefault;
 import mindustry.world.draw.DrawGlowRegion;
 import mindustry.world.draw.DrawMulti;
 import mindustry.world.draw.DrawRegion;
-import subdustry.content.SubItems;
+import subdustry.content.SItems;
 import subdustry.world.draw.DrawSynthesis;
 
 import static mindustry.type.ItemStack.with;
 
-public class SubPrecursorBlocks {
+public class SPrecursorBlocks {
     public static Block ionCubeSynthesizer;
 
     public static void load() {
@@ -27,7 +27,7 @@ public class SubPrecursorBlocks {
         ionCubeSynthesizer = new GenericCrafter("ion-cube-synthesizer") {{
             size = 3;
             consumePower(100 / 60f);
-            outputItem = new ItemStack(SubItems.ionCube, 4);
+            outputItem = new ItemStack(SItems.ionCube, 4);
             craftTime = 240f;
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
@@ -49,7 +49,7 @@ public class SubPrecursorBlocks {
                 });
             });
 
-            requirements(Category.production, with(SubItems.titanium, 10, SubItems.ionCube, 5));
+            requirements(Category.production, with(SItems.titanium, 10, SItems.ionCube, 5));
         }};
     }
 }

@@ -5,7 +5,7 @@ import arc.util.*;
 import mindustry.game.*;
 import mindustry.mod.*;
 import subdustry.content.*;
-import subdustry.game.SubTeams;
+import subdustry.game.STeams;
 import subdustry.ui.EditorUIModifier;
 
 public class Subdustry extends Mod{
@@ -21,21 +21,21 @@ public class Subdustry extends Mod{
     @Override
     public void init() {
         super.init();
-        SubIcons.load();
+        SIcons.load();
     }
 
     @Override
     public void loadContent(){
-        SubSounds.load();
+        SSounds.load();
 
-        SubItems.load();
-        SubLiquids.load();
-        SubUnitTypes.load();
-        SubAttributes.load();
-        SubBlocks.load();
+        SItems.load();
+        SLiquids.load();
+        SUnitTypes.load();
+        SAttributes.load();
+        SBlocks.load();
 
-        SubTeams.load();
-        SubPlanets.load();
+        STeams.load();
+        SPlanets.load();
         Planet4546bSectors.load();
         Planet4546bTechTree.load();
     }

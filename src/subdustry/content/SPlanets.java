@@ -5,11 +5,11 @@ import arc.struct.Seq;
 import mindustry.graphics.g3d.*;
 import mindustry.type.*;
 import mindustry.world.meta.*;
-import subdustry.content.blocks.SubAlterraBlocks;
-import subdustry.game.SubTeams;
+import subdustry.content.blocks.SAlterraBlocks;
+import subdustry.game.STeams;
 import subdustry.planet.*;
 
-public class SubPlanets {
+public class SPlanets {
     public static Planet star4546, planet4546B, moon1, moon2;
 
     public static void load(){
@@ -51,7 +51,7 @@ public class SubPlanets {
             clearSectorOnLose = true;
             allowWaves = true;
             prebuildBase = false;
-            defaultCore = SubAlterraBlocks.coreShallows;
+            defaultCore = SAlterraBlocks.coreShallows;
 
             defaultEnv = Env.terrestrial | Env.underwater | Env.groundOil | Env.groundWater;
 
@@ -70,7 +70,7 @@ public class SubPlanets {
 
             sectorSeed = 1204;
             ruleSetter = r -> {
-                r.waveTeam = SubTeams.precursor;
+                r.waveTeam = STeams.precursor;
                 r.showSpawns = true;
                 r.coreIncinerates = true;
                 r.ambientLight = Color.black.a(0.5f);

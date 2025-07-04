@@ -3,7 +3,7 @@ package subdustry.game;
 import arc.graphics.Color;
 import mindustry.game.Team;
 
-public class SubTeams {
+public class STeams {
     public static Team precursor;
 
     public static void load(){

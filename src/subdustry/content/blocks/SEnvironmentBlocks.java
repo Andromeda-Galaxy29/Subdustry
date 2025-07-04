@@ -6,11 +6,10 @@ import mindustry.graphics.Pal;
 import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.meta.*;
-import subdustry.content.SubAttributes;
-import subdustry.content.SubItems;
+import subdustry.content.*;
 import subdustry.world.blocks.environment.*;
 
-public class SubEnvironmentBlocks {
+public class SEnvironmentBlocks {
     public static Block
 
     cliff, cliffHelper,
@@ -38,7 +37,7 @@ public class SubEnvironmentBlocks {
 
         //Harvesting Nodes
         limestoneOutcrop = new HarvestingNode("limestone-outcrop") {{
-            drops.addAll(SubItems.titanium, SubItems.copperOre);
+            drops.addAll(SItems.titanium, SItems.copperOre);
             variants = 3;
             minDropAmount = 4;
             maxDropAmount = 5;
@@ -46,7 +45,7 @@ public class SubEnvironmentBlocks {
         }};
 
         seabedQuartz = new HarvestingNode("seabed-quartz") {{
-            drops.addAll(SubItems.quartz);
+            drops.addAll(SItems.quartz);
             variants = 2;
             minDropAmount = 4;
             maxDropAmount = 5;
@@ -54,7 +53,7 @@ public class SubEnvironmentBlocks {
         }};
 
         seabedAcidMushroom = new HarvestingNode("seabed-acid-mushroom") {{
-            drops.addAll(SubItems.acidMushroom);
+            drops.addAll(SItems.acidMushroom);
             variants = 3;
             minDropAmount = 1;
             maxDropAmount = 1;
@@ -179,7 +178,7 @@ public class SubEnvironmentBlocks {
             steelFloor.asFloor().wall = this;
             steelPanels.asFloor().wall = this;
             variants = 3;
-            attributes.set(SubAttributes.metal, 1f);
+            attributes.set(SAttributes.metal, 1f);
         }};
 
         wreckWall = new StaticWall("wreck-wall") {{
@@ -187,7 +186,7 @@ public class SubEnvironmentBlocks {
             wreckTiles.asFloor().wall = this;
             wreckVent.asFloor().wall = this;
             variants = 3;
-            attributes.set(SubAttributes.metal, 1f);
+            attributes.set(SAttributes.metal, 1f);
         }};
 
         greenSeagrassWall = new StaticWall("green-seagrass-wall") {{
@@ -245,7 +244,7 @@ public class SubEnvironmentBlocks {
         }};
 
         creepvine = new Kelp("creepvine") {{
-            itemDrop = SubItems.creepvineSeedCluster;
+            itemDrop = SItems.creepvineSeedCluster;
         }};
     }
 }

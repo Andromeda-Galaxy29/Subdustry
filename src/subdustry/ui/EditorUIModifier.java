@@ -7,7 +7,7 @@ import mindustry.game.*;
 import mindustry.gen.*;
 import mindustry.ui.*;
 import mindustry.world.Tile;
-import subdustry.game.SubTeams;
+import subdustry.game.STeams;
 import subdustry.world.blocks.environment.ShapedProp;
 import subdustry.world.blocks.environment.SCliff;
 import subdustry.world.blocks.environment.SCliffHelper;
@@ -23,7 +23,7 @@ public class EditorUIModifier {
             // Adds custom teams
             Table teams = (Table) mid.getChildren().get(0);
             teams.row();
-            addTeamButton(teams, SubTeams.precursor);
+            addTeamButton(teams, STeams.precursor);
 
             // Adds shaped props button
             mid.row();

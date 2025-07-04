@@ -3,7 +3,7 @@ package subdustry.content;
 import arc.graphics.Color;
 import mindustry.type.Liquid;
 
-public class SubLiquids {
+public class SLiquids {
     public static Liquid
             lubricant;
 

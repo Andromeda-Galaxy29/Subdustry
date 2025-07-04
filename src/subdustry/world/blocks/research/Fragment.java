@@ -10,7 +10,7 @@ import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.world.meta.BuildVisibility;
-import subdustry.content.SubItems;
+import subdustry.content.SItems;
 
 public class Fragment extends Wall {
 
@@ -18,7 +18,7 @@ public class Fragment extends Wall {
 
     public Fragment(String name) {
         super(name);
-        requirements(Category.effect, ItemStack.with(SubItems.titanium, 8));
+        requirements(Category.effect, ItemStack.with(SItems.titanium, 8));
         breakable = false;
         inEditor = true;
         buildVisibility = BuildVisibility.editorOnly;

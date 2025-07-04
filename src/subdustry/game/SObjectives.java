@@ -2,11 +2,10 @@ package subdustry.game;
 
 import arc.Core;
 import mindustry.world.Block;
-import subdustry.world.blocks.research.Fragment;
 
 import static mindustry.game.Objectives.*;
 
-public class SubObjectives {
+public class SObjectives {
 
     public static class Scan implements Objective {
         public Block fragment;

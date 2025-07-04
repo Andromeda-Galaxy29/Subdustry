@@ -4,7 +4,7 @@ import arc.graphics.*;
 import arc.struct.Seq;
 import mindustry.type.*;
 
-public class SubItems {
+public class SItems {
     public static Item
             metalSalvage, titanium, copperOre, quartz, acidMushroom,
             caveSulfur, creepvineSeedCluster, siliconeRubber, glass,

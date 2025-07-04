@@ -31,10 +31,10 @@ import mindustry.world.blocks.production.WallCrafter;
 import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.consumers.ConsumeLiquid;
 import mindustry.world.draw.*;
-import subdustry.content.SubAttributes;
-import subdustry.content.SubItems;
-import subdustry.content.SubLiquids;
-import subdustry.content.SubUnitTypes;
+import subdustry.content.SAttributes;
+import subdustry.content.SItems;
+import subdustry.content.SLiquids;
+import subdustry.content.SUnitTypes;
 import subdustry.world.blocks.distribution.FlowDuct;
 import subdustry.world.blocks.distribution.MultiDirectionDuctBridge;
 import subdustry.world.blocks.power.WireNode;
@@ -46,7 +46,7 @@ import subdustry.world.draw.DrawItemSqueeze;
 
 import static mindustry.type.ItemStack.with;
 
-public class SubAlterraBlocks {
+public class SAlterraBlocks {
     public static Block
     // Turrets
     dissolve,
@@ -75,7 +75,7 @@ public class SubAlterraBlocks {
             reload = 60f;
             shoot.shots = 5;
             shoot.shotDelay = 3f;
-            requirements(Category.turret, with(SubItems.titanium, 40, SubItems.copperOre, 20, SubItems.quartz, 30));
+            requirements(Category.turret, with(SItems.titanium, 40, SItems.copperOre, 20, SItems.quartz, 30));
             range = 120f;
             size = 2;
             recoil = 1f;
@@ -86,14 +86,14 @@ public class SubAlterraBlocks {
             squareSprite = false;
             outlineColor = Color.valueOf("#171724");
             ammo(
-                    SubItems.acidMushroom, new BasicBulletType(3.5f, 14){{
+                    SItems.acidMushroom, new BasicBulletType(3.5f, 14){{
                         lifetime = 30f;
                         width = 8f;
                         height = 10f;
                         shrinkY = 0f;
                         shrinkX = 0f;
                         sprite = "circle-bullet";
-                        frontColor = backColor = hitColor = SubItems.acidMushroom.color;
+                        frontColor = backColor = hitColor = SItems.acidMushroom.color;
 
                         ammoMultiplier = 1f;
                         lifetime = 34f;
@@ -112,42 +112,42 @@ public class SubAlterraBlocks {
                 parts.addAll(
                         new RegionPart("-liquid-overlay"){{
                             progress = PartProgress.smoothReload;
-                            color = SubItems.acidMushroom.color;
+                            color = SItems.acidMushroom.color;
                             colorTo = new Color(1f, 1f, 1f, 0f);
                         }},
                         new RegionPart("-top")
                 );
             }};
 
-            coolant = consume(new ConsumeLiquid(SubLiquids.lubricant, 6f / 60f));
+            coolant = consume(new ConsumeLiquid(SLiquids.lubricant, 6f / 60f));
         }};
 
         // Production/Drills
         harvester = new Harvester("harvester"){{
-            requirements(Category.production, with(SubItems.copperOre, 30, SubItems.titanium, 30, SubItems.acidMushroom, 15));
+            requirements(Category.production, with(SItems.copperOre, 30, SItems.titanium, 30, SItems.acidMushroom, 15));
             size = 2;
             squareSprite = false;
             range = 6;
             reload = 360;
             consumePower(1f);
-            researchCost = with(SubItems.copperOre, 30, SubItems.titanium, 30, SubItems.acidMushroom, 15);
+            researchCost = with(SItems.copperOre, 30, SItems.titanium, 30, SItems.acidMushroom, 15);
         }};
 
         metalGrinder = new WallCrafter("metal-grinder"){{
-            requirements(Category.production, with(SubItems.titanium, 45, SubItems.quartz, 15));
+            requirements(Category.production, with(SItems.titanium, 45, SItems.quartz, 15));
             consumePower(1.5f);
 
             drillTime = 120f;
             size = 2;
-            attribute = SubAttributes.metal;
-            output = SubItems.metalSalvage;
+            attribute = SAttributes.metal;
+            output = SItems.metalSalvage;
             ambientSound = Sounds.drill;
             ambientSoundVolume = 0.04f;
             researchCostMultiplier = 0.5f;
         }};
 
         kelpCollector = new KelpCollector("kelp-collector"){{
-            requirements(Category.production, with(SubItems.titanium, 45, SubItems.copperOre, 30, SubItems.quartz, 15));
+            requirements(Category.production, with(SItems.titanium, 45, SItems.copperOre, 30, SItems.quartz, 15));
             consumePower(2f);
 
             reload = 180f;
@@ -159,44 +159,44 @@ public class SubAlterraBlocks {
 
         //Distribution
         submergedDuct = new Duct("submerged-duct"){{
-            requirements(Category.distribution, with(SubItems.titanium, 1));
+            requirements(Category.distribution, with(SItems.titanium, 1));
             health = 80;
             speed = 5f;
-            researchCost = with(SubItems.titanium, 5);
+            researchCost = with(SItems.titanium, 5);
         }};
 
         submergedDuctRouter = new DuctRouter("submerged-duct-router"){{
-            requirements(Category.distribution, with(SubItems.titanium, 5));
+            requirements(Category.distribution, with(SItems.titanium, 5));
             health = 80;
             speed = 5f;
             solid = false;
-            researchCost = with(SubItems.titanium, 15);
+            researchCost = with(SItems.titanium, 15);
         }};
 
         submergedFlowDuct = new FlowDuct("submerged-flow-duct"){{
-            requirements(Category.distribution, with(SubItems.titanium, 8, SubItems.copperOre, 8));
+            requirements(Category.distribution, with(SItems.titanium, 8, SItems.copperOre, 8));
             health = 80;
             speed = 5f;
             solid = false;
             squareSprite = false;
             researchCostMultiplier = 1.5f;
-            researchCost = with(SubItems.titanium, 40, SubItems.copperOre, 40);
+            researchCost = with(SItems.titanium, 40, SItems.copperOre, 40);
         }};
 
         submergedDuctBridge = new MultiDirectionDuctBridge("submerged-duct-bridge"){{
-            requirements(Category.distribution, with(SubItems.titanium, 6, SubItems.copperOre, 6));
+            requirements(Category.distribution, with(SItems.titanium, 6, SItems.copperOre, 6));
             fadeIn = moveArrows = false;
             range = 4;
             speed = 74f;
             arrowSpacing = 6f;
             bufferCapacity = 14;
             ((Duct) submergedDuct).bridgeReplacement = this;
-            researchCost = with(SubItems.titanium, 30, SubItems.copperOre, 30);
+            researchCost = with(SItems.titanium, 30, SItems.copperOre, 30);
         }};
 
         // Liquid
         submergedConduit = new ArmoredConduit("submerged-conduit"){{
-            requirements(Category.liquid, with(SubItems.titanium, 1, SubItems.quartz, 1));
+            requirements(Category.liquid, with(SItems.titanium, 1, SItems.quartz, 1));
             liquidCapacity = 16f;
             liquidPressure = 1f;
             health = 80;
@@ -205,35 +205,35 @@ public class SubAlterraBlocks {
 
         // Power
         solarPanel = new SolarGenerator("solar-panel"){{
-            requirements(Category.power, with(SubItems.copperOre, 15, SubItems.titanium, 30, SubItems.quartz, 30));
+            requirements(Category.power, with(SItems.copperOre, 15, SItems.titanium, 30, SItems.quartz, 30));
             size = 2;
             powerProduction = 0.5f;
-            researchCost = with(SubItems.copperOre, 5, SubItems.titanium, 10, SubItems.quartz, 10);
+            researchCost = with(SItems.copperOre, 5, SItems.titanium, 10, SItems.quartz, 10);
         }};
 
         copperWireNode = new WireNode("copper-wire-node"){{
-            requirements(Category.power, with(SubItems.copperOre, 3));
+            requirements(Category.power, with(SItems.copperOre, 3));
             consumesPower = outputsPower = true;
 
             size = 1;
             range = 5;
-            researchCost = with(SubItems.copperOre, 3);
+            researchCost = with(SItems.copperOre, 3);
             consumePowerBuffered(500f);
         }};
 
         battery = new Battery("battery"){{
-            requirements(Category.power, with(SubItems.copperOre, 10, SubItems.acidMushroom, 20));
+            requirements(Category.power, with(SItems.copperOre, 10, SItems.acidMushroom, 20));
             consumePowerBuffered(4000f);
             emptyLightColor = Color.valueOf("8ca8e8");
             fullLightColor = Color.valueOf("d0efff");
             baseExplosiveness = 1f;
             size = 2;
-            researchCost = with(SubItems.copperOre, 50, SubItems.acidMushroom, 100);
+            researchCost = with(SItems.copperOre, 50, SItems.acidMushroom, 100);
         }};
 
         // Defense/Walls
         titaniumOreWall = new Wall("titanium-ore-wall"){{
-            requirements(Category.defense, with(SubItems.titanium, 6));
+            requirements(Category.defense, with(SItems.titanium, 6));
             health = 320;
             armor = 2f;
             size = 1;
@@ -248,7 +248,7 @@ public class SubAlterraBlocks {
 
         // Crafting
         titaniumCrucible = new GenericCrafter("titanium-crucible"){{
-            requirements(Category.crafting, with(SubItems.titanium, 40, SubItems.quartz, 30));
+            requirements(Category.crafting, with(SItems.titanium, 40, SItems.quartz, 30));
 
             size = 2;
 
@@ -264,7 +264,7 @@ public class SubAlterraBlocks {
                     }
             );
 
-            outputItem = new ItemStack(SubItems.titanium, 4);
+            outputItem = new ItemStack(SItems.titanium, 4);
             craftTime = 120;
 
             craftEffect = new Effect(40, e -> {
@@ -277,14 +277,14 @@ public class SubAlterraBlocks {
                 });
             });
 
-            consumeItem(SubItems.metalSalvage, 1);
+            consumeItem(SItems.metalSalvage, 1);
             consumePower(1f);
 
             researchCostMultiplier = 0.5f;
         }};
 
         rubberSynthesizer = new GenericCrafter("rubber-synthesizer"){{
-            requirements(Category.crafting, with(SubItems.titanium, 40, SubItems.copperOre, 20, SubItems.quartz, 30));
+            requirements(Category.crafting, with(SItems.titanium, 40, SItems.copperOre, 20, SItems.quartz, 30));
 
             size = 3;
 
@@ -326,15 +326,15 @@ public class SubAlterraBlocks {
                 }
             }), 4, 90f, 7f);
 
-            outputItem = new ItemStack(SubItems.siliconeRubber, 2);
+            outputItem = new ItemStack(SItems.siliconeRubber, 2);
             craftTime = 120;
 
-            consumeItem(SubItems.creepvineSeedCluster, 1);
+            consumeItem(SItems.creepvineSeedCluster, 1);
             consumePower(1.5f);
         }};
 
         lubricantSqueezer = new GenericCrafter("lubricant-squeezer"){{
-            requirements(Category.crafting, with(SubItems.titanium, 20, SubItems.quartz, 30, SubItems.siliconeRubber, 20));
+            requirements(Category.crafting, with(SItems.titanium, 20, SItems.quartz, 30, SItems.siliconeRubber, 20));
 
             size = 2;
 
@@ -343,29 +343,29 @@ public class SubAlterraBlocks {
 
             drawer = new DrawMulti(
                     new DrawRegion("-bottom"),
-                    new DrawLiquidTile(SubLiquids.lubricant),
+                    new DrawLiquidTile(SLiquids.lubricant),
                     new DrawPistons(){{
                         sinMag = 2f;
                         sinScl = 5f;
                         sides = 4;
                         angleOffset = 45;
                     }},
-                    new DrawItemSqueeze(SubItems.creepvineSeedCluster, 3.5f, 10){{
+                    new DrawItemSqueeze(SItems.creepvineSeedCluster, 3.5f, 10){{
                         sinMag = 2f;
                         sinScl = 5f;
                     }},
                     new DrawDefault()
             );
 
-            outputLiquid = new LiquidStack(SubLiquids.lubricant, 6 /60f);
+            outputLiquid = new LiquidStack(SLiquids.lubricant, 6 /60f);
             craftTime = 120;
 
-            consumeItem(SubItems.creepvineSeedCluster, 2);
+            consumeItem(SItems.creepvineSeedCluster, 2);
             consumePower(1.5f);
         }};
 
         glassSmelter = new GenericCrafter("glass-smelter"){{
-            requirements(Category.crafting, with(SubItems.titanium, 30, SubItems.copperOre, 20, SubItems.siliconeRubber, 20));
+            requirements(Category.crafting, with(SItems.titanium, 30, SItems.copperOre, 20, SItems.siliconeRubber, 20));
 
             size = 2;
 
@@ -380,15 +380,15 @@ public class SubAlterraBlocks {
                     new DrawGlowRegion()
             );
 
-            outputItem = new ItemStack(SubItems.glass, 1);
+            outputItem = new ItemStack(SItems.glass, 1);
             craftTime = 60;
 
-            consumeItem(SubItems.quartz, 2);
+            consumeItem(SItems.quartz, 2);
             consumePower(1.5f);
         }};
 
         trashCan = new Incinerator("trash-can"){{
-            requirements(Category.crafting, with(SubItems.titanium, 10));
+            requirements(Category.crafting, with(SItems.titanium, 10));
 
             size = 1;
             hasPower = false;
@@ -397,12 +397,12 @@ public class SubAlterraBlocks {
 
         // Effect/Storage
         coreShallows = new CoreBlock("core-shallows"){{
-            requirements(Category.effect, with(SubItems.titanium, 600, SubItems.copperOre, 700, SubItems.quartz, 400));
+            requirements(Category.effect, with(SItems.titanium, 600, SItems.copperOre, 700, SItems.quartz, 400));
             alwaysUnlocked = true;
 
             isFirstTier = true;
             squareSprite = false;
-            unitType = SubUnitTypes.glide;
+            unitType = SUnitTypes.glide;
             health = 2400;
             itemCapacity = 3500;
             size = 3;
@@ -412,13 +412,13 @@ public class SubAlterraBlocks {
 
         // Research
         scanner = new Scanner("scanner"){{
-            requirements(Category.effect, with(SubItems.titanium, 60, SubItems.copperOre, 30, SubItems.acidMushroom, 35));
+            requirements(Category.effect, with(SItems.titanium, 60, SItems.copperOre, 30, SItems.acidMushroom, 35));
             consumePower(30/60f);
             researchCostMultiplier = 0.1f;
         }};
 
         seamothFragment = new Fragment("seamoth-fragment"){{
-            content = SubUnitTypes.seamoth;
+            content = SUnitTypes.seamoth;
             size = 2;
         }};
     }

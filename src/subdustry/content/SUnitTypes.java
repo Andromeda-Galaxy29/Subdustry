@@ -4,7 +4,6 @@ import arc.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
-import arc.struct.Seq;
 import arc.util.Time;
 import mindustry.entities.*;
 import mindustry.entities.abilities.*;
@@ -25,7 +24,7 @@ import static arc.graphics.g2d.Lines.*;
 import static arc.math.Angles.*;
 import static mindustry.Vars.*;
 
-public class SubUnitTypes{
+public class SUnitTypes {
     public static UnitType
 
     seamoth, nautilus, batyscaphe, cyclops, atlas,
@@ -146,7 +145,7 @@ public class SubUnitTypes{
                     }});
                     splashDamageRadius = 15f;
                     despawnEffect = Fx.none;
-                    hitSound = SubSounds.muffledExplosion;
+                    hitSound = SSounds.muffledExplosion;
                     despawnHit = true;
                     homingDelay = 10;
                     weaveScale = 12f;

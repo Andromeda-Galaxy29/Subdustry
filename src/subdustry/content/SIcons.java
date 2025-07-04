@@ -9,7 +9,7 @@ import arc.struct.Seq;
 import arc.util.Scaling;
 import mindustry.ui.Fonts;
 
-public class SubIcons {
+public class SIcons {
 
     public static void load(){
         loadIcon(60211, "subdustry-precursor-team");

@@ -4,13 +4,13 @@ import arc.struct.*;
 
 import static mindustry.content.TechTree.*;
 import static mindustry.game.Objectives.*;
-import static subdustry.content.blocks.SubAlterraBlocks.*;
-import static subdustry.content.SubItems.*;
+import static subdustry.content.blocks.SAlterraBlocks.*;
+import static subdustry.content.SItems.*;
 import static subdustry.content.Planet4546bSectors.*;
 
 public class Planet4546bTechTree {
     public static void load(){
-        SubPlanets.planet4546B.techTree = nodeRoot("@planet.subdustry-4546b.name", coreShallows, false, () ->{
+        SPlanets.planet4546B.techTree = nodeRoot("@planet.subdustry-4546b.name", coreShallows, false, () ->{
             node(submergedDuct, ()->{
                 node(submergedDuctRouter, ()->{
                     node(submergedDuctBridge, ()->{
