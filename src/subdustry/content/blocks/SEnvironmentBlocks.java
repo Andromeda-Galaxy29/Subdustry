@@ -16,14 +16,14 @@ public class SEnvironmentBlocks {
     // Harvesting Nodes
     limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
     // Floors
-    limestone, limesand, limeSeagrassFloor, orangeMoss, tubeCoralFloor, acidMycelium,
+    limestone, limesand, limeSeagrassFloor, tableCoralFloor, tubeCoralFloor, acidMycelium,
     steelFloor, steelPanels, wreckFloor, wreckTiles, wreckVent,
     greenSeagrassFloor, creepvineRoots, mossyStone,
     // Geysers
     limestoneGeyser,
     stoneGeyser, mossyStoneGeyser,
     // Walls
-    limestoneWall, limesandWall, orangeMossWall, tubeCoralWall,
+    limestoneWall, limesandWall, tableCoralWall, tubeCoralWall,
     steelWall, wreckWall,
     greenSeagrassWall, mossyStoneWall,
     // Props
@@ -78,7 +78,7 @@ public class SEnvironmentBlocks {
             cliffLightColor = Color.valueOf("e2e597");
         }};
 
-        orangeMoss = new SFloor("orange-moss") {{
+        tableCoralFloor = new SFloor("table-coral-floor") {{
             variants = 3;
             cliffLightColor = Color.valueOf("fa992f");
         }};
@@ -164,8 +164,8 @@ public class SEnvironmentBlocks {
             variants = 2;
         }};
 
-        orangeMossWall = new StaticWall("orange-moss-wall") {{
-            orangeMoss.asFloor().wall = this;
+        tableCoralWall = new StaticWall("table-coral-wall") {{
+            tableCoralFloor.asFloor().wall = this;
             variants = 2;
         }};
 
