@@ -1,12 +1,16 @@
 package subdustry;
 
 import arc.*;
+import arc.math.*;
 import arc.util.*;
 import mindustry.game.*;
 import mindustry.mod.*;
 import subdustry.content.*;
-import subdustry.game.STeams;
-import subdustry.ui.EditorUIModifier;
+import subdustry.game.*;
+import subdustry.gen.*;
+import subdustry.ui.*;
+
+import static mindustry.Vars.*;
 
 public class Subdustry extends Mod{
 
@@ -16,6 +20,17 @@ public class Subdustry extends Mod{
         Events.on(EventType.ClientLoadEvent.class, (event) -> {
             EditorUIModifier.modify();
         });
+
+        // Temporary boid spawning code
+//        Events.on(EventType.UnitControlEvent.class, (event) -> {
+//            for(int i = 0; i < 300; i++){
+//                Boid b = Boid.create();
+//                b.vel.setToRandomDirection();
+//                b.x = event.unit.x + Mathf.random(-60, 60);
+//                b.y = event.unit.y + Mathf.random(-60, 60);
+//                b.add();
+//            }
+//        });
     }
 
     @Override
@@ -26,6 +41,8 @@ public class Subdustry extends Mod{
 
     @Override
     public void loadContent(){
+        EntityRegistry.register();
+
         SSounds.load();
 
         SItems.load();
