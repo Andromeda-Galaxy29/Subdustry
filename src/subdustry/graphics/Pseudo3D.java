@@ -9,6 +9,7 @@ import static arc.Core.*;
 import static arc.math.Mathf.*;
 
 // Thanks MEEPofFaith for this code
+// https://github.com/MEEPofFaith/tantros-but-java/blob/master/src/poly/tantros/graphics/DrawPseudo3D.java
 public class Pseudo3D {
     public static float xHeight(float x, float height){
         if(height <= 0) return x;
