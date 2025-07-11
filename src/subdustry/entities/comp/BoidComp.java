@@ -7,16 +7,19 @@ import arc.math.geom.*;
 import arc.util.*;
 import ent.anno.Annotations.*;
 import mindustry.entities.*;
+import mindustry.game.Team;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import subdustry.gen.*;
+import subdustry.world.blocks.environment.SCliff;
+import subdustry.world.blocks.environment.ShapedProp;
 
 import static mindustry.Vars.*;
 
 @EntityComponent(base = true)
 @EntityDef(Boidc.class)
-abstract class BoidComp implements Entityc, Drawc, Velc, Rotc {
+abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
 
     //TODO: Make a type to store these values
     float layer = Layer.flyingUnitLow - 2f;
@@ -90,7 +93,7 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc {
         for (int ix = tileX() - Mathf.ceil(viewRadius / tilesize); ix <= tileX() + Mathf.ceil(viewRadius / tilesize); ix++) {
             for (int iy = tileY() - Mathf.ceil(viewRadius / tilesize); iy <= tileY() + Mathf.ceil(viewRadius / tilesize); iy++) {
                 Tile tile = world.tile(ix, iy);
-                if(tile != null && dst(tile.worldx(), tile.worldy()) <= viewRadius && tile.block().solid){
+                if(tile != null && dst(tile.worldx(), tile.worldy()) <= viewRadius && (isEnvironmentWall(tile) || isPlayerBuild(tile))){
                     Tmp.v2.set(tile.worldx(), tile.worldy()).sub(x, y).nor().scl(viewRadius);
                     Tmp.v1.add(tile.worldx(), tile.worldy()).sub(x, y).sub(Tmp.v2);
                 }
@@ -98,6 +101,14 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc {
         }
 
         velAddNet(Tmp.v1.scl(blockAvoidMult));
+    }
+
+    private boolean isEnvironmentWall(Tile tile){
+        return tile.block().solid && !tile.block().synthetic() && !(tile.block() instanceof SCliff) && !(tile.block() instanceof ShapedProp);
+    }
+
+    private boolean isPlayerBuild(Tile tile){
+        return tile.block().solid && tile.block().synthetic() && tile.build != null && tile.build.team != Team.derelict;
     }
 
     public void avoidUnits(){
