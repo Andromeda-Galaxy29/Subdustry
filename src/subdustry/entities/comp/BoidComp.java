@@ -1,14 +1,15 @@
 package subdustry.entities.comp;
 
 import arc.*;
-import arc.graphics.Color;
 import arc.graphics.g2d.*;
+import arc.math.*;
 import arc.math.geom.*;
 import arc.util.*;
 import ent.anno.Annotations.*;
-import mindustry.entities.Units;
+import mindustry.entities.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
+import mindustry.world.*;
 import subdustry.gen.*;
 
 import static mindustry.Vars.*;
@@ -27,10 +28,11 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc {
     float maxVel = 1.5f;
 
     float mapEdgeAvoidMult = 0.2f;
-    float unitAvoidMult = 0.06f;
+    float blockAvoidMult = 0.003f;
+    float unitAvoidMult = 0.05f;
     float separationMult = 0.03f;
     float alignmentMult = 0.06f;
-    float cohesionMult = 0.005f;
+    float cohesionMult = 0.003f;
 
     @Import int id;
     @Import float x, y;
@@ -53,14 +55,17 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc {
 
     @Override
     public void update() {
-        avoidMapEdge();
-        avoidUnits();
-        separation();
-        alignment();
-        cohesion();
+        if(!net.client() || isLocal()){
+            avoidMapEdge();
+            avoidBlocks();
+            avoidUnits();
+            separation();
+            alignment();
+            cohesion();
 
-        vel.clamp(minVel, maxVel);
-        rotation = vel.angle() - 90;
+            vel.clamp(minVel, maxVel);
+            rotation = vel.angle() - 90;
+        }
     }
 
     public void avoidMapEdge(){
@@ -78,10 +83,30 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc {
         }
     }
 
+    public void avoidBlocks(){
+        Tmp.v1.setZero();
+
+        //Check only the bounding box of the view radius for tiles for optimisation purposes
+        for (int ix = tileX() - Mathf.ceil(viewRadius / tilesize); ix <= tileX() + Mathf.ceil(viewRadius / tilesize); ix++) {
+            for (int iy = tileY() - Mathf.ceil(viewRadius / tilesize); iy <= tileY() + Mathf.ceil(viewRadius / tilesize); iy++) {
+                Tile tile = world.tile(ix, iy);
+                if(tile != null && dst(tile.worldx(), tile.worldy()) <= viewRadius && tile.block().solid){
+                    Tmp.v2.set(tile.worldx(), tile.worldy()).sub(x, y).nor().scl(viewRadius);
+                    Tmp.v1.add(tile.worldx(), tile.worldy()).sub(x, y).sub(Tmp.v2);
+                }
+            }
+        }
+
+        velAddNet(Tmp.v1.scl(blockAvoidMult));
+    }
+
     public void avoidUnits(){
         Tmp.v1.setZero();
 
         Units.nearby(null, x, y, viewRadius, unit -> {
+            if(dst(unit) > viewRadius) {
+                return;
+            }
             Tmp.v2.set(unit.x, unit.y).sub(x, y).nor().scl(viewRadius);
             Tmp.v1.add(unit.x, unit.y).sub(x, y).sub(Tmp.v2);
         });
