@@ -54,12 +54,19 @@ public class Pseudo3D {
 
     public static void rect(TextureRegion region, float x, float y, float height, float rotation){
         float z = Draw.z();
+        float xscl = Draw.xscl;
+        float yscl = Draw.yscl;
+        float alpha = Draw.getColorAlpha();
+
         Draw.z(z + Pseudo3D.layerOffset(x, y, height));
         Draw.scl(Pseudo3D.hScale(height));
-        Draw.alpha(Pseudo3D.heightFade(height));
+        Draw.alpha(alpha * Pseudo3D.heightFade(height));
+
         Draw.rect(region, Pseudo3D.xHeight(x, height), Pseudo3D.yHeight(y, height), rotation);
-        Draw.reset();
+
         Draw.z(z);
+        Draw.scl(xscl, yscl);
+        Draw.alpha(alpha);
     }
 
     public static void line(float x, float y, float h, float x2, float y2, float h2){
@@ -72,10 +79,14 @@ public class Pseudo3D {
 
     public static void line(TextureRegion region, float x, float y, float h, float x2, float y2, float h2, boolean cap){
         float z = Draw.z();
+        float alpha = Draw.getColorAlpha();
+
         Draw.z(z + Pseudo3D.layerOffset(x, y, h2));
-        Draw.alpha(Pseudo3D.heightFade(h2));
+        Draw.alpha(alpha * Pseudo3D.heightFade(h2));
+
         Lines.line(region, Pseudo3D.xHeight(x, h), Pseudo3D.yHeight(y, h), Pseudo3D.xHeight(x2, h2), Pseudo3D.yHeight(y2, h2), cap);
-        Draw.reset();
+
         Draw.z(z);
+        Draw.alpha(alpha);
     }
 }
