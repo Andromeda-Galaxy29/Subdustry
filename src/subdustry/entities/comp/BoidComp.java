@@ -9,11 +9,10 @@ import ent.anno.Annotations.*;
 import mindustry.entities.*;
 import mindustry.game.Team;
 import mindustry.gen.*;
-import mindustry.graphics.*;
 import mindustry.world.*;
 import subdustry.gen.*;
-import subdustry.world.blocks.environment.SCliff;
-import subdustry.world.blocks.environment.ShapedProp;
+import subdustry.graphics.*;
+import subdustry.world.blocks.environment.*;
 
 import static mindustry.Vars.*;
 
@@ -22,7 +21,9 @@ import static mindustry.Vars.*;
 abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
 
     //TODO: Make a type to store these values
-    float layer = Layer.flyingUnitLow - 2f;
+    float layer = 0f;
+    float height = 0f;
+    String name;
 
     float viewRadius = 5 * tilesize;
     float separationRadius = 2 * tilesize;
@@ -31,6 +32,7 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
     float maxVel = 1.5f;
 
     float mapEdgeAvoidMult = 0.2f;
+    float otherBoidsAvoidMult = 0.05f;
     float blockAvoidMult = 0.003f;
     float unitAvoidMult = 0.05f;
     float separationMult = 0.03f;
@@ -45,7 +47,7 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
     @Override
     public void draw(){
         Draw.z(layer);
-        Draw.rect(Core.atlas.find("subdustry-glide"), x, y, rotation);
+        Pseudo3D.rect(Core.atlas.find(name), x, y, height, rotation);
         Draw.reset();
     }
 
@@ -60,8 +62,12 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
     public void update() {
         if(!net.client() || isLocal()){
             avoidMapEdge();
-            avoidBlocks();
-            avoidUnits();
+            avoidOtherBoids();
+            if(height == 0){
+                avoidBlocks();
+                avoidUnits();
+            }
+
             separation();
             alignment();
             cohesion();
@@ -86,6 +92,22 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
         }
     }
 
+    public void avoidOtherBoids(){
+        Tmp.v1.setZero();
+
+        Groups.all.count(entity -> {
+            if(!isVisible(entity)) return false;
+            Boid other = (Boid) entity;
+            if(name == other.name) return false;
+
+            Tmp.v1.add(getForceAwayFrom(other.x, other.y, viewRadius));
+
+            return true;
+        });
+
+        velAddNet(Tmp.v1.scl(otherBoidsAvoidMult));
+    }
+
     public void avoidBlocks(){
         Tmp.v1.setZero();
 
@@ -94,8 +116,7 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
             for (int iy = tileY() - Mathf.ceil(viewRadius / tilesize); iy <= tileY() + Mathf.ceil(viewRadius / tilesize); iy++) {
                 Tile tile = world.tile(ix, iy);
                 if(tile != null && dst(tile.worldx(), tile.worldy()) <= viewRadius && (isEnvironmentWall(tile) || isPlayerBuild(tile))){
-                    Tmp.v2.set(tile.worldx(), tile.worldy()).sub(x, y).nor().scl(viewRadius);
-                    Tmp.v1.add(tile.worldx(), tile.worldy()).sub(x, y).sub(Tmp.v2);
+                    Tmp.v1.add(getForceAwayFrom(tile.worldx(), tile.worldy(), viewRadius));
                 }
             }
         }
@@ -103,23 +124,11 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
         velAddNet(Tmp.v1.scl(blockAvoidMult));
     }
 
-    private boolean isEnvironmentWall(Tile tile){
-        return tile.block().solid && !tile.block().synthetic() && !(tile.block() instanceof SCliff) && !(tile.block() instanceof ShapedProp);
-    }
-
-    private boolean isPlayerBuild(Tile tile){
-        return tile.block().solid && tile.block().synthetic() && tile.build != null && tile.build.team != Team.derelict;
-    }
-
     public void avoidUnits(){
         Tmp.v1.setZero();
 
         Units.nearby(null, x, y, viewRadius, unit -> {
-            if(dst(unit) > viewRadius) {
-                return;
-            }
-            Tmp.v2.set(unit.x, unit.y).sub(x, y).nor().scl(viewRadius);
-            Tmp.v1.add(unit.x, unit.y).sub(x, y).sub(Tmp.v2);
+            Tmp.v1.add(getForceAwayFrom(unit.x, unit.y, viewRadius));
         });
 
         velAddNet(Tmp.v1.scl(unitAvoidMult));
@@ -130,10 +139,12 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
 
         //I have no idea why, but EntityGroup.each freezes the game. So using EntityGroup.count instead
         Groups.all.count(entity -> {
-            if(!shouldSeparateFromBoid(entity)) return false;
+            if(!isInSeparationRadius(entity)) return false;
             Boid other = (Boid) entity;
-            Tmp.v2.set(other.x, other.y).sub(x, y).nor().scl(separationRadius);
-            Tmp.v1.add(other.x, other.y).sub(x, y).sub(Tmp.v2);
+            if(name != other.name) return false;
+
+            Tmp.v1.add(getForceAwayFrom(other.x, other.y, separationRadius));
+
             return true;
         });
 
@@ -144,8 +155,9 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
         Tmp.v1.setZero();
 
         int count = Groups.all.count(entity -> {
-            if(!isVisibleBoid(entity)) return false;
+            if(!isVisible(entity)) return false;
             Boid other = (Boid) entity;
+            if(name != other.name) return false;
 
             Tmp.v1.add(other.vel);
 
@@ -162,9 +174,10 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
         Tmp.v1.setZero();
 
         int count = Groups.all.count(entity -> {
-            if(!isVisibleBoid(entity)) return false;
-
+            if(!isVisible(entity)) return false;
             Boid other = (Boid) entity;
+            if(name != other.name) return false;
+
             Tmp.v1.add(other.x, other.y);
 
             return true;
@@ -177,15 +190,32 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
         velAddNet(Tmp.v1.scl(cohesionMult));
     }
 
-    private boolean isAnotherBoid(Entityc e){
-        return e instanceof Boid && id != ((Boid) e).id;
+    //Util functions
+    public Vec2 getForceAwayFrom(float otherX, float otherY, float maxDistance){
+        if(dst(otherX, otherY) > maxDistance){
+            return Vec2.ZERO;
+        }
+        return Tmp.v2.set(x, y).sub(otherX, otherY).nor().scl(maxDistance)
+                .add(otherX, otherY).sub(x, y);
     }
 
-    private boolean isVisibleBoid(Entityc e){
-        return isAnotherBoid(e) && dst((Boid) e) <= viewRadius;
+    public boolean isEnvironmentWall(Tile tile){
+        return tile.block().solid && !tile.block().synthetic() && !(tile.block() instanceof SCliff) && !(tile.block() instanceof ShapedProp);
     }
 
-    private boolean shouldSeparateFromBoid(Entityc e){
-        return isAnotherBoid(e) && dst((Boid) e) <= separationRadius;
+    public boolean isPlayerBuild(Tile tile){
+        return tile.block().solid && tile.block().synthetic() && tile.build != null && tile.build.team != Team.derelict;
+    }
+
+    public boolean isAnotherBoid(Entityc other){
+        return other instanceof Boid && id != ((Boid) other).id;
+    }
+
+    public boolean isVisible(Entityc other){
+        return isAnotherBoid(other) && height == ((Boid) other).height && dst((Boid) other) <= viewRadius;
+    }
+
+    public boolean isInSeparationRadius(Entityc other){
+        return isAnotherBoid(other) && height == ((Boid) other).height && dst((Boid) other) <= separationRadius;
     }
 }
