@@ -1,43 +1,24 @@
 package subdustry.entities.comp;
 
-import arc.*;
-import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.*;
 import arc.util.*;
 import ent.anno.Annotations.*;
 import mindustry.entities.*;
-import mindustry.game.Team;
+import mindustry.game.*;
 import mindustry.gen.*;
 import mindustry.world.*;
 import subdustry.gen.*;
-import subdustry.graphics.*;
+import subdustry.type.*;
 import subdustry.world.blocks.environment.*;
 
 import static mindustry.Vars.*;
 
 @EntityComponent(base = true)
 @EntityDef(Boidc.class)
-abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
+abstract class BoidComp implements Drawc, Velc, Rotc, Syncc {
 
-    //TODO: Make a type to store these values
-    float layer = 0f;
-    float height = 0f;
-    String name;
-
-    float viewRadius = 5 * tilesize;
-    float separationRadius = 2 * tilesize;
-
-    float minVel = 0.5f;
-    float maxVel = 1.5f;
-
-    float mapEdgeAvoidMult = 0.2f;
-    float otherBoidsAvoidMult = 0.05f;
-    float blockAvoidMult = 0.003f;
-    float unitAvoidMult = 0.05f;
-    float separationMult = 0.03f;
-    float alignmentMult = 0.06f;
-    float cohesionMult = 0.003f;
+    String typeName;
 
     @Import int id;
     @Import float x, y;
@@ -46,9 +27,13 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
 
     @Override
     public void draw(){
-        Draw.z(layer);
-        Pseudo3D.rect(Core.atlas.find(name), x, y, height, rotation);
-        Draw.reset();
+        type().draw(self());
+    }
+
+    @Override
+    @Replace
+    public float clipSize() {
+        return type().clipSize;
     }
 
     @Override
@@ -61,34 +46,34 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
     @Override
     public void update() {
         if(!net.client() || isLocal()){
+            if(type() == null) return;
+
             avoidMapEdge();
             avoidOtherBoids();
-            if(height == 0){
-                avoidBlocks();
-                avoidUnits();
-            }
+            avoidBlocks();
+            avoidUnits();
 
             separation();
             alignment();
             cohesion();
 
-            vel.clamp(minVel, maxVel);
+            vel.clamp(type().minVel, type().maxVel);
             rotation = vel.angle() - 90;
         }
     }
 
     public void avoidMapEdge(){
         if(x < 0){
-            velAddNet(mapEdgeAvoidMult, 0);
+            velAddNet(type().mapEdgeAvoidMult, 0);
         }
         if(y < 0){
-            velAddNet(0, mapEdgeAvoidMult);
+            velAddNet(0, type().mapEdgeAvoidMult);
         }
         if(x > world.width() * tilesize){
-            velAddNet(-mapEdgeAvoidMult, 0);
+            velAddNet(-type().mapEdgeAvoidMult, 0);
         }
         if(y > world.height() * tilesize){
-            velAddNet(0, -mapEdgeAvoidMult);
+            velAddNet(0, -type().mapEdgeAvoidMult);
         }
     }
 
@@ -98,40 +83,40 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
         Groups.all.count(entity -> {
             if(!isVisible(entity)) return false;
             Boid other = (Boid) entity;
-            if(name == other.name) return false;
+            if(type() == other.type()) return false;
 
-            Tmp.v1.add(getForceAwayFrom(other.x, other.y, viewRadius));
+            Tmp.v1.add(getForceAwayFrom(other.x, other.y, type().viewRadius));
 
             return true;
         });
 
-        velAddNet(Tmp.v1.scl(otherBoidsAvoidMult));
+        velAddNet(Tmp.v1.scl(type().otherBoidsAvoidMult));
     }
 
     public void avoidBlocks(){
         Tmp.v1.setZero();
 
         //Check only the bounding box of the view radius for tiles for optimisation purposes
-        for (int ix = tileX() - Mathf.ceil(viewRadius / tilesize); ix <= tileX() + Mathf.ceil(viewRadius / tilesize); ix++) {
-            for (int iy = tileY() - Mathf.ceil(viewRadius / tilesize); iy <= tileY() + Mathf.ceil(viewRadius / tilesize); iy++) {
+        for (int ix = tileX() - Mathf.ceil(type().viewRadius / tilesize); ix <= tileX() + Mathf.ceil(type().viewRadius / tilesize); ix++) {
+            for (int iy = tileY() - Mathf.ceil(type().viewRadius / tilesize); iy <= tileY() + Mathf.ceil(type().viewRadius / tilesize); iy++) {
                 Tile tile = world.tile(ix, iy);
-                if(tile != null && dst(tile.worldx(), tile.worldy()) <= viewRadius && (isEnvironmentWall(tile) || isPlayerBuild(tile))){
-                    Tmp.v1.add(getForceAwayFrom(tile.worldx(), tile.worldy(), viewRadius));
+                if(tile != null && dst(tile.worldx(), tile.worldy()) <= type().viewRadius && (isEnvironmentWall(tile) || isPlayerBuild(tile))){
+                    Tmp.v1.add(getForceAwayFrom(tile.worldx(), tile.worldy(), type().viewRadius));
                 }
             }
         }
 
-        velAddNet(Tmp.v1.scl(blockAvoidMult));
+        velAddNet(Tmp.v1.scl(type().blockAvoidMult));
     }
 
     public void avoidUnits(){
         Tmp.v1.setZero();
 
-        Units.nearby(null, x, y, viewRadius, unit -> {
-            Tmp.v1.add(getForceAwayFrom(unit.x, unit.y, viewRadius));
+        Units.nearby(null, x, y, type().viewRadius, unit -> {
+            Tmp.v1.add(getForceAwayFrom(unit.x, unit.y, type().viewRadius));
         });
 
-        velAddNet(Tmp.v1.scl(unitAvoidMult));
+        velAddNet(Tmp.v1.scl(type().unitAvoidMult));
     }
 
     public void separation() {
@@ -141,14 +126,14 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
         Groups.all.count(entity -> {
             if(!isInSeparationRadius(entity)) return false;
             Boid other = (Boid) entity;
-            if(name != other.name) return false;
+            if(type() != other.type()) return false;
 
-            Tmp.v1.add(getForceAwayFrom(other.x, other.y, separationRadius));
+            Tmp.v1.add(getForceAwayFrom(other.x, other.y, type().separationRadius));
 
             return true;
         });
 
-        velAddNet(Tmp.v1.scl(separationMult));
+        velAddNet(Tmp.v1.scl(type().separationMult));
     }
 
     public void alignment() {
@@ -157,7 +142,7 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
         int count = Groups.all.count(entity -> {
             if(!isVisible(entity)) return false;
             Boid other = (Boid) entity;
-            if(name != other.name) return false;
+            if(type() != other.type()) return false;
 
             Tmp.v1.add(other.vel);
 
@@ -167,7 +152,7 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
         if(count != 0){
             Tmp.v1.scl(1f / count);
         }
-        velAddNet(Tmp.v1.scl(alignmentMult));
+        velAddNet(Tmp.v1.scl(type().alignmentMult));
     }
 
     public void cohesion() {
@@ -176,7 +161,7 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
         int count = Groups.all.count(entity -> {
             if(!isVisible(entity)) return false;
             Boid other = (Boid) entity;
-            if(name != other.name) return false;
+            if(type() != other.type()) return false;
 
             Tmp.v1.add(other.x, other.y);
 
@@ -187,7 +172,16 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
             Tmp.v1.scl(1f / count);
             Tmp.v1.sub(x, y);
         }
-        velAddNet(Tmp.v1.scl(cohesionMult));
+        velAddNet(Tmp.v1.scl(type().cohesionMult));
+    }
+
+    //Type
+    public BoidType type(){
+        return content.getByName(BoidType.ctype, typeName);
+    }
+
+    public void setType(BoidType type){
+        typeName = type.name;
     }
 
     //Util functions
@@ -212,10 +206,10 @@ abstract class BoidComp implements Entityc, Drawc, Velc, Rotc, Syncc {
     }
 
     public boolean isVisible(Entityc other){
-        return isAnotherBoid(other) && height == ((Boid) other).height && dst((Boid) other) <= viewRadius;
+        return isAnotherBoid(other) && dst((Boid) other) <= type().viewRadius;
     }
 
     public boolean isInSeparationRadius(Entityc other){
-        return isAnotherBoid(other) && height == ((Boid) other).height && dst((Boid) other) <= separationRadius;
+        return isAnotherBoid(other) && dst((Boid) other) <= type().separationRadius;
     }
 }

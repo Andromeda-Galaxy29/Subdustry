@@ -10,8 +10,6 @@ import subdustry.game.*;
 import subdustry.gen.*;
 import subdustry.ui.*;
 
-import static mindustry.Vars.*;
-
 public class Subdustry extends Mod{
 
     public Subdustry(){
@@ -23,11 +21,12 @@ public class Subdustry extends Mod{
 
         // Temporary boid spawning code
 //        Events.on(EventType.UnitControlEvent.class, (event) -> {
-//            for(int i = 0; i < 300; i++){
+//            for(int i = 0; i < 200; i++){
 //                Boid b = Boid.create();
 //                b.vel.setToRandomDirection();
 //                b.x = event.unit.x + Mathf.random(-60, 60);
 //                b.y = event.unit.y + Mathf.random(-60, 60);
+//                b.setType(BoidTypes.peeper);
 //                b.add();
 //            }
 //        });
@@ -45,6 +44,7 @@ public class Subdustry extends Mod{
 
         SSounds.load();
 
+        BoidTypes.load();
         SItems.load();
         SLiquids.load();
         SUnitTypes.load();
