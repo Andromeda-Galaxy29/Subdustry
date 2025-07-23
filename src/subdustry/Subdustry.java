@@ -21,12 +21,20 @@ public class Subdustry extends Mod{
 
         // Temporary boid spawning code
 //        Events.on(EventType.UnitControlEvent.class, (event) -> {
-//            for(int i = 0; i < 200; i++){
+//            for(int i = 0; i < 100; i++){
 //                Boid b = Boid.create();
 //                b.vel.setToRandomDirection();
 //                b.x = event.unit.x + Mathf.random(-60, 60);
 //                b.y = event.unit.y + Mathf.random(-60, 60);
 //                b.setType(BoidTypes.peeper);
+//                b.add();
+//            }
+//            for(int i = 0; i < 100; i++){
+//                Boid b = Boid.create();
+//                b.vel.setToRandomDirection();
+//                b.x = event.unit.x + Mathf.random(-60, 60);
+//                b.y = event.unit.y + Mathf.random(-60, 60);
+//                b.setType(BoidTypes.boomerang);
 //                b.add();
 //            }
 //        });

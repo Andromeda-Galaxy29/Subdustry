@@ -21,8 +21,6 @@ public class BoidTypes {
             );
         }};
 
-        boomerang = new BoidType("boomerang"){{
-
-        }};
+        boomerang = new BoidType("boomerang");
     }
 }
