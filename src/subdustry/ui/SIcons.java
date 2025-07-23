@@ -1,4 +1,4 @@
-package subdustry.content;
+package subdustry.ui;
 
 import arc.Core;
 import arc.graphics.Texture;

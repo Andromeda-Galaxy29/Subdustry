@@ -1,7 +1,6 @@
 package subdustry;
 
 import arc.*;
-import arc.math.*;
 import arc.util.*;
 import mindustry.game.*;
 import mindustry.mod.*;
