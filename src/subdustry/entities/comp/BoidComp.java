@@ -64,16 +64,16 @@ abstract class BoidComp implements Drawc, Velc, Rotc, Syncc {
 
     public void avoidMapEdge(){
         if(x < 0){
-            velAddNet(type().mapEdgeAvoidMult, 0);
+            velAddNet(type().mapEdgeAvoidMult * Time.delta, 0);
         }
         if(y < 0){
-            velAddNet(0, type().mapEdgeAvoidMult);
+            velAddNet(0, type().mapEdgeAvoidMult * Time.delta);
         }
         if(x > world.width() * tilesize){
-            velAddNet(-type().mapEdgeAvoidMult, 0);
+            velAddNet(-type().mapEdgeAvoidMult * Time.delta, 0);
         }
         if(y > world.height() * tilesize){
-            velAddNet(0, -type().mapEdgeAvoidMult);
+            velAddNet(0, -type().mapEdgeAvoidMult * Time.delta);
         }
     }
 
@@ -90,7 +90,7 @@ abstract class BoidComp implements Drawc, Velc, Rotc, Syncc {
             return true;
         });
 
-        velAddNet(Tmp.v1.scl(type().otherBoidsAvoidMult));
+        velAddNet(Tmp.v1.scl(type().otherBoidsAvoidMult * Time.delta));
     }
 
     public void avoidBlocks(){
@@ -106,7 +106,7 @@ abstract class BoidComp implements Drawc, Velc, Rotc, Syncc {
             }
         }
 
-        velAddNet(Tmp.v1.scl(type().blockAvoidMult));
+        velAddNet(Tmp.v1.scl(type().blockAvoidMult * Time.delta));
     }
 
     public void avoidUnits(){
@@ -116,7 +116,7 @@ abstract class BoidComp implements Drawc, Velc, Rotc, Syncc {
             Tmp.v1.add(getForceAwayFrom(unit.x, unit.y, type().viewRadius));
         });
 
-        velAddNet(Tmp.v1.scl(type().unitAvoidMult));
+        velAddNet(Tmp.v1.scl(type().unitAvoidMult * Time.delta));
     }
 
     public void separation() {
@@ -133,7 +133,7 @@ abstract class BoidComp implements Drawc, Velc, Rotc, Syncc {
             return true;
         });
 
-        velAddNet(Tmp.v1.scl(type().separationMult));
+        velAddNet(Tmp.v1.scl(type().separationMult * Time.delta));
     }
 
     public void alignment() {
@@ -152,7 +152,7 @@ abstract class BoidComp implements Drawc, Velc, Rotc, Syncc {
         if(count != 0){
             Tmp.v1.scl(1f / count);
         }
-        velAddNet(Tmp.v1.scl(type().alignmentMult));
+        velAddNet(Tmp.v1.scl(type().alignmentMult * Time.delta));
     }
 
     public void cohesion() {
@@ -172,7 +172,7 @@ abstract class BoidComp implements Drawc, Velc, Rotc, Syncc {
             Tmp.v1.scl(1f / count);
             Tmp.v1.sub(x, y);
         }
-        velAddNet(Tmp.v1.scl(type().cohesionMult));
+        velAddNet(Tmp.v1.scl(type().cohesionMult * Time.delta));
     }
 
     //Type
