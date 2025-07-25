@@ -193,11 +193,11 @@ abstract class BoidComp implements Drawc, Velc, Rotc, Syncc {
                 .add(otherX, otherY).sub(x, y);
     }
 
-    public boolean isEnvironmentWall(Tile tile){
+    public static boolean isEnvironmentWall(Tile tile){
         return tile.block().solid && !tile.block().synthetic() && !(tile.block() instanceof SCliff) && !(tile.block() instanceof ShapedProp);
     }
 
-    public boolean isPlayerBuild(Tile tile){
+    public static boolean isPlayerBuild(Tile tile){
         return tile.block().solid && tile.block().synthetic() && tile.build != null && tile.build.team != Team.derelict;
     }
 

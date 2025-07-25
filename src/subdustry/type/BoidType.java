@@ -30,7 +30,7 @@ public class BoidType extends MappableContent {
     public float unitAvoidMult = 0.05f;
     public float separationMult = 0.03f;
     public float alignmentMult = 0.06f;
-    public float cohesionMult = 0.004f;
+    public float cohesionMult = 0.005f;
 
     public TextureRegion region;
     public TextureRegion outlineRegion;

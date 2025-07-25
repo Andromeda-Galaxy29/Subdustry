@@ -15,6 +15,8 @@ public class SEnvironmentBlocks {
     cliff, cliffHelper,
     // Harvesting Nodes
     limestoneOutcrop, seabedQuartz, seabedAcidMushroom,
+    // Spawners
+    peeperSpawner, boomerangSpawner,
     // Floors
     limestone, limesand, limeSeagrassFloor, tableCoralFloor, tubeCoralFloor, acidMycelium,
     steelFloor, steelPanels, wreckFloor, wreckTiles, wreckVent,
@@ -61,6 +63,11 @@ public class SEnvironmentBlocks {
             maxGrowTime = 120;
             color = Color.valueOf("#a89fd6");
         }};
+
+        // Spawners
+        peeperSpawner = new BoidSpawner("peeper-spawner", BoidTypes.peeper);
+
+        boomerangSpawner = new BoidSpawner("boomerang-spawner", BoidTypes.boomerang);
 
         // Floors
         limestone = new SFloor("limestone") {{
