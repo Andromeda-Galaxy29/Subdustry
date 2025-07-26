@@ -75,7 +75,7 @@ public class SAlterraBlocks {
             reload = 60f;
             shoot.shots = 5;
             shoot.shotDelay = 3f;
-            requirements(Category.turret, with(SItems.titanium, 40, SItems.copperOre, 20, SItems.quartz, 30));
+            requirements(Category.turret, with(SItems.titanium, 30, SItems.copperOre, 15, SItems.quartz, 20));
             range = 120f;
             size = 2;
             recoil = 1f;
@@ -124,7 +124,7 @@ public class SAlterraBlocks {
 
         // Production/Drills
         harvester = new Harvester("harvester"){{
-            requirements(Category.production, with(SItems.copperOre, 30, SItems.titanium, 30, SItems.acidMushroom, 15));
+            requirements(Category.production, with(SItems.copperOre, 15, SItems.titanium, 15, SItems.acidMushroom, 8));
             size = 2;
             squareSprite = false;
             range = 6;
@@ -134,7 +134,7 @@ public class SAlterraBlocks {
         }};
 
         metalGrinder = new WallCrafter("metal-grinder"){{
-            requirements(Category.production, with(SItems.titanium, 45, SItems.quartz, 15));
+            requirements(Category.production, with(SItems.titanium, 25, SItems.quartz, 10));
             consumePower(1.5f);
 
             drillTime = 120f;
@@ -205,7 +205,7 @@ public class SAlterraBlocks {
 
         // Power
         solarPanel = new SolarGenerator("solar-panel"){{
-            requirements(Category.power, with(SItems.copperOre, 15, SItems.titanium, 30, SItems.quartz, 30));
+            requirements(Category.power, with(SItems.copperOre, 8, SItems.titanium, 15, SItems.quartz, 15));
             size = 2;
             powerProduction = 0.5f;
             researchCost = with(SItems.copperOre, 5, SItems.titanium, 10, SItems.quartz, 10);

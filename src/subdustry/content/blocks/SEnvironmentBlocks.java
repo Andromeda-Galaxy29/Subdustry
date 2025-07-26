@@ -41,16 +41,16 @@ public class SEnvironmentBlocks {
         limestoneOutcrop = new HarvestingNode("limestone-outcrop") {{
             drops.addAll(SItems.titanium, SItems.copperOre);
             variants = 3;
-            minDropAmount = 4;
-            maxDropAmount = 5;
+            minDropAmount = 5;
+            maxDropAmount = 6;
             color = Color.valueOf("#c0905c");
         }};
 
         seabedQuartz = new HarvestingNode("seabed-quartz") {{
             drops.addAll(SItems.quartz);
             variants = 2;
-            minDropAmount = 4;
-            maxDropAmount = 5;
+            minDropAmount = 5;
+            maxDropAmount = 6;
             color = Color.valueOf("#9aa7c3");
         }};
 
