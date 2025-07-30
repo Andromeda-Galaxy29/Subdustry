@@ -29,7 +29,7 @@ public class SEnvironmentBlocks {
     steelWall, wreckWall,
     greenSeagrassWall, mossyStoneWall,
     // Props
-    limeSeagrass, slantedShellPlates, tableCoral, tubeCoral, giantCoralTube, floatingRock, writhingWeed, veinedNettle, brainCoral,
+    limeSeagrass, slantedShellPlates, tableCoral, tubeCoral, largeCoralTube, giantCoralTube, floatingRock, writhingWeed, veinedNettle, brainCoral,
     greenSeagrass, creepvine;
 
     public static void load() {
@@ -224,9 +224,9 @@ public class SEnvironmentBlocks {
             variants = 2;
         }};
 
-        giantCoralTube = new ShapedProp("giant-coral-tube") {{
-            variants = 1;
-        }};
+        largeCoralTube = new ShapedProp("large-coral-tube");
+
+        giantCoralTube = new ShapedProp("giant-coral-tube");
 
         floatingRock = new FloatingProp("floating-rock") {{
             variants = 2;
@@ -240,9 +240,7 @@ public class SEnvironmentBlocks {
             variants = 1;
         }};
 
-        brainCoral = new BrainCoral("brain-coral") {{
-            variants = 1;
-        }};
+        brainCoral = new BrainCoral("brain-coral");
 
         greenSeagrass = new Seaweed("green-seagrass") {{
             greenSeagrassFloor.asFloor().decoration = this;
